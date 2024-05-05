@@ -43,3 +43,8 @@
 在 overleaf 中开启 "[Visual Editor]([LaTeX editor features & benefits | Overleaf - Overleaf, Online LaTeX Editor](https://www.overleaf.com/about/features-overview))" 模式可以方便地编写 latex，**做到实时编译**，强烈建议打开。（效率提升 +30%）
 
 可以使用 [mathpix snip web](https://snip.mathpix.com/) 直接将多页的 pdf 文件转化为 tex 文件或者直接在 overleaf 中打开。几乎没有识别误差。软件收费，临时需求可以找赖帮忙弄。
+
+quantikz: Draw quantum circuit diagrams 是专门用来在latex中画出量子电路的包。
+请参考学习 [Tutorial on the Quantikz Package](https://mirrors.ibiblio.org/CTAN/graphics/pgf/contrib/quantikz/quantikz.pdf)
+
+
