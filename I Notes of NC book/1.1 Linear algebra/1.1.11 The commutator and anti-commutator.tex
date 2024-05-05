@@ -1,0 +1,105 @@
+The commutator between two operators $A$ and $B$ is defined to be
+
+$$
+[A, B] \equiv A B-B A
+$$
+
+If $[A, B]=0$, that is, $A B=B A$, then we say $A$ commutes with $B$. Similarly, the anti-commutator of two operators $A$ and $B$ is defined by
+
+$$
+\{A, B\} \equiv A B+B A
+$$
+
+we say $A$ anti-commutes with $B$ if $\{A, B\}=0$. It turns out that many important properties of pairs of operators can be deduced from their commutator and anti-commutator. Perhaps the most useful relation is the following connection between the commutator and the property of being able to simultaneously diagonalize Hermitian operators $A$ and $B$,\\
+that is, write $A=\sum_{i} a_{i}|i\rangle\left\langle i\left|, B=\sum_{i} b_{i}\right| i\right\rangle\langle i|$, where $|i\rangle$ is some common orthonormal set of eigenvectors for $A$ and $B$.
+
+Theorem 2.2: (Simultaneous diagonalization theorem) Suppose $A$ and $B$ are
+
+Hermitian operators. Then $[A, B]=0$ if and only if there exists an orthonormal basis such that both $A$ and $B$ are diagonal with respect to that basis. We say that $A$ and $B$ are simultaneously diagonalizable in this case.
+
+This result connects the commutator of two operators, which is often easy to compute, to the property of being simultaneously diagonalizable, which is a priori rather difficult to determine. As an example, consider that
+
+$$
+\begin{aligned}
+{[X, Y] } & =\left[\begin{array}{ll}
+0 & 1 \\
+1 & 0
+\end{array}\right]\left[\begin{array}{rr}
+0 & -i \\
+i & 0
+\end{array}\right]-\left[\begin{array}{rr}
+0 & -i \\
+i & 0
+\end{array}\right]\left[\begin{array}{ll}
+0 & 1 \\
+1 & 0
+\end{array}\right] \\
+& =2 i\left[\begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array}\right] \\
+& =2 i Z
+\end{aligned}
+$$
+
+so $X$ and $Y$ do not commute. You have already shown, in Exercise 2.11, that $X$ and $Y$ do not have common eigenvectors, as we expect from the simultaneous diagonalization theorem.
+
+Proof
+You can (and should!) easily verify that if $A$ and $B$ are diagonal in the same orthonormal basis then $[A, B]=0$. To show the converse, let $|a, j\rangle$ be an orthonormal basis for the eigenspace $V_{a}$ of $A$ with eigenvalue $a$; the index $j$ is used to label possible degeneracies. Note that
+
+$$
+A B|a, j\rangle=B A|a, j\rangle=a B|a, j\rangle
+$$
+
+and therefore $B|a, j\rangle$ is an element of the eigenspace $V_{a}$. Let $P_{a}$ denote the projector onto the space $V_{a}$ and define $B_{a} \equiv P_{a} B P_{a}$. It is easy to see that the restriction of $B_{a}$ to the space $V_{a}$ is Hermitian on $V_{a}$, and therefore has a spectral decomposition in terms of an orthonormal set of eigenvectors which span the space $V_{a}$. Let's call these eigenvectors $|a, b, k\rangle$, where the indices $a$ and $b$ label the eigenvalues of $A$ and $B_{a}$, and $k$ is an extra index to allow for the possibility of a degenerate $B_{a}$. Note that $B|a, b, k\rangle$ is an element of $V_{a}$, so $B|a, b, k\rangle=P_{a} B|a, b, k\rangle$. Moreover we have $P_{a}|a, b, k\rangle=|a, b, k\rangle$, so
+
+$$
+B|a, b, k\rangle=P_{a} B P_{a}|a, b, k\rangle=b|a, b, k\rangle .
+$$
+
+It follows that $|a, b, k\rangle$ is an eigenvector of $B$ with eigenvalue $b$, and therefore $|a, b, k\rangle$ is an orthonormal set of eigenvectors of both $A$ and $B$, spanning the entire vector space on which $A$ and $B$ are defined. That is, $A$ and $B$ are simultaneously diagonalizable.
+
+Exercise 2.40: (Commutation relations for the Pauli matrices) Verify the commutation relations
+
+$$
+[X, Y]=2 i Z ; \quad[Y, Z]=2 i X ; \quad[Z, X]=2 i Y .
+$$
+
+There is an elegant way of writing this using $\epsilon_{j k l}$, the antisymmetric tensor on\\
+three indices, for which $\epsilon_{j k l}=0$ except for $\epsilon_{123}=\epsilon_{231}=\epsilon_{312}=1$, and $\epsilon_{321}=\epsilon_{213}=\epsilon_{132}=-1:$
+
+$$
+\left[\sigma_{j}, \sigma_{k}\right]=2 i \sum_{l=1}^{3} \epsilon_{j k l} \sigma_{l}
+$$
+
+Exercise 2.41: (Anti-commutation relations for the Pauli matrices) Verify the anti-commutation relations
+
+$$
+\left\{\sigma_{i}, \sigma_{j}\right\}=0
+$$
+
+where $i \neq j$ are both chosen from the set $1,2,3$. Also verify that $(i=0,1,2,3)$
+
+$$
+\sigma_{i}^{2}=I
+$$
+
+Exercise 2.42: Verify that
+
+$$
+A B=\frac{[A, B]+\{A, B\}}{2}
+$$
+
+Exercise 2.43: Show that for $j, k=1,2,3$,
+
+$$
+\sigma_{j} \sigma_{k}=\delta_{j k} I+i \sum_{l=1}^{3} \epsilon_{j k l} \sigma_{l}
+$$
+
+Exercise 2.44: Suppose $[A, B]=0,\{A, B\}=0$, and $A$ is invertible. Show that $B$ must be 0 .
+
+Exercise 2.45: Show that $[A, B]^{\dagger}=\left[B^{\dagger}, A^{\dagger}\right]$.
+
+Exercise 2.46: Show that $[A, B]=-[B, A]$.
+
+Exercise 2.47: Suppose $A$ and $B$ are Hermitian. Show that $i[A, B]$ is Hermitian.

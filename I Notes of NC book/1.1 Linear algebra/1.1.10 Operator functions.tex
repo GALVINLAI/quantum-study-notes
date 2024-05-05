@@ -1,0 +1,83 @@
+There are many important functions which can be defined for operators and matrices. Generally speaking, given a function $f$ from the complex numbers to the complex numbers, it is possible to define a corresponding matrix function on normal matrices (or some subclass, such as the Hermitian matrices) by the following construction. Let $A=\sum_{a} a|a\rangle\langle a|$ be a spectral decomposition for a normal operator $A$. Define $f(A) \equiv \sum_{a} f(a)|a\rangle\langle a|$. A little thought shows that $f(A)$ is uniquely defined. This procedure can be used, for example, to define the square root of a positive operator, the logarithm of a positive-definite operator, or the exponential of a normal operator. As an example,
+
+$$
+\exp (\theta Z)=\left[\begin{array}{cc}
+e^{\theta} & 0 \\
+0 & e^{-\theta}
+\end{array}\right]
+$$
+
+since $Z$ has eigenvectors $|0\rangle$ and $|1\rangle$.
+
+Exercise 2.34: Find the square root and logarithm of the matrix
+
+$$
+\left[\begin{array}{ll}
+4 & 3 \\
+3 & 4
+\end{array}\right]
+$$
+
+Exercise 2.35: (Exponential of the Pauli matrices) Let $\vec{v}$ be any real, three-dimensional unit vector and $\theta$ a real number. Prove that
+
+$$
+\exp (i \theta \vec{v} \cdot \vec{\sigma})=\cos (\theta) I+i \sin (\theta) \vec{v} \cdot \vec{\sigma}
+$$
+
+where $\vec{v} \cdot \vec{\sigma} \equiv \sum_{i=1}^{3} v_{i} \sigma_{i}$. This exercise is generalized in Problem 2.1 on page 117.
+
+Another important matrix function is the trace of a matrix. The trace of $A$ is defined to be the sum of its diagonal elements,
+
+$$
+\operatorname{tr}(A) \equiv \sum_{i} A_{i i}
+$$
+
+The trace is easily seen to be cyclic, $\operatorname{tr}(A B)=\operatorname{tr}(B A)$, and linear, $\operatorname{tr}(A+B)=$ $\operatorname{tr}(A)+\operatorname{tr}(B), \operatorname{tr}(z A)=z \operatorname{tr}(A)$, where $A$ and $B$ are arbitrary matrices, and $z$ is a complex number. Furthermore, from the cyclic property it follows that the trace of a matrix is invariant under the unitary similarity transformation $A \rightarrow U A U^{\dagger}$, as $\operatorname{tr}\left(U A U^{\dagger}\right)=$ $\operatorname{tr}\left(U^{\dagger} U A\right)=\operatorname{tr}(A)$. In light of this result, it makes sense to define the trace of an operator $A$ to be the trace of any matrix representation of $A$. The invariance of the trace under unitary similarity transformations ensures that the trace of an operator is well defined.
+
+As an example of the trace, suppose $|\psi\rangle$ is a unit vector and $A$ is an arbitrary operator. To evaluate $\operatorname{tr}(A|\psi\rangle\langle\psi|)$ use the Gram-Schmidt procedure to extend $|\psi\rangle$ to an\\
+orthonormal basis $|i\rangle$ which includes $|\psi\rangle$ as the first element. Then we have
+
+$$
+\begin{aligned}
+\operatorname{tr}(A|\psi\rangle\langle\psi|) & =\sum_{i}\langle i|A| \psi\rangle\langle\psi | i\rangle \\
+& =\langle\psi|A| \psi\rangle
+\end{aligned}
+$$
+
+This result, that $\operatorname{tr}(A|\psi\rangle\langle\psi|)=\langle\psi|A| \psi\rangle$ is extremely useful in evaluating the trace of an operator.
+
+Exercise 2.36: Show that the Pauli matrices except for $I$ have trace zero.
+
+Exercise 2.37: (Cyclic property of the trace) If $A$ and $B$ are two linear operators show that
+
+$$
+\operatorname{tr}(A B)=\operatorname{tr}(B A)
+$$
+
+Exercise 2.38: (Linearity of the trace) If $A$ and $B$ are two linear operators, show that
+
+$$
+\operatorname{tr}(A+B)=\operatorname{tr}(A)+\operatorname{tr}(B)
+$$
+
+and if $z$ is an arbitrary complex number show that
+
+$$
+\operatorname{tr}(z A)=z \operatorname{tr}(A)
+$$
+
+Exercise 2.39: (The Hilbert-Schmidt inner product on operators) The set $L_{V}$ of linear operators on a Hilbert space $V$ is obviously a vector space - the sum of two linear operators is a linear operator, $z A$ is a linear operator if $A$ is a linear operator and $z$ is a complex number, and there is a zero element 0 . An important additional result is that the vector space $L_{V}$ can be given a natural inner product structure, turning it into a Hilbert space.
+
+(1) Show that the function $(\cdot, \cdot)$ on $L_{V} \times L_{V}$ defined by
+
+$$
+(A, B) \equiv \operatorname{tr}\left(A^{\dagger} B\right)
+$$
+
+is an inner product function. This inner product is known as the
+
+Hilbert-Schmidt or trace inner product.
+
+(2) If $V$ has $d$ dimensions show that $L_{V}$ has dimension $d^{2}$.
+
+(3) Find an orthonormal basis of Hermitian matrices for the Hilbert space $L_{V}$.

@@ -1,0 +1,70 @@
+Suppose $A$ is any linear operator on a Hilbert space, $V$. It turns out that there exists a unique linear operator $A^{\dagger}$ on $V$ such that for all vectors $|v\rangle,|w\rangle \in V$,
+
+$$
+(|v\rangle, A|w\rangle)=\left(A^{\dagger}|v\rangle,|w\rangle\right)
+$$
+
+This linear operator is known as the adjoint or Hermitian conjugate of the operator $A$. From the definition it is easy to see that $(A B)^{\dagger}=B^{\dagger} A^{\dagger}$. By convention, if $|v\rangle$ is a vector, then we define $|v\rangle^{\dagger} \equiv\langle v|$. With this definition it is not difficult to see that $(A|v\rangle)^{\dagger}=\langle v| A^{\dagger}$.
+
+Exercise 2.13: If $|w\rangle$ and $|v\rangle$ are any two vectors, show that $(|w\rangle\langle v|)^{\dagger}=|v\rangle\langle w|$.
+
+Exercise 2.14: (Anti-linearity of the adjoint) Show that the adjoint operation is anti-linear,
+
+$$
+\left(\sum_{i} a_{i} A_{i}\right)^{\dagger}=\sum_{i} a_{i}^{*} A_{i}^{\dagger}
+$$
+
+Exercise 2.15: Show that $\left(A^{\dagger}\right)^{\dagger}=A$.
+
+In a matrix representation of an operator $A$, the action of the Hermitian conjugation operation is to take the matrix of $A$ to the conjugate-transpose matrix, $A^{\dagger} \equiv\left(A^{*}\right)^{T}$, where the $*$ indicates complex conjugation, and $T$ indicates the transpose operation. For example, we have
+
+$$
+\left[\begin{array}{cc}
+1+3 i & 2 i \\
+1+i & 1-4 i
+\end{array}\right]^{\dagger}=\left[\begin{array}{cc}
+1-3 i & 1-i \\
+-2 i & 1+4 i
+\end{array}\right]
+$$
+
+An operator $A$ whose adjoint is $A$ is known as a Hermitian or self-adjoint operator. An important class of Hermitian operators is the projectors. Suppose $W$ is a $k$-dimensional vector subspace of the $d$-dimensional vector space $V$. Using the GramSchmidt procedure it is possible to construct an orthonormal basis $|1\rangle, \ldots,|d\rangle$ for $V$ such that $|1\rangle, \ldots,|k\rangle$ is an orthonormal basis for $W$. By definition,
+
+$$
+P \equiv \sum_{i=1}^{k}|i\rangle\langle i|
+$$
+
+is the projector onto the subspace $W$. It is easy to check that this definition is independent of the orthonormal basis $|1\rangle, \ldots,|k\rangle$ used for $W$. From the definition it can be shown that $|v\rangle\langle v|$ is Hermitian for any vector $|v\rangle$, so $P$ is Hermitian, $P^{\dagger}=P$. We will often refer to the 'vector space' $P$, as shorthand for the vector space onto which $P$ is a projector. The orthogonal complement of $P$ is the operator $Q \equiv I-P$. It is easy to see that $Q$ is a projector onto the vector space spanned by $|k+1\rangle, \ldots,|d\rangle$, which we also refer to as the orthogonal complement of $P$, and may denote by $Q$.
+
+Exercise 2.16: Show that any projector $P$ satisfies the equation $P^{2}=P$.
+
+An operator $A$ is said to be normal if $A A^{\dagger}=A^{\dagger} A$. Clearly, an operator which is Hermitian is also normal. There is a remarkable representation theorem for normal operators known as the spectral decomposition, which states that an operator is a normal operator if and only if it is diagonalizable. This result is proved in Box 2.2 on page 72, which you should read closely.
+
+Exercise 2.17: Show that a normal matrix is Hermitian if and only if it has real eigenvalues.
+
+A matrix $U$ is said to be unitary if $U^{\dagger} U=I$. Similarly an operator $U$ is unitary if $U^{\dagger} U=I$. It is easily checked that an operator is unitary if and only if each of its matrix representations is unitary. A unitary operator also satisfies $U U^{\dagger}=I$, and therefore $U$ is normal and has a spectral decomposition. Geometrically, unitary operators are important because they preserve inner products between vectors. To see this, let $|v\rangle$ and $|w\rangle$ be any\\
+two vectors. Then the inner product of $U|v\rangle$ and $U|w\rangle$ is the same as the inner product of $|v\rangle$ and $|w\rangle$,
+
+$$
+(U|v\rangle, U|w\rangle)=\left\langle v\left|U^{\dagger} U\right| w\right\rangle=\langle v|I| w\rangle=\langle v | w\rangle
+$$
+
+This result suggests the following elegant outer product representation of any unitary $U$. Let $\left|v_{i}\right\rangle$ be any orthonormal basis set. Define $\left|w_{i}\right\rangle \equiv U\left|v_{i}\right\rangle$, so $\left|w_{i}\right\rangle$ is also an orthonormal basis set, since unitary operators preserve inner products. Note that $U=\sum_{i}\left|w_{i}\right\rangle\left\langle v_{i}\right|$. Conversely, if $\left|v_{i}\right\rangle$ and $\left|w_{i}\right\rangle$ are any two orthonormal bases, then it is easily checked that the operator $U$ defined by $U \equiv \sum_{i}\left|w_{i}\right\rangle\left\langle v_{i}\right|$ is a unitary operator.
+
+Exercise 2.18: Show that all eigenvalues of a unitary matrix have modulus 1, that is, can be written in the form $e^{i \theta}$ for some real $\theta$.
+
+Exercise 2.19: (Pauli matrices: Hermitian and unitary) Show that the Pauli matrices are Hermitian and unitary.
+
+Exercise 2.20: (Basis changes) Suppose $A^{\prime}$ and $A^{\prime \prime}$ are matrix representations of an operator $A$ on a vector space $V$ with respect to two different orthonormal bases, $\left|v_{i}\right\rangle$ and $\left|w_{i}\right\rangle$. Then the elements of $A^{\prime}$ and $A^{\prime \prime}$ are $A_{i j}^{\prime}=\left\langle v_{i}|A| v_{j}\right\rangle$ and $A_{i j}^{\prime \prime}=\left\langle w_{i}|A| w_{j}\right\rangle$. Characterize the relationship between $A^{\prime}$ and $A^{\prime \prime}$.
+
+A special subclass of Hermitian operators is extremely important. This is the positive operators. A positive operator $A$ is defined to be an operator such that for any vector $|v\rangle$, $(|v\rangle, A|v\rangle)$ is a real, non-negative number. If $(|v\rangle, A|v\rangle)$ is strictly greater than zero for all $|v\rangle \neq 0$ then we say that $A$ is positive definite. In Exercise 2.24 on this page you will show that any positive operator is automatically Hermitian, and therefore by the spectral decomposition has diagonal representation $\sum_{i} \lambda_{i}|i\rangle\langle i|$, with non-negative eigenvalues $\lambda_{i}$.
+
+Exercise 2.21: Repeat the proof of the spectral decomposition in Box 2.2 for the case when $M$ is Hermitian, simplifying the proof wherever possible.
+
+Exercise 2.22: Prove that two eigenvectors of a Hermitian operator with different eigenvalues are necessarily orthogonal.
+
+Exercise 2.23: Show that the eigenvalues of a projector $P$ are all either 0 or 1 .
+
+Exercise 2.24: (Hermiticity of positive operators) Show that a positive operator is necessarily Hermitian. (Hint: Show that an arbitrary operator $A$ can be written $A=B+i C$ where $B$ and $C$ are Hermitian.)
+
+Exercise 2.25: Show that for any operator $A, A^{\dagger} A$ is positive.

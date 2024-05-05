@@ -1,0 +1,51 @@
+A spanning set for a vector space is a set of vectors $\left|v_{1}\right\rangle, \ldots,\left|v_{n}\right\rangle$ such that any vector $|v\rangle$ in the vector space can be written as a linear combination $|v\rangle=\sum_{i} a_{i}\left|v_{i}\right\rangle$ of vectors in that set. 
+
+\begin{example}
+    For example, a spanning set for the vector space $\mathbf{C}^{2}$ is the set
+    $$
+    \left|v_{1}\right\rangle \equiv\left[\begin{array}{l}
+    1 \\
+    0
+    \end{array}\right] ; \quad\left|v_{2}\right\rangle  \equiv\left[\begin{array}{l}
+    0 \\
+    1
+    \end{array}\right]
+  $$
+    since any vector
+    $$
+    |v\rangle=\left[\begin{array}{l}
+    a_{1} \\
+    a_{2}
+    \end{array}\right]
+    $$
+    in $\mathbf{C}^{2}$ can be written as a linear combination $|v\rangle=a_{1}\left|v_{1}\right\rangle+a_{2}\left|v_{2}\right\rangle$ of the vectors $\left|v_{1}\right\rangle$ and $\left|v_{2}\right\rangle$. We say that the vectors $\left|v_{1}\right\rangle$ and $\left|v_{2}\right\rangle$ span the vector space $\mathbf{C}^{2}$.
+\end{example}
+
+Generally, a vector space may have many different spanning sets. 
+
+\begin{example}
+A second spanning set for the vector space $\mathbf{C}^{2}$ is the set
+$$
+\left|v_{1}\right\rangle \equiv \frac{1}{\sqrt{2}}\left[\begin{array}{l}
+1 \\
+1
+\end{array}\right] ; \quad\left|v_{2}\right\rangle \equiv \frac{1}{\sqrt{2}}\left[\begin{array}{r}
+1 \\
+-1
+\end{array}\right]
+$$
+since an arbitrary vector $|v\rangle=\left(a_{1}, a_{2}\right)$ can be written as a linear combination of $\left|v_{1}\right\rangle$ and $\left|v_{2}\right\rangle$,
+$$
+|v\rangle=\frac{a_{1}+a_{2}}{\sqrt{2}}\left|v_{1}\right\rangle+\frac{a_{1}-a_{2}}{\sqrt{2}}\left|v_{2}\right\rangle.
+$$
+\end{example}
+
+A set of non-zero vectors $\left|v_{1}\right\rangle, \ldots,\left|v_{n}\right\rangle$ are linearly dependent if there exists a set of complex numbers $a_{1}, \ldots, a_{n}$ with $a_{i} \neq 0$ for at least one value of $i$, such that
+$$
+a_{1}\left|v_{1}\right\rangle+a_{2}\left|v_{2}\right\rangle+\cdots+a_{n}\left|v_{n}\right\rangle=0.
+$$
+A set of vectors is linearly independent if it is not linearly dependent. 
+
+It can be shown that any two sets of linearly independent vectors which span a vector space $V$ contain the same number of elements. We call such a set a basis for $V$. Furthermore, such a basis set always exists. The number of elements in the basis is defined to be the dimension of $V$. In this book we will only be interested in finite dimensional vector spaces. 
+
+% Exercise 2.1: (Linear dependence: example) Show that $(1,-1),(1,2)$ and $(2,1)$ are linearly dependent.

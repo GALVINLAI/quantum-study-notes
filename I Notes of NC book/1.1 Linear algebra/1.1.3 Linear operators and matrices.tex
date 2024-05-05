@@ -1,0 +1,45 @@
+A linear operator between vector spaces $V$ and $W$ is defined to be a function $A$ : $V \rightarrow W$ which is linear in its inputs,
+\begin{equation}\label{eq:linear-operator}
+A\left(\sum_{i} a_{i}\left|v_{i}\right\rangle\right)=\sum_{i} a_{i} A\left(\left|v_{i}\right\rangle\right).
+\end{equation}
+Usually we just write $A|v\rangle$ to denote $A(|v\rangle)$. When we say that a linear operator $A$ is defined on a vector space, $V$, we mean that $A$ is a linear operator from $V$ to $V$. 
+
+\begin{example}
+    An important linear operator on any vector space $V$ is the identity operator, $I_{V}$, defined by the equation $I_{V}|v\rangle \equiv|v\rangle$ for all vectors $|v\rangle$. Where no chance of confusion arises we drop the subscript $V$ and just write $I$ to denote the identity operator. 
+\end{example}
+
+\begin{example}
+    Another important linear operator is the zero operator, which we denote 0 . The zero operator maps all vectors to the zero vector, $0|v\rangle \equiv 0$. 
+\end{example}
+
+It is clear from (\ref{eq:linear-operator}) that once the action of a linear operator $A$ on a basis (of its domain) is specified, the action of $A$ is completely determined on all inputs. This tells us that, when we want to show that two linear operators $A,B:V \rightarrow W$ are the same, we only need to show that $A |v_{i}\rangle = B|v_{i}\rangle$ holds for all $i$ under an arbitrary basis $\{|v_{i}\rangle\}$ of $V.$
+
+Suppose $V, W$, and $X$ are vector spaces, and $A: V \rightarrow W$ and $B: W \rightarrow X$ are linear operators. Then we use the notation $B A$ to denote the composition of $B$ with $A$, defined by $(B A)(|v\rangle) \equiv B(A(|v\rangle))$. Once again, we write $B A|v\rangle$ as an abbreviation for $(B A)(|v\rangle)$.
+
+The most convenient way to understand linear operators is in terms of their matrix representations. In fact, the linear operator and matrix viewpoints turn out to be completely equivalent. 
+
+\paragraph{Every matrix can be regarded as a linear operator}
+To see the connection, it helps to first understand that an $m$ by $n$ complex matrix $A$ with entries $A_{i j}$ is in fact a linear operator sending vectors in the vector space $\mathbf{C}^{n}$ to the vector space $\mathbf{C}^{m}$, under matrix multiplication of the matrix $A$ by a vector in $\mathbf{C}^{n}$. We've seen that matrices can be regarded as linear operators.
+
+\paragraph{Every linear operator can be given a matrix representation}
+Suppose $A: V \rightarrow W$ is a linear operator between vector spaces $V$ and $W$. Suppose $\left|v_{1}\right\rangle, \ldots,\left|v_{m}\right\rangle$ is a basis for $V$ and $\left|w_{1}\right\rangle, \ldots,\left|w_{n}\right\rangle$ is a basis for $W$. Then for each $j$ in the range $1, \ldots, m$, there exist complex numbers $A_{1 j}, \dots, A_{n j}$ such that
+$$
+A\left|v_{j}\right\rangle=\sum_{i} A_{i j}\left|w_{i}\right\rangle.
+$$
+The matrix whose entries are the values $A_{i j}$ is said to form a matrix representation of the operator $A$. This matrix representation of $A$ is completely equivalent to the operator $A$, and we will use the matrix representation and abstract operator viewpoints interchangeably. 
+
+% This equivalence between the two viewpoints justifies our interchanging terms from matrix theory and operator theory throughout the book. 
+
+% Note that to make the connection between matrices and linear operators we must specify a set of input and output basis states for the input and output vector spaces of the linear operator.
+
+\begin{exercise}
+Exercise 2.2: (Matrix representations: example) Suppose $V$ is a vector space with basis vectors $|0\rangle$ and $|1\rangle$, and $A$ is a linear operator from $V$ to $V$ such that $A|0\rangle=|1\rangle$ and $A|1\rangle=|0\rangle$. Give a matrix representation for $A$, with respect to the input basis $|0\rangle,|1\rangle$, and the output basis $|0\rangle,|1\rangle$. Find input and output bases which give rise to a different matrix representation of $A$.
+\end{exercise}
+
+\begin{exercise}
+Exercise 2.3: (Matrix representation for operator products) Suppose $A$ is a linear operator from vector space $V$ to vector space $W$, and $B$ is a linear operator from vector space $W$ to vector space $X$. Let $\left|v_{i}\right\rangle,\left|w_{j}\right\rangle$, and $\left|x_{k}\right\rangle$ be bases for the vector spaces $V, W$, and $X$, respectively. Show that the matrix representation for the linear transformation $B A$ is the matrix product of the matrix representations for $B$ and $A$, with respect to the appropriate bases.
+\end{exercise}
+
+\begin{exercise}
+Exercise 2.4: (Matrix representation for identity) Show that the identity operator on a vector space $V$ has a matrix representation which is one along the diagonal and zero everywhere else, if the matrix representation is taken with respect to the same input and output bases. This matrix is known as the identity matrix.
+\end{exercise}

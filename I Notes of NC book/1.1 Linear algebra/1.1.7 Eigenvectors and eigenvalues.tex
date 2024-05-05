@@ -1,0 +1,38 @@
+An eigenvector of a linear operator $A$ on a vector space is a non-zero vector $|v\rangle$ such that $A|v\rangle=v|v\rangle$, where $v$ is a complex number known as the eigenvalue of $A$ corresponding to $|v\rangle$. It will often be convenient to use the notation $v$ both as a label for the eigenvector, and to represent the eigenvalue. We assume that you are familiar with the elementary properties of eigenvalues and eigenvectors - in particular, how to find them, via the characteristic equation. The characteristic function is defined to be $c(\lambda) \equiv \operatorname{det}|A-\lambda I|$,\\
+where det is the determinant function for matrices; it can be shown that the characteristic function depends only upon the operator $A$, and not on the specific matrix representation used for $A$. The solutions of the characteristic equation $c(\lambda)=0$ are the eigenvalues of the operator $A$. By the fundamental theorem of algebra, every polynomial has at least one complex root, so every operator $A$ has at least one eigenvalue, and a corresponding eigenvector. The eigenspace corresponding to an eigenvalue $v$ is the set of vectors which have eigenvalue $v$. It is a vector subspace of the vector space on which $A$ acts.
+
+A diagonal representation for an operator $A$ on a vector space $V$ is a representation $A=\sum_{i} \lambda_{i}|i\rangle\langle i|$, where the vectors $|i\rangle$ form an orthonormal set of eigenvectors for $A$, with corresponding eigenvalues $\lambda_{i}$. An operator is said to be diagonalizable if it has a diagonal representation. In the next section we will find a simple set of necessary and sufficient conditions for an operator on a Hilbert space to be diagonalizable. As an example of a diagonal representation, note that the Pauli $Z$ matrix may be written
+
+$$
+Z=\left[\begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array}\right]=|0\rangle\langle 0|-| 1\rangle\langle 1|,
+$$
+
+where the matrix representation is with respect to orthonormal vectors $|0\rangle$ and $|1\rangle$, respectively. Diagonal representations are sometimes also known as orthonormal decompositions.
+
+When an eigenspace is more than one dimensional we say that it is degenerate. For example, the matrix $A$ defined by
+
+$$
+A \equiv\left[\begin{array}{lll}
+2 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 0
+\end{array}\right]
+$$
+
+has a two-dimensional eigenspace corresponding to the eigenvalue 2 . The eigenvectors $(1,0,0)$ and $(0,1,0)$ are said to be degenerate because they are linearly independent eigenvectors of $A$ with the same eigenvalue.
+
+Exercise 2.11: (Eigendecomposition of the Pauli matrices) Find the eigenvectors, eigenvalues, and diagonal representations of the Pauli matrices $X, Y$, and $Z$.
+
+Exercise 2.12: Prove that the matrix
+
+$$
+\left[\begin{array}{ll}
+1 & 0 \\
+1 & 1
+\end{array}\right]
+$$
+
+is not diagonalizable.
