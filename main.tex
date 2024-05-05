@@ -59,24 +59,14 @@
 \chapterspacebelow{6.75cm} % Default amount of vertical whitespace from the top margin to the start of the text on chapter pages
 
 %----------------------------------------------------------------------------------------
+%	以下是我们自己添加的额外packages
+%----------------------------------------------------------------------------------------
 
-% ******** Eye Protection ********
+% ******** Eye Protection 保护眼睛 ********
 \usepackage{xcolor} % For defining and using colors
 \definecolor{mygreen}{RGB}{205, 222, 194} % Define a custom green color for eye protection
 % \pagecolor{mygreen} % Set page background color to custom green
-% *******************************
-
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage[version=4]{mhchem}
-\usepackage{stmaryrd}
-
-
-
-
+% *****************************************
 
 
 \begin{document}
@@ -90,12 +80,16 @@
 	{ % Title(s) and author(s)
 		\centering\sffamily % Font styling
 		{\Huge\bfseries
-        Quantum Computation and Optimization
-        \par} % Book title
+            Quantum Computation and Optimization
+            \par} % Book title
 		\vspace{16pt} % Vertical whitespace
 		{\LARGE A Study Note\par} % Subtitle
 		\vspace{24pt} % Vertical whitespace
-		{\huge\bfseries Zhijian Lai, Jiang Hu, Li He\par} % Author name
+		{\huge\bfseries
+            Zhijian Lai, 
+            Jiang Hu, 
+            Li He
+            \par} % Author name
 	}
 
 % %----------------------------------------------------------------------------------------
@@ -145,101 +139,108 @@
  
 
 % ==========================  正文开始  ==========================
+
 %----------------------------------------------------------------------------------------
-%	PART
+%	PART I
 %----------------------------------------------------------------------------------------
 
 \part{Notes of NC book}
-\chapter{Introduction to quantum mechanics}
 
-A good understanding of quantum mechanics is based upon a solid grasp of linear algebra.
+\chapter{Introduction to quantum mechanics}
 
 \section{Linear algebra}
 
+A good understanding of quantum mechanics is based upon a solid grasp of linear algebra.
+
 %   1.1.1 vector space
-    \subsection{vector space}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.1 Vector Space}
+\subsection{vector space}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.1 Vector Space}
 
 %   1.1.2 Bases and linear independence
-    \subsection{Bases and linear independence}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.2 Bases and linear independence}
+\subsection{Bases and linear independence}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.2 Bases and linear independence}
 
 %   1.1.3 Linear operators and matrices
-    \subsection{Linear operators and matrices}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.3 Linear operators and matrices}
+\subsection{Linear operators and matrices}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.3 Linear operators and matrices}
 
 %   1.1.4 The Pauli matrices
-    \subsection{The Pauli matrices}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.4 The Pauli matrices}
+\subsection{The Pauli matrices}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.4 The Pauli matrices}
 
 %   1.1.5 Inner products
-    \subsection{Inner products}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.5 Inner products}
+\subsection{Inner products}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.5 Inner products}
 
 %   1.1.6 Outer product
-    \subsection{Outer product}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.6 Outer product}
+\subsection{Outer product}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.6 Outer product}
 
 %   1.1.7 Eigenvectors and eigenvalues
-    \subsection{Eigenvectors and eigenvalues}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.7 Eigenvectors and eigenvalues}
+\subsection{Eigenvectors and eigenvalues}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.7 Eigenvectors and eigenvalues}
 
 %   1.1.8 Adjoints and Hermitian operators
-    \subsection{Adjoints and Hermitian operators}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.8 Adjoints and Hermitian operators}
+\subsection{Adjoints and Hermitian operators}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.8 Adjoints and Hermitian operators}
 
 %   1.1.9 Tensor products
-    \subsection{Tensor products}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.9 Tensor products}
+\subsection{Tensor products}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.9 Tensor products}
 
 %   1.1.10 Operator functions
-    \subsection{Operator functions}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.10 Operator functions}
+\subsection{Operator functions}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.10 Operator functions}
 
 %   1.1.11 The commutator and anti-commutator
-    \subsection{The commutator and anti-commutator}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.11 The commutator and anti-commutator}
+\subsection{The commutator and anti-commutator}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.11 The commutator and anti-commutator}
 
 %   1.1.12 The polar and singular value decomposition
-    \subsection{The polar and singular value decomposition}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.12 The polar and singular value decomposition}
+\subsection{The polar and singular value decomposition}
+\input{I Notes of NC book/1.1 Linear algebra/1.1.12 The polar and singular value decomposition}
 
-%   1.1.13 Partial trace
-    \subsection{Partial trace}
-    \input{I Notes of NC book/1.1 Linear algebra/1.1.13 Partial trace/1.1.13.0}
-    
-        \subsubsection{Definition with reference to a basis}
-        \input{I Notes of NC book/1.1 Linear algebra/1.1.13 Partial trace/1.1.13.1 Definition with reference to a basis}
+% %   1.1.13 Partial trace
+%     \subsection{Partial trace}
+%     \input{I Notes of NC book/1.1 Linear algebra/1.1.13 Partial trace/1.1.13.0}
 
-        \subsubsection{Definition without reference to a basis}
-        \input{I Notes of NC book/1.1 Linear algebra/1.1.13 Partial trace/1.1.13.2 Definition without reference to a basis}
+% \subsubsection{Definition with reference to a basis}
+% \input{I Notes of NC book/1.1 Linear algebra/1.1.13 Partial trace/1.1.13.1 Definition with reference to a basis}
 
-        \subsubsection{Partial trace as a quantum operation}% 待处理, 重新放在别的位置
-        \input{I Notes of NC book/1.1 Linear algebra/1.1.13 Partial trace/1.1.13.3 Partial trace as a quantum operation}
+% \subsubsection{Definition without reference to a basis}
+% \input{I Notes of NC book/1.1 Linear algebra/1.1.13 Partial trace/1.1.13.2 Definition without reference to a basis}
+
+% \subsubsection{Partial trace as a quantum operation} % 待处理, 重新放在别的位置
+% \input{I Notes of NC book/1.1 Linear algebra/1.1.13 Partial trace/1.1.13.3 Partial trace as a quantum operation}
     
 
 %----------------------------------------------------------------------------------------
-%	PART
+%	PART II
 %----------------------------------------------------------------------------------------
 
 \part{Notes of Papers}
 
 %----------------------------------------------------------------------------------------
-%	PART
+%	PART III
 %----------------------------------------------------------------------------------------
 
 \part{Other Notes}
+
+
+%----------------------------------------------------------------------------------------
+%	Bibliography
+%----------------------------------------------------------------------------------------
 
 \chapter*{Bibliography}
 \markboth{\sffamily\normalsize\bfseries Bibliography}{\sffamily\normalsize\bfseries Bibliography} % Set the page headers to display a Bibliography chapter name
 \addcontentsline{toc}{chapter}{\textcolor{ocre}{Bibliography}} % Add a Bibliography heading to the table of contents
 
-\section{Articles}
+\section*{Articles}
 \addcontentsline{toc}{section}{Articles} % Add the Articles subheading to the table of contents
 
 \printbibliography[heading=bibempty, type=article] % Output article bibliography entries
 
-\section{Books}
+\section*{Books}
 \addcontentsline{toc}{section}{Books} % Add the Books subheading to the table of contents
 
 \printbibliography[heading=bibempty, type=book] % Output book bibliography entries
@@ -271,7 +272,7 @@ A good understanding of quantum mechanics is based upon a solid grasp of linear 
 
 \section{Appendix Section Title}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor mi risus, quis tempor libero hendrerit at. Duis hendrerit placerat quam et semper. Nam ultricies metus vehicula arcu viverra, vel ullamcorper justo elementum. Pellentesque vel mi ac lectus cursus posuere et nec ex. Fusce quis mauris egestas lacus commodo venenatis. Ut at arcu lectus. Donec et urna nunc. Morbi eu nisl cursus sapien eleifend tincidunt quis quis est. Donec ut orci ex. Praesent ligula enim, ullamcorper non lorem a, ultrices volutpat dolor. Nullam at imperdiet urna. Pellentesque nec velit eget est euismod pretium.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 %------------------------------------------------
 
@@ -279,7 +280,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor mi risus
 
 \section{Appendix Section Title}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor mi risus, quis tempor libero hendrerit at. Duis hendrerit placerat quam et semper. Nam ultricies metus vehicula arcu viverra, vel ullamcorper justo elementum. Pellentesque vel mi ac lectus cursus posuere et nec ex. Fusce quis mauris egestas lacus commodo venenatis. Ut at arcu lectus. Donec et urna nunc. Morbi eu nisl cursus sapien eleifend tincidunt quis quis est. Donec ut orci ex. Praesent ligula enim, ullamcorper non lorem a, ultrices volutpat dolor. Nullam at imperdiet urna. Pellentesque nec velit eget est euismod pretium.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 %------------------------------------------------
 
