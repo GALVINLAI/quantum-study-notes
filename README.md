@@ -47,4 +47,10 @@
 quantikz: Draw quantum circuit diagrams 是专门用来在latex中画出量子电路的包。
 请参考学习 [Tutorial on the Quantikz Package](https://mirrors.ibiblio.org/CTAN/graphics/pgf/contrib/quantikz/quantikz.pdf)
 
-
+add todo notes 通过\usepackage{todonotes}
+```latex
+\todo{Need to fix my equation here!} % 出现在pdf的右侧
+\todo[inline]{Here's an inline comment below the title \& author.} % 出现在pdf的中间
+```
+另外参考
+https://www.overleaf.com/latex/examples/example-formatted-todonotes/qmpbkcqxfgmg

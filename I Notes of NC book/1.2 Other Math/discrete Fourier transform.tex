@@ -1,0 +1,72 @@
+
+\href{https://en.wikipedia.org/wiki/Discrete_Fourier_transform}{Discrete Fourier transform - Wikipedia}
+
+\begin{definition}
+The \textbf{discrete Fourier transform (DFT)} transforms a sequence of $N$ complex numbers $\left\{\mathbf{x}_n\right\}:=x_0, x_1, \ldots, x_{N-1}$ into another sequence of complex numbers, $\left\{\mathbf{X}_k\right\}:=X_0, X_1, \ldots, X_{N-1}$, which is defined by:
+$$
+X_k=\sum_{n=0}^{N-1} x_n \cdot e^{-i 2 \pi \frac{k}{N} n}
+$$
+The transform is sometimes denoted by the symbol $\mathcal{F}$, as in $\mathbf{X}=\mathcal{F}\{\mathbf{x}\}$ or $\mathcal{F}(\mathbf{x})$ or $\mathcal{F} \mathbf{x}$.
+\end{definition}
+
+The inverse transform is given by:
+$$
+x_n=\frac{1}{N} \sum_{k=0}^{N-1} X_k \cdot e^{i 2 \pi \frac{k}{N} n}
+$$
+
+\begin{example}
+    This example demonstrates how to apply the DFT to a sequence of length $N=4$ and the input vector
+$$
+\mathbf{x}=\left(\begin{array}{l}
+x_0 \\
+x_1 \\
+x_2 \\
+x_3
+\end{array}\right)=\left(\begin{array}{c}
+1 \\
+2-i \\
+-i \\
+-1+2 i
+\end{array}\right) .
+$$
+Calculating the DFT of $\mathbf{x}$ using Eq. 1
+$$
+\begin{aligned}
+& X_0=e^{-i 2 \pi v \cdot u / 4} \cdot 1+e^{-\imath 2 \pi v \cdot 1 / 4} \cdot(2-i)+e^{-\imath 2 \pi v \cdot 2 / 4} \cdot(-i)+e^{-\imath 2 \pi v \cdot 3 / 4} \cdot(-1+2 i)=2 \\
+& X_1=e^{-i 2 \pi 1 \cdot 0 / 4} \cdot 1+e^{-i 2 \pi 1 \cdot 1 / 4} \cdot(2-i)+e^{-i 2 \pi 1 \cdot 2 / 4} \cdot(-i)+e^{-i 2 \pi 1 \cdot 3 / 4} \cdot(-1+2 i)=-2-2 i \\
+& X_2=e^{-i 2 \pi 2 \cdot 0 / 4} \cdot 1+e^{-i 2 \pi 2 \cdot 1 / 4} \cdot(2-i)+e^{-i 2 \pi 2 \cdot 2 / 4} \cdot(-i)+e^{-i 2 \pi 2 \cdot 3 / 4} \cdot(-1+2 i)=-2 i \\
+& X_3=e^{-i 2 \pi 3 \cdot 0 / 4} \cdot 1+e^{-i 2 \pi 3 \cdot 1 / 4} \cdot(2-i)+e^{-i 2 \pi 3 \cdot 2 / 4} \cdot(-i)+e^{-i 2 \pi 3 \cdot 3 / 4} \cdot(-1+2 i)=4+4 i
+\end{aligned}
+$$
+results in
+$$
+\mathbf{X}=\left(\begin{array}{c}
+X_0 \\
+X_1 \\
+X_2 \\
+X_3
+\end{array}\right)=\left(\begin{array}{c}
+2 \\
+-2-2 i \\
+-2 i \\
+4+4 i
+\end{array}\right)
+$$
+\end{example}
+
+
+
+\paragraph{Linearity}
+
+The DFT is a linear transform, i.e. if $\mathcal{F}\left(\left\{x_n\right\}\right)_k=X_k$ and $\mathcal{F}\left(\left\{y_n\right\}\right)_k=Y_k$, then for any complex numbers $a, b$:
+$$
+\mathcal{F}\left(\left\{a x_n+b y_n\right\}\right)_k=a X_k+b Y_k.
+$$
+
+\paragraph{Orthogonality}
+The vectors $u_k=\left[\left.e^{\frac{i 2 \pi}{N} k n} \right\rvert\, n=0,1, \ldots, N-1\right]^{\top}$ form an orthogonal basis over the set of $N$-dimensional complex vectors:
+$$
+u_k^{\top} u_{k^{\prime}}^*=\sum_{n=0}^{N-1}\left(e^{\frac{i 2 \pi}{N} k n}\right)\left(e^{\frac{i 2 \pi}{N}\left(-k^{\prime}\right) n}\right)=\sum_{n=0}^{N-1} e^{\frac{i 2 \pi}{N}\left(k-k^{\prime}\right) n}=N \delta_{k k^{\prime}}.
+$$
+where $\delta_{k k^{\prime}}$ is the Kronecker delta. (In the last step, the summation is trivial if $k=k^{\prime}$, where it is $1+1+\ldots=N$ and otherwise is a geometric series that can be explicitly summed to obtain zero.) This orthogonality condition can be used to derive the formula for the IDFT from the definition of the DFT, and is equivalent to the unitarity property below.
+
