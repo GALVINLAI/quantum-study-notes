@@ -3,9 +3,9 @@
 \vspace{10pt}
 
 Variational Quantum Algorithms are heuristic algorithms that alternate between a quantum circuit and a classical optimizer. They tackle optimization problems of the form
-$$
-\min _{x \in\{0,1\}^n} f(x),
-$$
+\begin{equation}
+    \min _{x \in\{0,1\}^n} f(x), \tag{1}
+\end{equation}
 where $f$ is any function defined on $\{0,1\}^n$. 
 
 
@@ -41,12 +41,12 @@ We can manipulate quantum gates to build other quantum gates in two different wa
     \item The first one is the composition. The composition of gates only operates between gates acting on the same qubits. 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{grange2023-1.png}
+    \includegraphics[width=0.5\linewidth]{Images/grange2023-1.png}
 \end{figure}
     \item The other one is the tensor product. The tensor product of gates can operates between gates acting on different qubits. Suppose $U_{1} \in \mathcal{M}_{2^{k}}(\mathbb{C})$ applies on the first $k$ qubits and $U_{2} \in \mathcal{M}_{2^{\prime}}(\mathbb{C})$ applies on the $k^{\prime}$ following ones. Their tensor product is the application of $U_{1}$ and $U_{2}$ on respective qubits in parallel. The matrix representation of this tensor product is $U_{1} \otimes U_{2}$ . 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{grange2023-2.png}
+    \includegraphics[width=0.5\linewidth]{Images/grange2023-2.png}
 \end{figure}
     \item One readily verifies that both composition and tensor product transform unitary matrices into a resulting unitary matrix.
 \end{enumerate}
@@ -57,7 +57,7 @@ Notice that when we apply a quantum gate on $k$ qubits of an $n$-qubit system, i
 For instance, let us consider a 3-qubit system on which we apply $U \in \mathcal{M}_{2}(\mathbb{C})$ on qubit number 2. The matrix representation of the resulting 3 -qubit gate is $I \otimes U \otimes I$, and its circuit representation is illustrated on Fig.4, where the application of $I$ is usually replaced by a simple wire.
     \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{grange2023-3.png}
+    \includegraphics[width=0.5\linewidth]{Images/grange2023-3.png}
 \end{figure}
 \end{example}
 
@@ -259,7 +259,7 @@ If an $n$-qubit state is not a product state, it is an entangled state. Operatio
         \item There is a difference between superposition and entanglement, but there are some implication relation between those concepts, see next figure. % 但又有一些关联
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{relation-superposed-entangled.jpg}
+    \includegraphics[width=0.75\linewidth]{Images/relation-superposed-entangled.jpg}
 \end{figure}
         \item Notice that when an $n$-qubit system is entangled, it makes no sense to speak about qubit number $k \in[n]$ because isolated qubits are not defined. 
     \end{itemize}
@@ -290,10 +290,10 @@ Let us first provide a high-level description of the key elements of VQAs that a
   \item and a \textbf{classical optimizer}, which is an algorithm $\mathcal{A}$ that optimizes $g$ over space $\mathbb{R}^{d}$.
 \end{itemize}
 
-Before that, we provide a general overview of VQAs in Algorithm 1.
+Before that, we provide a general overview of VQAs in Algorithm 1. 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{VQA-algorithm.png}
+    \includegraphics[width=1\linewidth]{Images/VQA-algorithm.png}
 \end{figure}
 
 The main idea of a VQA is as follows. The main loop of the algorithm executes the following steps until the classical optimizer stops according to a given stopping criterion. 
@@ -320,7 +320,7 @@ A \textit{parametrized quantum circuit} is a continuous function $U: \mathbb{R}^
 Example 22 A simple example of a parametrized quantum circuit for $n=3$ and $d=3$ is depicted in Fig. 6.
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{parametrized-quantum-circuit.png}
+    \includegraphics[width=0.75\linewidth]{Images/parametrized-quantum-circuit.png}
 \end{figure}
 
 
@@ -380,8 +380,6 @@ as the set of quantum states that are superpositions of optimal solutions of pro
     \item In other words, optima of a guiding function $g$ must lead to optima of $f$ or superpositions of optima of $f$.
     \item Thus, minimizing $f$ amounts to minimizing $g$, and finding $\mathcal{F}$ is done by finding $\mathcal{G}$. The latter is found with the classical optimizer.
 \end{itemize}
-
-
 
 % 下面两个remark亟需解决！
 
@@ -511,38 +509,121 @@ For instance, for the case of $g=g_{\text {mean }}$, we have
 $$
 G\left(\theta, \xi_{\theta}\right)=f\left(\xi_{\theta}\right)
 $$
-Hence, for each $\xi_{\theta}^{j} \in\{0,1\}^{n}$ sampled, either we compute classically $f\left(\xi_{\theta}^{j}\right)$ and store it if not already computed, or we get its value. Thus, we can compute $\hat{g}_{N}(\theta)$. 
+Hence, for each $\xi_{\theta}^{j} \in\{0,1\}^{n}$ sampled, either we compute classically $f(\xi_{\theta}^{j})$ and store it if not already computed, or we get its value. Thus, we can compute $\hat{g}_{N}(\theta)$. 
 \end{example}
 
+\subsection{4 Quantum approximate optimization algorithm}
+
+We assume throughout this section that the function $f$ to be minimized is \textit{polynomial}. Actually, it is multilinear polynomial.
+
+First, we reformulate problem (1) to a more suitable form for quantum optimization. This reformulation is motivated by the \textit{quantum adiabatic evolution} that, for a given Hermitian matrix, approximates the eigenvector with the lowest eigenvalue under certain conditions. 
+
+For that, we interpret the objective function of problem (1) as an Hermitian matrix $H_{f}$ such that each eigenvector $\left|u_{x}\right\rangle$ is matching a classical solution $x \in\{0,1\}^{n}$ with an eigenvalue equal to $f(x)$, specifically,
+$$
+H_{f}\left|u_{x}\right\rangle=f(x)\left|u_{x}\right\rangle .
+$$
+\textbf{Thus, the solutions of problem (1) are the solutions corresponding to the lowest eigenvalues of $H_{f}$.} \textbf{The Quantum Approximate Optimization Algorithm (QAOA) presented in this section aims at finding the lowest eigenvalue of $H_{f}$.} % 本节概括
+
+\subsubsection{Problem reformulation}
+
+The construction of $H_{f}$ is as follows. 
+
+First, we transform the $\{0,1\}$ problem (1) into a $\{-1,1\}$-problem. For that, we apply the following linear transformation: for $x=$ $\left(x_{1}, \ldots, x_{n}\right) \in\{0,1\}^{n}$, we define $z=\left(z_{1}, \ldots, z_{n}\right) \in\{-1,1\}^{n}$ where
+\begin{equation*}
+z_{i}=1-2 x_{i}, \forall i \in[n]. \tag{20}
+\end{equation*}
+(Note that $x_{i}=0$ iff $z_i=1$, $x_{i}=1$ iff $z_i=-1.$) This leads to the problem
+$$
+\min _{z \in\{-1,1\}^{n}} f_{ \pm}(z)
+$$
+where, for $z \in\{-1,1\}^{n}$,
+$$
+f_{ \pm}(z)=\sum_{\alpha=\left(\alpha_{1}, \ldots \alpha_{n}\right) \in\{0,1\}^{n}} h_{\alpha} \prod_{i=1}^{n} z_{i}^{\alpha_{i}}
+$$
+where $h_{\alpha} \in \mathbb{R}, \forall \alpha \in\{0,1\}^{n}$. Recall that we assumed $f$ to be \textit{multilinear polynomial}. %通过（20）这样子简单的换元操作，multilinear polynomial在数学形式上是不变的。请参考Example 33。
+
+Second, we define the $2^n$ by $2^n$ matrix $H_{f}$ (called "Hamiltonian") as
+$$
+H_{f}:=\sum_{\alpha=\left(\alpha_{1}, \ldots \alpha_{n}\right) \in\{0,1\}^{n}} h_{\alpha} \bigotimes_{i=1}^{n} Z_{i}^{\alpha_{i}}
+$$
+where $Z=\left(\begin{array}{cc}1 & 0 \\ 0 & -1\end{array}\right), Z^{0}=I$ and $Z^{1}=Z$. \textbf{We note $Z_{i}$ the application of $Z$ to qubit $i$. } % number z --> gate Z; product --> tensor product
+
+Note that the tensor product of Hermitian matrices is also Hermitian, and the $\mathbb{R}$-linear combination of Hermitian matrices is again Hermitian. Hence, $H_{f}$ above is Hermitian.
+
+Notice that $Z$ is equal to the universal gate $R_{Z}(\pi)$ modulo a global phase (see (7)). This construction of $H_{f}$ leads to the following property.
+
+\begin{proposition}
+    Proposition 32 The eigenvectors of $H_{f}$ are the canonical basis $|x\rangle \in \mathcal{C B}_{n}$ with eigenvalues that are the cost of the solutions $f(x)$, specifically,
+\begin{equation*}
+\forall|x\rangle \in \mathcal{C B}_{n}, \quad H_{f}|x\rangle=f(x)|x\rangle. \tag{21}
+\end{equation*}
+\end{proposition}
+\begin{proof}
+    First, the eigenvectors of $H_{f}$ are the canonical basis states. Indeed, each term of the sum that constitutes $H_{f}$ is a tensor product of $n$ matrices $I$ or $Z$, both diagonal\footnote{The tensor product of two diagonal matrices is also diagonal}. Thus, $H_{f}$ is a $2^{n}$ diagonal matrix. 
+    
+    Second, let us find the eigenvalues associated with the eigenvectors. Let $|x\rangle=\left|x_{1} \ldots x_{n}\right\rangle$ be in $\mathcal{C B}_{n}$. Let $z=\left(z_{1}, \ldots, z_{n}\right)$ be the result of transformation (20). Thus, we can easily show that $$
+Z^{0}\left|x_{i}\right\rangle=I\left|x_{i}\right\rangle=z_{i}^{0}\left|x_{i}\right\rangle,Z^{1}\left|x_{i}\right\rangle=Z\left|x_{i}\right\rangle=z_{i}^{1}\left|x_{i}\right\rangle, \forall i \in[n],
+$$
+and
+$$
+\begin{aligned}
+H_{f}|x\rangle 
+& =\left(\sum_{\alpha=\left(\alpha_{1}, \ldots \alpha_{n}\right) \in\{0,1\}^{n}} h_{\alpha} \bigotimes_{i=1}^{n} Z_{i}^{\alpha_{i}}\right) \left|x_{1} \ldots x_{n}\right\rangle\\
+& =\sum_{\alpha=\left(\alpha_{1}, \ldots \alpha_{n}\right) \in\{0,1\}^{n}} h_{\alpha} \left(\bigotimes_{i=1}^{n} Z_{i}^{\alpha_{i}}\right) \left|x_{1} \ldots x_{n}\right\rangle\\
+& =\sum_{\alpha=\left(\alpha_{1}, \ldots, \alpha_{n}\right) \in\{0,1\}^{n}} h_{\alpha} \left( \bigotimes_{i=1}^{n} Z_{i}^{\alpha_{i}}\left|x_{i}\right\rangle\right) \\
+& =\sum_{\alpha=\left(\alpha_{1}, \ldots, \alpha_{n}\right) \in\{0,1\}^{n}} h_{\alpha} \left(\bigotimes_{i=1}^{n} z_{i}^{\alpha_{i}}\left|x_{i}\right\rangle\right) \\
+& =\sum_{\alpha=\left(\alpha_{1}, \ldots, \alpha_{n}\right) \in\{0,1\}^{n}} h_{\alpha} \left(\prod_{i=1}^{n} z_{i}^{\alpha_{i}}\left|x_{i}\right\rangle\right) \\
+& =\sum_{\alpha=\left(\alpha_{1}, \ldots \alpha_{n}\right) \in\{0,1\}^{n}} h_{\alpha} \left(\prod_{i=1}^{n} z_{i}^{\alpha_{i}}\right) \left|x_{1} \ldots x_{n}\right\rangle\\
+& =\left(\sum_{\alpha=\left(\alpha_{1}, \ldots, \alpha_{n}\right) \in\{0,1\}^{n}} h_{\alpha} \prod_{i=1}^{n} z_{i}^{\alpha_{i}}\right)|x\rangle \\
+& =f_{ \pm}(z)|x\rangle \\
+& =f(x)|x\rangle .
+\end{aligned}
+$$
+\end{proof}
+\begin{example}
+    Example 33 We illustrate this transformation on a small example with $n=2$. Let us consider the problem
+$$
+\min _{x \in\{0,1\}^{2}} f(x)=x_{1}+2 x_{2}-3 x_{1} x_{2}
+$$
+Using (20), the equivalent $\{-1,1\}$-problem is
+$$
+\min _{z \in\{-1,1\}^{2}} f_{ \pm}(z)=\frac{1}{4} z_{1}-\frac{1}{4} z_{2}-\frac{3}{4} z_{1} z_{2}+\frac{3}{4}
+$$
+Thus, the Hermitian matrix associated with the problem is
+$$
+H_{f}=\frac{1}{4} Z \otimes I-\frac{1}{4} I \otimes Z-\frac{3}{4} Z \otimes Z+\frac{3}{4} I \otimes I
+$$
+To illustrate (21), we compute the eigenvalue of the canonical basis state $|10\rangle$.
+$$
+\begin{aligned}
+H_{f}|10\rangle & =\frac{1}{4}(Z \otimes I)|10\rangle-\frac{1}{4}(I \otimes Z)|10\rangle-\frac{3}{4}(Z \otimes Z)|10\rangle+\frac{3}{4}(I \otimes I)|10\rangle \\
+& =-\frac{1}{4}|10\rangle-\frac{1}{4}|10\rangle+\frac{3}{4}|10\rangle+\frac{3}{4}|10\rangle \\
+& =|10\rangle \\
+& =f(1,0)|10\rangle
+\end{aligned}
+$$
+because $f(1,0)=1$.
+\end{example}
+
+Notice that most of the problems solved with QAOA in the literature are QUBO (Quadratic Unconstrained Binary Optimization) problems. Thus, $H_{f}$ has the specific form
+$$
+H_{f}=\sum_{i} h_{i i} Z_{i}+\sum_{i<j} h_{i j} Z_{i} \otimes Z_{j}
+$$
+where $h_{i j} \in \mathbb{R}, \forall i \leq j$. Note that $Z_{i}$ the application of $Z$ to qubit $i$. As mentioned before, we use the notation $Z_{i}$ for the application of $Z$ on qubit $i$ (and the application of identity matrix on the remaining qubits). Like in Example 33, $Z_1=Z \otimes I$ and $Z_2=I \otimes Z$.
 
 
+It is justified by the fact that solving QUBO problems to optimality is already NP-hard, and the quantum gates of the circuit are easier to implement on hardware in that case.
 
+\href{https://ww2.mathworks.cn/help/matlab/math/what-is-a-qubo.html}{What Is a QUBO Problem? - MATLAB \& Simulink - MathWorks} 
 
+\subsubsection{Quantum part}
 
+\textbf{QAOA is a Variational Quantum Algorithm where the quantum part derives from the Hamiltonian $H_{f}$. }
 
+This quantum part consists of a quantum circuit with $2 p$ parameters $(\boldsymbol{\gamma}, \boldsymbol{\beta})=\left(\gamma_{1}, \ldots, \gamma_{p}, \beta_{1}, \ldots, \beta_{p}\right) \in \mathbb{R}^{2 p}$, where $p$ is called \textit{depth}. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Appendix}
-
-Definition 43 (Unitary operator associated with Hermitian matrix) Given a Hermitian matrix $A$, we define its associated quantum gate $\operatorname{Exp}(A, t)$ parametrized by the parameter $t \in \mathbb{R}$ as:
+\begin{definition}
+    Definition 43 (Unitary operator associated with Hermitian matrix) Given a Hermitian matrix $A$, we define its associated quantum gate $\operatorname{Exp}(A, t)$ parametrized by the parameter $t \in \mathbb{R}$ as:
 $$
 \begin{aligned}
 \operatorname{Exp}(A, t) & =e^{-i A t} \\
@@ -550,3 +631,160 @@ $$
 \end{aligned}
 $$
 Because $A$ is Hermitian, $\operatorname{Exp}(A, t)$ is a unitary matrix.
+\end{definition}
+
+The quantum circuit $U(\boldsymbol{\gamma}, \boldsymbol{\beta})$ is the sequence of $p$ layers of two blocks, initially applied to the uniform superposition $|+\rangle^{\otimes n}$. % the sequence of $p$ layers of two blocks , 意思就是两个一组，一共有p组在一起。
+\begin{itemize}
+    \item The first block is of the form $\operatorname{Exp}\left(H_{f}, \gamma\right)$, for $\gamma \in \mathbb{R}$, which is the unitary operator associated with the Hamiltonian $H_{f}$.
+    \item The second block is of the form $\operatorname{Exp}\left(H_{B}, \beta\right)$, for $\beta \in \mathbb{R}$, which is the unitary operator associated with the Hamiltonian
+    $$
+    H_{B}=\sum_{i=1}^{n} R_{X, i}(\pi).
+    $$
+\end{itemize}
+Thus, the quantum circuit is
+\begin{equation*}
+U(\boldsymbol{\gamma}, \boldsymbol{\beta})=\operatorname{Exp}\left(H_{B}, \beta_{p}\right) \operatorname{Exp}\left(H_{f}, \gamma_{p}\right) \ldots \operatorname{Exp}\left(H_{B}, \beta_{1}\right) \operatorname{Exp}\left(H_{f}, \gamma_{1}\right) H^{\otimes n} \tag{22}
+\end{equation*}
+where the first gates applied in this circuit are $H^{\otimes n}$m, to then apply the $p$ layers to state $|+\rangle^{\otimes n}$. 
+
+The three propositions that follow express the quantum circuit of QAOA with the set of universal gates (see Theorem 13). We give first the general decomposition of the QAOA quantum circuit defined in (22), see Appendix B.2.1 for a proof.
+
+\begin{proposition}
+    Proposition 34 The first block $\operatorname{Exp}\left(H_{f}, \gamma\right)$ parametrized by $\gamma \in \mathbb{R}$ is
+$$
+\operatorname{Exp}\left(H_{f}, \gamma\right)=\prod_{\alpha \in\{0,1\}^{n}} \operatorname{Exp}\left(\bigotimes_{i=1}^{n} Z_{i}^{\alpha_{i}}, h_{\alpha} \gamma\right)
+$$
+The second block $\operatorname{Exp}\left(H_{B}, \beta\right)$ parametrized by $\beta \in \mathbb{R}$ is
+$$
+\operatorname{Exp}\left(H_{B}, \beta\right)=\bigotimes_{i=1}^{n} R_{X, i}(2 \beta)
+$$
+\end{proposition}
+
+\begin{remark}
+    The Kronecker sum satisfies the nice property
+$$
+\exp (A) \otimes \exp (B)=\exp (A \oplus B)
+$$
+(Horn and Johnson 1994, p. 208).
+$$
+e^{\mathrm{A}} e^{\mathrm{B}}=e^{\mathrm{A}+\mathrm{B}}
+$$
+holds only when $A$ and $B$ commute, i.e.,$[A, B]=A B-B A=0.$
+\end{remark}
+
+\begin{proof}
+Let $\gamma \in \mathbb{R}$ and let us consider the first block $\operatorname{Exp}\left(H_{f}, \gamma\right)$. By Definition 43, and because each pair of matrices of the family $\left\{\bigotimes_{i=1}^{n} Z_{i}^{\alpha_{i}}: \alpha=\left(\alpha_{1}, \ldots, \alpha_{n}\right) \in\{0,1\}^{n}\right\}$ commutes two by two, %two by two 两个一组地
+\begin{align*}
+\operatorname{Exp}\left(H_{f}, \gamma\right) & =e^{-i\left(\sum_{\alpha=\left(\alpha_{1}, \ldots, \alpha_{n}\right) \in(0,1)^{n}} h_{\alpha} \bigotimes_{i=1}^{n} Z_{i}^{\alpha_{i}}\right) \gamma}  \tag{23}\\
+& =\prod_{\alpha=\left(\alpha_{1}, \ldots, \alpha_{n}\right) \in\{0,1\}^{n}} e^{-i h_{\alpha} \bigotimes_{i=1}^{n} Z_{i}^{\alpha_{i}} \gamma}  \tag{24}\\
+& =\prod_{\alpha=\left(\alpha_{1}, \ldots, \alpha_{n}\right) \in\{0,1\}^{n}} \operatorname{Exp}\left(\bigotimes_{i=1}^{n} Z_{i}^{\alpha_{i}}, h_{\alpha} \gamma\right). \tag{25}
+\end{align*}
+
+Let $\beta \in \mathbb{R}$ and let us consider the second block $\operatorname{Exp}\left(H_{B}, \beta\right)$. For more readability, we write $X_{i}=R_{X, i}(\pi)$, the application of matrix $X=\left(\begin{array}{ll}0 & 1 \\ 1 & 0\end{array}\right)$ on qubit $i$. With the same development as above, and because each pair of matrices of the family $\left\{X_{i}: i \in[n]\right\}$ commutes two by two,
+$$
+\operatorname{Exp}\left(H_{B}, \beta\right)=\prod_{i=1}^{n} \operatorname{Exp}\left(X_{i}, \beta\right)
+$$
+Let $i \in[n]$. Thus,
+\begin{align*}
+\operatorname{Exp}\left(X_{i}, \beta\right) & =\sum_{k=0}^{\infty} \frac{1}{k!}(-i)^{k} \beta^{k} X_{i}^{k}  \tag{26}\\
+& =\sum_{k=0}^{\infty} \frac{1}{(2 k)!}(-i)^{2 k} \beta^{2 k} X_{i}^{2 k}+\sum_{k=0}^{\infty} \frac{1}{(2 k+1)!}(-i)^{(2 k+1)} \beta^{(2 k+1)} X_{i}^{(2 k+1)} \tag{27} \\
+& =\sum_{k=0}^{\infty} \frac{1}{(2 k)!}(-i)^{2 k} \beta^{2 k} I+\sum_{k=0}^{\infty} \frac{1}{(2 k+1)!}(-i)^{(2 k+1)} \beta^{(2 k+1)} X_{i}  \tag{28}\\
+& =\sum_{k=0}^{\infty} \frac{1}{(2 k)!}(-1)^{k} \beta^{2 k} I-i \sum_{k=0}^{\infty} \frac{1}{(2 k+1)!}(-1)^{k} \beta^{(2 k+1)} X_{i}  \tag{29}\\
+& =\cos (\beta) I-i \sin (\beta) X_{i}  \tag{30}\\
+& =R_{X, i}(2 \beta) \tag{31}
+\end{align*}
+where line (28) exploits the fact that $X^{2}=I$, implying $X^{2 k}=I$ and $X^{2 k+1}=X$. Moreover, line (29) applies the definition of the complex number $i$, and one can recognize the power series of cosines and sinus functions.
+\end{proof}
+
+The particular case of QUBO is mainly considered in the literature. 
+
+Thus, we propose next a decomposition of the QAOA quantum circuit for this specific case, see Appendix B.2.2 for a proof.
+
+\begin{proposition}
+    Proposition 35 For the case of QUBO, the expression of $\operatorname{Exp}\left(H_{f}, \gamma\right)$ simplifies in
+$$
+\operatorname{Exp}\left(H_{f}, \gamma\right)=\left(\bigotimes_{i=1}^{n} R_{Z, i}\left(2 h_{i i} \gamma\right)\right) \prod_{i<j} C X_{i, j} R_{Z, j}\left(2 h_{i, j} \gamma\right) C X_{i, j}
+$$
+and is rather easily implemented with universal quantum gates.
+\end{proposition}
+
+\begin{proof}
+    Proof Let $\gamma \in \mathbb{R}$. The application of (23)-(25) to the case of QUBO gives
+$$
+\begin{aligned}
+\operatorname{Exp}\left(H_{f}, \gamma\right) & =e^{-i\left(\sum_{i=1}^{n} h_{i i} Z_{i}+\sum_{i<j} h_{i j} Z_{i} \otimes Z_{j}\right) \gamma} \\
+& =\prod_{i=1}^{n} e^{-i Z_{i} h_{i i} \gamma} \prod_{i<j} e^{-i Z_{i} \otimes Z_{j} h_{i j} \gamma} \\
+& =\prod_{i=1}^{n} \operatorname{Exp}\left(Z_{i}, h_{i i} \gamma\right) \prod_{i<j} \operatorname{Exp}\left(Z_{i} \otimes Z_{j}, h_{i j} \gamma\right)
+\end{aligned}
+$$
+Then, let us prove that, for $i \in[n]$ and $t \in \mathbb{R}, \operatorname{Exp}\left(Z_{i}, t\right)=R_{Z, i}(2 t)$. The same development as above (28)-(30), replacing $X$ by $Z$ that have the same property $Z^{2}=I$, gives
+\begin{align*}
+\operatorname{Exp}\left(Z_{i}, t\right) & =\cos (t) I-i \sin (t) Z_{i}  \tag{32}\\
+& =R_{Z, i}(2 t) \tag{33}
+\end{align*}
+Eventually, line (32) is the application of the gate $\left(\begin{array}{cc}e^{-i t} & 0 \\ 0 & e^{i t}\end{array}\right)=R_{Z}(2 t)$ on qubit $i$, and the identity on the others.
+
+It remains to prove that, for $i<j \in[n]$ and $t \in \mathbb{R}, \operatorname{Exp}\left(Z_{i} \otimes Z_{j}, t\right)=$ $C X_{i, j} R_{Z, j}(2 t) C X_{i, j}$. Following the same developments as above, we have
+\begin{equation*}
+\operatorname{Exp}\left(Z_{i} \otimes Z_{j}, t\right)=\cos (t) I-i \sin (t) Z_{i} \otimes Z_{j} \tag{34}
+\end{equation*}
+We consider the two-qubit system that corresponds to the qubit $i$ as the first qubit and the qubit $j$ as the second qubit (the others are unchanged by the transformation). Thus, it remains to prove the equality of the two circuits depicted on Fig. 9.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/grange23-f9.png}
+\end{figure}
+On the one hand, (34) is the application of the gate $=\left(\begin{array}{cc}R_{Z}(2 t) & 0 \\ 0 & R_{Z}(-2 t)\end{array}\right)$ to this system. Indeed,
+
+$$
+\begin{aligned}
+\cos (t) I-i \sin (t) Z_{1} \otimes Z_{2} & =\cos (t)\left(\begin{array}{llll}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right)-i \sin (t)\left(\begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & -1 & 0 & 0 \\
+0 & 0 & -1 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right) \\
+& =\left(\begin{array}{cccc}
+e^{-i t} & 0 & 0 & 0 \\
+0 & e^{i t} & 0 & 0 \\
+0 & 0 & e^{i t} & 0 \\
+0 & 0 & 0 & e^{-i t}
+\end{array}\right) \\
+& =\left(\begin{array}{ccc}
+R_{Z}(2 t) & 0 & \\
+0 & R_{Z}(-2 t)
+\end{array}\right) .
+\end{aligned}
+$$
+
+On the other hand, the composition of gates $C X_{1,2} R_{Z, 2}(2 t) C X_{1,2}$ on this system amounts to
+$$
+\begin{aligned}
+C X_{1,2} R_{Z, 2}(2 t) C X_{1,2} & =\left(\begin{array}{cc}
+I & 0 \\
+0 & X
+\end{array}\right)\left(\begin{array}{cc}
+R_{Z}(2 t) & 0 \\
+0 & R_{Z}(2 t)
+\end{array}\right)\left(\begin{array}{ll}
+I & 0 \\
+0 & X
+\end{array}\right) \\
+& =\left(\begin{array}{cc}
+R_{Z}(2 t) & 0 \\
+0 & X R_{Z}(2 t) X
+\end{array}\right) \\
+& =\left(\begin{array}{cc}
+R_{Z}(2 t) & 0 \\
+0 & R_{Z}(-2 t)
+\end{array}\right) .
+\end{aligned}
+$$
+Thus, the proof results from replacing $t$ by appropriate values $h_{i i} \gamma$ for $i \in[n]$ and $h_{i j} \gamma$ for $i<j$.
+\end{proof}
+
+The decomposition in universal quantum gates of the term $\operatorname{Exp}\left(Z_{i} \otimes Z_{j}, t\right)$ for the specific case of QUBO (see Proposition 35) is mainly used in the literature. 

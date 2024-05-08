@@ -18,7 +18,7 @@
 
 ## Latex 和 overleaf 编译说明
 
-项目的主文档是 `main.tex`，只支持英文。有高质量的中文内容也请先找 GPT 翻译成英文。中文一般在注释中使用。
+项目的主文档是 `main.tex`，只支持英文和pdfLaTeX编译。有高质量的中文内容也请先找 GPT 翻译成英文。中文一般在注释中使用。
 
 本项目使用模板 [Legrand Orange Book Class](https://www.latextemplates.com/template/legrand-orange-book)。该模板的原始 `main.tex` 被重名为 `main_original.tex` 并放在 `.backup` 文件夹中。为了保证文档风格统一，尽量使用该模板自带各类数学环境。该模板中可用的常见数学环境如下：
 
@@ -34,7 +34,7 @@
 \begin{problem}
 ```
 
-如果有需求，可以自行定义新的数学环境（在 `LegrandOrangeBook.cls` 中）。并将其说明写到本 readme 文档中。
+如果有需求，可以自行定义新的数学环境（在 `LegrandOrangeBook.cls` 中定义，并且按照该模板的方式去自定义）。并将其说明写到本 readme 文档中。
 
 ## 其他工作说明
 

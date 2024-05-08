@@ -1,0 +1,108 @@
+\paragraph{Hermitian Matrices form a real Vector Space (only on real numbers)}
+
+\begin{theorem}
+    $H_n(\mathbb{C})$, the set of $n \times n$ Hermitian (complex-entry) matrices, forms a vector space over $\mathbb{R}$ with dimension $n^2$. Specially, it cannot be a vector space over $\mathbb{C}.$
+\end{theorem}
+
+\begin{remark}
+   In contract, $M_n(\mathbb{C})$, the set of $n \times n$ (complex-entry) matrices, forms a vector space over $\mathbb{C}$ with dimension $n^2$.
+\end{remark}
+
+\subparagraph{\href{https://math.stackexchange.com/questions/1630604/show-that-the-set-of-hermitian-matrices-forms-a-real-vector-space}{linear algebra - Show that the set of Hermitian matrices forms a real vector space - Mathematics Stack Exchange} 
+}
+I give you the intuition for $2 \times 2$ matrices that you can extend to the general case.
+An Hermitian $2 \times 2$ matrix has the form:
+$$
+\left[\begin{array}{ll}
+a & b \\
+\bar{b} & c
+\end{array}\right]
+$$
+with: $a, c \in \mathbb{R}$ and $b \in \mathbb{C}$ ($\bar{b}$ is the complex conjugate of $b)$.
+
+Now you can see that, for two matrices of this form, we have:
+$$
+\left[\begin{array}{ll}
+a & b \\
+\bar{b} & c
+\end{array}\right]+\left[\begin{array}{ll}
+x & y \\
+\bar{y} & z
+\end{array}\right]=\left[\begin{array}{ll}
+a+x & b+y \\
+\bar{b}+\bar{y} & c+z
+\end{array}\right]
+$$
+and, since $\bar{b}+\bar{y}=\overline{b+y}$ the result is a matrix of the same form, i.e. an Hermitian matrix.
+
+For the product we have:
+$$
+k\left[\begin{array}{ll}
+a & b \\
+\bar{b} & c
+\end{array}\right]=\left[\begin{array}{ll}
+k a & k b \\
+k \bar{b} & k c
+\end{array}\right]
+$$
+\textbf{so the result matrix is Hermitian only if $k$ is a real number}. Finally we see that the zero matrix is hermitian and the opposite of an Hermitian matrix is Hermitian, so th set of hermitian matrix is real vector space.
+
+For the basis: Note that an hermitian matrix can be expressed as a linear combination with real coefficients in the form:
+$$
+\left[\begin{array}{ll}
+a & b \\
+\bar{b} & c
+\end{array}\right]=a\left[\begin{array}{ll}
+1 & 0 \\
+0 & 0
+\end{array}\right]+\operatorname{Re}(b)\left[\begin{array}{ll}
+0 & 1 \\
+1 & 0
+\end{array}\right]+\operatorname{Im}(b)\left[\begin{array}{cc}
+0 & i \\
+-i & 0
+\end{array}\right]+c\left[\begin{array}{ll}
+0 & 0 \\
+0 & 1
+\end{array}\right]
+$$
+and ,since the four matrices at the right are linearly independent, these form a basis. 
+
+\begin{example}
+    Observe that
+$$
+i\left(\begin{array}{cc}
+0 & i \\
+-i & 0
+\end{array}\right)+\left(\begin{array}{cc}
+0 & 1 \\
+1 & 0
+\end{array}\right)=\left(\begin{array}{cc}
+0 & 0 \\
+2 & 0
+\end{array}\right)
+$$
+is a $\mathbb{C}$-linear combination of Hermitian matrices, and the result is not Hermitian.
+\end{example}
+
+
+\subparagraph{\href{https://math.stackexchange.com/questions/2840794/what-is-dimension-over-mathbb-r-of-the-space-of-n-times-n-hermitian-matrice}{linear algebra - What is dimension over \$\mathbb R\$ of the space of \$n\textbackslash{}times n\$ Hermitian matrices? - Mathematics Stack Exchange} 
+}
+I believe the best way to approach such a problem is to try come up with a basis for the vector space.
+
+The diagonal elements of such a matrix must be real in order to be equal to their complex conjugate. So the diagonal Hermitian matrices are spanned by the $n$ vectors
+$$
+\left(\begin{array}{lll}
+1 & & \\
+& \ldots & \\
+& & 0
+\end{array}\right),\left(\begin{array}{ccc}
+0 & & \\
+& \ldots & \\
+& & 1
+\end{array}\right) \text {. }
+$$
+
+Every other entry below the diagonal is the complex conjugate of the corresponding element above the diagonal, so the matrix is determined by the rest of the elements above the diagonal. Over $\mathbb{R}$, the basis for $\mathbb{C}$ is simply the vectors 1 and $i$. So there are two basis matrices for every position above the diagonal: the matrix which contains a 1 at position $(j, k)$ and the matrix which contains an $i$ at position $(j, k)$.
+
+This yields $n+\sum_{k=1}^{n-1} 2 k=n+2 \frac{n(n-1)}{2}=n^2$

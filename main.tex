@@ -70,7 +70,39 @@
 
 \usepackage[colorinlistoftodos]{todonotes}
 
+%贺立添加的包--------------------------------------------------------------
+\usepackage{graphicx} % Required for inserting images
+\usepackage{quantikz}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{ulem}
+\usepackage[thicklines]{cancel}
+\usepackage{tocbibind} % 加载宏包以添加目录到目录中
+\usepackage{caption}
+\captionsetup[figure]{labelsep=space}
 
+% 定义自定义的方框样式
+\mdfdefinestyle{mystyle}{
+	roundcorner=10pt,
+	backgroundcolor=blue!10,
+	frametitlerule=true,
+	frametitlebackgroundcolor=blue!20,
+}
+%----------------------------------------------------------------------
+
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{remark}{Remark}
+%\newtheorem{property}{Property}
+%\newtheorem{definition}{Definition}
+%\newtheorem{example}{Example}
+%\newtheorem{corollary}{Corollary}
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{postulate}{Postulate}
+%\newtheorem{proposition}{Proposition}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}} %注脚符号的注脚方式
 
 
 
@@ -224,11 +256,40 @@ A good understanding of quantum mechanics is based upon a solid grasp of linear 
 
 \input{II Notes of Papers/grange2023introduction/lai}
 
+
+
+
 %----------------------------------------------------------------------------------------
 %	PART III
 %----------------------------------------------------------------------------------------
 
-\part{Other Notes}
+% \part{Other Notes}
+
+% %Simon Algorithm-------------------------------------------------------------------------
+% \section{Simon Algorithm}
+% \subsection{Boolean Function}
+% \input{III Other Notes/Simon's Algorithm/1.Boolean Function}
+
+% \subsection{Simon's Problem}
+% \input{III Other Notes/Simon's Algorithm/2.Simon's Problem}
+
+% \subsection{Classical Algorithm}
+% \input{III Other Notes/Simon's Algorithm/3.Classical Algorithm}
+
+% \subsection{Simon's Algorithm}
+% \input{III Other Notes/Simon's Algorithm/4.Simon's Algorithm}
+
+% %Inexact Infeasible Interior Point Method------------------------------------------------
+% \section{Inexact Infeasible Interior Point Method}
+% \subsection{Primal-Dual Problem}
+% \input{III Other Notes/Inexact Infeasible Interior Point Method/1.Primal-Dual Problem}
+
+% \subsection{Newton Method and Newton System}
+% \input{III Other Notes/Inexact Infeasible Interior Point Method/2.Newton Method and Newton System}
+
+% \subsection{Modified Normal Equation System}
+% \input{III Other Notes/Inexact Infeasible Interior Point Method/3.Modified Normal Equation System}
+% % 立立加油       0.0
 
 %----------------------------------------------------------------------------------------
 %	Bibliography

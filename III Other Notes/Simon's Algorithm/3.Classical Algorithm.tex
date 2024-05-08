@@ -1,0 +1,114 @@
+The classical algorithm is to test distinct input values $\vec{x_1}, \vec{x_2}, \cdots$ until we find two input values $\vec{x_p}$ and $\vec{x_q}$ such that 
+
+$$
+f(\vec{x_p}) = f(\vec{x_q}),p \neq q.
+$$
+
+\begin{remark}
+If $\vec{s} \neq \vec{0}$, $\vec{s}$ is determined once we find two distinct input values $\vec{x}$ and $\vec{y}$ such that $f(\vec{x})=f(\vec{y})$ and we can get $\vec{s} = \vec{x} \oplus \vec{y}$. 
+\end{remark}
+	\begin{proof}
+		If we find two distinct $\vec{x}$ and $\vec{y}$ such that $f(\vec{x}) = f(\vec{y})$,  we get $\vec{y} =\vec{x} \oplus \vec{s}$. Then we have
+		$$
+		\begin{aligned}
+			\vec{y} & =\vec{x} \oplus \vec{s}, \\
+			\vec{x} \oplus \vec{y} & =\vec{x} \oplus \vec{x} \oplus \vec{s}, \\
+			\vec{x} \oplus \vec{y} & =\vec{0} \oplus \vec{s}(\because \vec{x} \oplus \vec{x}=\vec{0}), \\
+			\vec{x} \oplus \vec{y} & =\vec{s}.
+		\end{aligned}
+		$$
+	\end{proof}
+
+\begin{remark}
+If $\vec{s} = \vec{0}$, we can't find two distinct input values $\vec{x}$ and $\vec{y}$ such that $f(\vec{x})=f(\vec{y})$ until we have tested $2^{n-1}+1$ input values.
+\end{remark}
+
+\begin{mdframed}
+Given a special function $f(x)$ presented by Simon, suppose we have tested $m$ distinct input values $\vec{x_1}, \vec{x_2},\cdots, \vec{x_m}$ and we have
+
+$$
+f(\vec{x_i}) \neq f(\vec{x_j}), \forall i,j \in [m],i \neq j.
+$$ 
+
+Then we can get
+
+$$
+\vec{s} \neq \vec{x_i} \oplus \vec{x_j}, \forall i,j \in [m],i \neq j.
+$$
+
+Therefore we have eliminated \textbf{at most} $\frac{m(m-1)}{2}$ possible values of $\vec{s}$ from $\{0,1\}^n$.
+\end{mdframed}
+
+\begin{remark}
+Fewer possible values of $\vec{s}$ may have been eliminated if we test a new input value $\vec{w} = \vec{x} \oplus \vec{y} \oplus \vec{z}$, where $\vec{x}, \vec{y}, \vec{z}$ have already been tested.
+\end{remark}
+
+\begin{mdframed}
+We don't know which binary string is $\vec{s}$ in $\{0,1\}^n$. When we give the computer two distinct input values $\vec{\alpha}$, $\vec{\beta}$ and get two distinct output values $f(\vec{\alpha}),f(\vec{\beta})$. Then we say $\vec{\alpha} \oplus \vec{\beta}$ has been eliminated from possible values of $\vec{s}$. At the beginning, the possible values of $\vec{s}$ can be all nonzero elements in $\{0,1\}^n$.
+\end{mdframed}
+
+\begin{proof}
+Given a new input value $\vec{w}$ such that $\vec{w}=\vec{x} \oplus \vec{y} \oplus \vec{z}$, we have 
+$$
+\begin{aligned}
+	& \vec{w} \oplus \vec{z}=\vec{x} \oplus \vec{y} \oplus \vec{z} \oplus \vec{z}, \\
+	& \vec{w} \oplus \vec{z}=\vec{x} \oplus \vec{y} \oplus \vec{0} \quad(\because \vec{z} \oplus \vec{z}=0), \\
+	& \vec{w} \oplus \vec{z}=\vec{x} \oplus \vec{y}.
+\end{aligned}
+$$
+Therefore, $\vec{w} \oplus \vec{z}$ has already been eliminated from $\{0,1\}^n$.
+\end{proof}
+
+\begin{example}
+Consider the binary function $f_3(x)$
+$$
+\begin{array}{|r|r|}
+	\hline x & f_3(x) \\
+	\hline 0000,1001 & 1111 \\
+	\hline 0001,1000 & 0001 \\
+	\hline 0010,1011 & 1110 \\
+	\hline 0011,1010 & 1101 \\
+	\hline 0100,1101 & 0000 \\
+	\hline 0101,1100 & 0101 \\
+	\hline 0110,1111 & 1010 \\
+	\hline 0111,1110 & 1001 \\
+	\hline
+\end{array}
+$$
+where $s=1001$. If we have tested $0000$, $0001$ and $0010$, we get
+
+$$
+\begin{aligned}
+	\vec{s} \neq 0000 \oplus 0001 = 0001, \\
+	\vec{s} \neq 0000 \oplus 0010 = 0010, \\
+	\vec{s} \neq 0001 \oplus 0010 = 0011. \\
+\end{aligned}
+$$
+
+Then we test the new input value $0011$, which satisfies
+
+$$
+\begin{aligned}
+0011 &= 0000 \oplus 0001 \oplus 0010,\\
+0011 \oplus 0010 &= 0000 \oplus 0001 \oplus0010 \oplus0010 ,\\
+0011 \oplus 0010 &= 0000 \oplus 0001 (\because 0010 \oplus 0010 = 0000).
+\end{aligned}
+$$
+
+Since input values $0011$ and $0010$ have distinct output values, we get 
+
+$$
+\vec{s} \neq 0011 \oplus 0010 = 0000 \oplus 0001 = 0001.
+$$
+
+Here we note that $0001$ has already been verified that it can't be $\vec{s}$ by $0000$ and $0001$. After testing the forth binary string $0011$, we have
+$$
+\begin{aligned}
+	\vec{s} \neq 0011 \oplus 0000 = 0011, \\
+	\vec{s} \neq 0011 \oplus 0001 = 0010, \\
+	\vec{s} \neq 0011 \oplus 0010 = 0001. \\
+\end{aligned}
+$$
+
+So, in fact we've only eliminated $3 < \frac{4 \times 3}{2}$ possible values for $\vec{s}$ from $\{0,1\}^n$.
+\end{example}

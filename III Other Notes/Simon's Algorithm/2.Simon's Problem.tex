@@ -1,0 +1,106 @@
+\begin{definition}\label{Simon's Problem}
+Simon's \cite{simon1997power} problem is defined as follows: There exists a special vector-valued boolean function $f:\{0,1\}^n \rightarrow\{0,1\}^n$. Here $f$ satisfies the condition
+
+$$
+f(\vec{x})=f(\vec{y}) \iff \vec{y}=\vec{x}\oplus \vec{s},
+$$ 
+where $\vec{s}\in\{0,1\}^n$ is \textbf{unique}. Our objective is to determine the unique $\vec{s}$ by querying the function as few times as possible.
+\end{definition}
+
+\begin{remark}
+"Querying the function" once means we give an input value $\vec{x} \in \{0,1\}^n$ to the computer and obtain its corresponding output value $f(\vec{x})$.
+\end{remark}
+	
+\begin{mdframed}
+	Given $\vec{a}=a_1a_2...a_n$ and $\vec{b}=b_1b_2...b_n$, where $a_i\in\{0,1\}$, $b_i\in\{0,1\}$, $i\in[n]$, $\vec{a}\oplus \vec{b}$ is defined as   
+	\[
+	\vec{a}\oplus \vec{b}=c_1c_2...c_n,
+	\]
+	where
+	$$
+	c_i=\left\{\begin{array}{ll}
+		0 & \text { if } a_i = b_i, \\
+		1 & \text { otherwise },
+	\end{array} \forall i=1, \ldots, n.\right.
+	$$
+\end{mdframed}
+
+%	According to the special vector-valued boolean function given by Simon, we can get
+%	$$
+%	\begin{aligned}
+%		\vec{y} & =\vec{x} \oplus \vec{s}， \\
+%		\vec{y} \oplus \vec{s} & =\vec{x} \oplus \vec{s} \oplus \vec{s}， \\
+%		\vec{y} \oplus \vec{s} & =\vec{x} \oplus \overrightarrow{0}(\because \vec{s} \oplus \vec{s}=\overrightarrow{0})， \\
+%		\vec{y} \oplus \vec{s} & =\vec{x}.
+%	\end{aligned}
+%	$$
+	
+\begin{property}
+If $\vec{s}=\vec{0}$, the $f$ in \textbf{Definition} \ref{Simon's Problem} is \textbf{one-to-one}. In this case, there exist $2^n !$ distinct vector-valued boolean functions that satisfy the condition in \textbf{Definition} \ref{Simon's Problem}.
+\end{property}
+
+\begin{proof}
+If $\vec{s} = \vec{0}$, we can get
+
+$$
+f(\vec{x})=f(\vec{y}) \iff \vec{y}=\vec{x}\oplus \vec{0} = \vec{x}.
+$$
+
+This implies that for any two distinct input values $\vec{\alpha}$ and $\vec{\beta}$, where $\vec{\alpha} \neq \vec{\beta}$, the output values $f(\vec{\alpha})$ and $f(\vec{\beta})$ will be distinct as well. Since there are $2^n$ input values and $2^n$ output values, the total number of possible vector-valued boolean functions is
+
+$$
+2^n \times (2^n-1) \times \cdots \times 2 \times 1 = 2^n!
+$$
+\end{proof}
+
+For example, the function 
+$$
+\begin{array}{|r|r|}
+	\hline x & f_1(x) \\
+	\hline 00 & 11 \\
+	\hline 01 & 10 \\
+	\hline 10 & 01 \\
+	\hline 11 & 00 \\
+	\hline
+\end{array}
+$$
+is one-to-one, where $\vec{s}=00$.
+
+\begin{property}
+If $\vec{s} \neq \vec{0}$, the special function $f$ presented by Simon is \textbf{two-to-one}. In this case, there exist $P^{2^n}_{2^{n-1}}$ distinct vector-valued boolean functions that satisfy condition in \textbf{Definition} \ref{Simon's Problem}.
+\end{property}
+
+\begin{mdframed}
+Here "two-to-one" means for any output value $f(\vec{\alpha})$ there are only two input values $\vec{\alpha}$ and $\vec{\alpha} \oplus \vec{s}$ corresponding to it.
+\end{mdframed}
+
+\begin{proof}
+Given two distinct input values $\vec{x}$ and $\vec{y}$ that satisfy $f(\vec{x}) = f(\vec{y})$, we get
+
+$$
+\begin{aligned}
+	\vec{y} & =\vec{x} \oplus \vec{s}， \\
+	\vec{y} \oplus \vec{s} & =\vec{x} \oplus \vec{s} \oplus \vec{s}， \\
+	\vec{y} \oplus \vec{s} & =\vec{x} \oplus \vec{0}(\because \vec{s} \oplus \vec{s}=\vec{0})， \\
+	\vec{y} \oplus \vec{s} & =\vec{x}.
+\end{aligned}
+$$
+
+So, for each output value $f(\vec{x})$, there exist \textbf{only two} corresponding input values $\vec{x}$ and $\vec{x} \oplus \vec{s}$. Since there are $2^n$ input values and $2^{n-1}$ output values, the total number of possible vector-valued boolean functions is
+
+$$
+2^n \times (2^n-1) \times \cdots \times (2^{n-1}+2) \times (2^{n-1}+1) = P^{2^n}_{2^{n-1}}.
+$$
+\end{proof}
+
+For example, the function 
+
+$$
+\begin{array}{|r|r|}
+	\hline x & f_2(x) \\
+	\hline 00,01 & 00 \\
+	\hline 10,11 & 11 \\
+	\hline
+\end{array}
+$$
+is two-to-one, where $\vec{s}=01$.
