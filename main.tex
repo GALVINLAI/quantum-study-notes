@@ -35,7 +35,7 @@
 
 \documentclass[
 	11pt, % Default font size, select one of 10pt, 11pt or 12pt
-	fleqn, % Left align equations
+	%fleqn, % Left align equations(控制公式是否行偏左)
 	a4paper, % Paper size, use either 'a4paper' for A4 size or 'letterpaper' for US letter size
 	%oneside, % Uncomment for oneside mode, this doesn't start new chapters and parts on odd pages (adding an empty page if required), this mode is more suitable if the book is to be read on a screen instead of printed
 ]{LegrandOrangeBook}
@@ -73,8 +73,7 @@
 %贺立添加的包--------------------------------------------------------------
 \usepackage{graphicx} % Required for inserting images
 \usepackage{quantikz}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+\usepackage{csquotes} % 加载 csquotes 宏包
 \usepackage{amsthm}
 \usepackage{mdframed}
 \usepackage{xcolor}
@@ -85,12 +84,12 @@
 \captionsetup[figure]{labelsep=space}
 
 % 定义自定义的方框样式
-\mdfdefinestyle{mystyle}{
-	roundcorner=10pt,
-	backgroundcolor=blue!10,
-	frametitlerule=true,
-	frametitlebackgroundcolor=blue!20,
-}
+% \mdfdefinestyle{mystyle}{
+% 	roundcorner=10pt,
+% 	backgroundcolor=blue!10,
+% 	frametitlerule=true,
+% 	frametitlebackgroundcolor=blue!20,
+% }
 %----------------------------------------------------------------------
 
 %\newtheorem{theorem}{Theorem}
@@ -185,62 +184,62 @@
 
 \chapter{Introduction to quantum mechanics}
 
-\section{Linear algebra}
+\section{Linear algebra} % 虽然是熟悉的标准线代证明，但是需希望你能看看。主要是要熟悉bra-ket符号。已经复数向量空间的特殊情况。（相比于实数向量空间而言）
 
 A good understanding of quantum mechanics is based upon a solid grasp of linear algebra.
 
 %   1.1.1 vector space
-\subsection{vector space}
+\subsection{vector space} % Done
 \input{I Notes of NC book/1.1 Linear algebra/1.1.1 Vector Space}
 
 %   1.1.2 Bases and linear independence
-\subsection{Bases and linear independence}
+\subsection{Bases and linear independence} % Done
 \input{I Notes of NC book/1.1 Linear algebra/1.1.2 Bases and linear independence}
 
 %   1.1.3 Linear operators and matrices
-\subsection{Linear operators and matrices}
+\subsection{Linear operators and matrices} % Done
 \input{I Notes of NC book/1.1 Linear algebra/1.1.3 Linear operators and matrices}
 
 %   1.1.4 The Pauli matrices
-\subsection{The Pauli matrices}
+\subsection{The Pauli matrices} % Done
 \input{I Notes of NC book/1.1 Linear algebra/1.1.4 The Pauli matrices}
 
 %   1.1.5 Inner products
-\subsection{Inner products}
+\subsection{Inner products} % Done
 \input{I Notes of NC book/1.1 Linear algebra/1.1.5 Inner products}
 
 %   1.1.6 Outer product
-\subsection{Outer product}
+\subsection{Outer product} % Done
 \input{I Notes of NC book/1.1 Linear algebra/1.1.6 Outer product}
 
 %   1.1.7 Eigenvectors and eigenvalues
-\subsection{Eigenvectors and eigenvalues}
+\subsection{Eigenvectors and eigenvalues} % Done
 \input{I Notes of NC book/1.1 Linear algebra/1.1.7 Eigenvectors and eigenvalues}
 
 %   1.1.8 Adjoints and Hermitian operators
-\subsection{Adjoints and Hermitian operators}
+\subsection{Adjoints and Hermitian operators} % Done
 \input{I Notes of NC book/1.1 Linear algebra/1.1.8 Adjoints and Hermitian operators}
 
 %   1.1.9 Tensor products
-\subsection{Tensor products}
+\subsection{Tensor products} % Done
 \input{I Notes of NC book/1.1 Linear algebra/1.1.9 Tensor products}
 
 %   1.1.10 Operator functions
-\subsection{Operator functions}
+\subsection{Operator functions} % 2024-5-8 todo
 \input{I Notes of NC book/1.1 Linear algebra/1.1.10 Operator functions}
 
 %   1.1.11 The commutator and anti-commutator
-\subsection{The commutator and anti-commutator}
+\subsection{The commutator and anti-commutator} % 2024-5-8 todo
 \input{I Notes of NC book/1.1 Linear algebra/1.1.11 The commutator and anti-commutator}
 
 %   1.1.12 The polar and singular value decomposition
-\subsection{The polar and singular value decomposition}
+\subsection{The polar and singular value decomposition} % 2024-5-8 todo
 \input{I Notes of NC book/1.1 Linear algebra/1.1.12 The polar and singular value decomposition}
 
-\subsection{Partial trace}
+\subsection{Partial trace} % Done
 \input{I Notes of NC book/1.1 Linear algebra/partial trace.tex}
 
-\subsection{Discrete Fourier transform}
+\subsection{Discrete Fourier transform} % Done
 \input{I Notes of NC book/1.2 Other Math/discrete Fourier transform}
 
 
@@ -263,32 +262,33 @@ A good understanding of quantum mechanics is based upon a solid grasp of linear 
 %	PART III
 %----------------------------------------------------------------------------------------
 
-% \part{Other Notes}
+\part{Other Notes}
 
-% %Simon Algorithm-------------------------------------------------------------------------
-% \section{Simon Algorithm}
-% \subsection{Boolean Function}
-% \input{III Other Notes/Simon's Algorithm/1.Boolean Function}
+%Simon Algorithm-------------------------------------------------------------------------
+\chapter{Quantum Algorithms and Optimization}
+\section{Simon Algorithm}
+\subsection{Boolean Function}
+\input{III Other Notes/Simon's Algorithm/1.Boolean Function}
 
-% \subsection{Simon's Problem}
-% \input{III Other Notes/Simon's Algorithm/2.Simon's Problem}
+\subsection{Simon's Problem}
+\input{III Other Notes/Simon's Algorithm/2.Simon's Problem}
 
-% \subsection{Classical Algorithm}
-% \input{III Other Notes/Simon's Algorithm/3.Classical Algorithm}
+\subsection{Classical Algorithm to Solve Simon's Problem}
+\input{III Other Notes/Simon's Algorithm/3.Classical Algorithm}
 
-% \subsection{Simon's Algorithm}
-% \input{III Other Notes/Simon's Algorithm/4.Simon's Algorithm}
+\subsection{Simon's Algorithm to Solve Simon's Problem}
+\input{III Other Notes/Simon's Algorithm/4.Simon's Algorithm}
 
-% %Inexact Infeasible Interior Point Method------------------------------------------------
-% \section{Inexact Infeasible Interior Point Method}
-% \subsection{Primal-Dual Problem}
-% \input{III Other Notes/Inexact Infeasible Interior Point Method/1.Primal-Dual Problem}
+%Inexact Infeasible Interior Point Method------------------------------------------------
+\section{Inexact Infeasible Interior Point Method}
+\subsection{Primal-Dual Problem}
+\input{III Other Notes/Inexact Infeasible Interior Point Method/1.Primal-Dual Problem}
 
-% \subsection{Newton Method and Newton System}
-% \input{III Other Notes/Inexact Infeasible Interior Point Method/2.Newton Method and Newton System}
+\subsection{Newton Method and Newton System}
+\input{III Other Notes/Inexact Infeasible Interior Point Method/2.Newton Method and Newton System}
 
-% \subsection{Modified Normal Equation System}
-% \input{III Other Notes/Inexact Infeasible Interior Point Method/3.Modified Normal Equation System}
+\subsection{Modified Normal Equation System}
+\input{III Other Notes/Inexact Infeasible Interior Point Method/3.Modified Normal Equation System}
 % % 立立加油       0.0
 
 %----------------------------------------------------------------------------------------

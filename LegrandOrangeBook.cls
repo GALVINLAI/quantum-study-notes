@@ -502,7 +502,7 @@
 	urlcolor=ocre, % Color for \url and \href links
 	linkcolor=black, % Color for \ref/\nameref links
 	citecolor=ocre, % Color for reference citations like \cite{}
-	hyperindex=true, % Adds links from the page numbers in the index to the relevant page
+	%hyperindex=true, % Adds links from the page numbers in the index to the relevant page
 	linktoc=all, % Link from section names and page numbers in the table of contents
 }
 
@@ -628,6 +628,9 @@
 \theoremstyle{blacknumbox}
 \newtheorem{definitionT}{Definition}[chapter] % Definitions, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
 \newtheorem{corollaryT}{Corollary}[chapter] % Corollaries, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+
+%HL添加的新的newtheorem-------------------------------------------------------------------
+\newtheorem{property}{Property}[chapter]
 
 %----------------------------------------------------------------------------------------
 %	COLORED THEOREM BOXES

@@ -1,0 +1,197 @@
+Given a nonlinear function $F:\mathbb{R}^n \rightarrow \mathbb{R}^n$ and a small $\epsilon>0$, our goal is to find an approximation solution $\tilde{x}$ such that $\lVert \tilde{x}-\bar{x} \rVert<\epsilon$, where $F(\bar{x})=0$.  Newton method is an iterative numerical method for solving nonlinear equations problems. Given the $k$-th point $x^k$, we can find the $(k+1)$-th point by calculating
+\begin{equation}
+x^{k+1} = x^k-(\nabla F(x^k))^{-1}F(x^k).
+\end{equation}
+By observing the Newton Method, we can get
+\begin{equation}
+\nabla F(x^k) \Delta x^k= -F(x^k).
+\end{equation}
+
+For a given $\left(x, y, s\right) $, a parameter $\mu=\frac{\left(x\right)^{\top} s}{n}$ and a centering parameter $0<\beta_1<1$, let $(\Delta \mathrm{x}, \Delta \mathrm{y}, \Delta \mathrm{z})$ be the direction of the Newton method applied to the system of
+\begin{equation}\label{original}
+\left\{
+\begin{aligned}
+& A x = b, \\
+& A^T y + s = c, \\
+& X s = \beta_1\mu e, \\
+& (x, s) \geq 0.
+\end{aligned}
+\right.
+\end{equation}
+Then we define $F:\mathbb{R}^{n+m+n} \rightarrow \mathbb{R}^{m+n+n}$ as
+\begin{equation}
+F(x, y, s)=\left[\begin{array}{l}
+A x-b \\
+A^T y+s-c \\
+X s-\beta_1\mu e
+\end{array}\right].
+\end{equation}
+So the problem (\ref{original}) is equivalent to find a solution $(x, y, s) \in \mathbb{R}^{n+m+n}$ such that
+$$
+F(x, y, s)=0 \text { and } (x, s) \geq 0.
+$$
+
+The Jacobian of $F(x,y,s)$ is defined as 
+$$
+\nabla F(x, y, s)=\left[\begin{array}{ccc}
+A & 0 & 0 \\
+0 & A^{\top} & E \\
+S & 0 & X
+\end{array}\right] \in \mathbb{R}^{(n+m+n) \times (n+m+n)}.
+$$
+\begin{definition}
+The \textbf{Full Newton System} is defined as
+$$
+\nabla F(x, y, s)\left[\begin{array}{l}
+\Delta x \\
+\Delta y \\
+\Delta s
+\end{array}\right]=-F(x, y, s) .
+$$
+\end{definition}
+That is to say
+\begin{equation}\label{FNS}
+\left[\begin{array}{ccc}
+A & 0 & 0 \\
+0 & A^T & E \\
+S & 0 & X
+\end{array}\right]\left[\begin{array}{c}
+\Delta x \\
+\Delta y \\
+\Delta s
+\end{array}\right]=\left[\begin{array}{l}
+b-A x \\
+c-A^{\top} y-s \\
+\beta_1 \mu e-Xs
+\end{array}\right].
+\end{equation}
+By expanding and solving (\ref{FNS}), we get linear equations as
+\begin{equation}\label{expanding of FNS}
+\left\{
+\begin{aligned}
+A \Delta x & =b-A x, \\
+A^{\top} \Delta y+\Delta s & =c-A^{\top} y-s, \\
+X \Delta s+S \Delta x & =\beta_1 \mu e-X s .
+\end{aligned}
+\right.
+\end{equation}
+By solving (\ref{expanding of FNS}), the Newton direction $(\Delta x, \Delta y, \Delta z)$ can be represented as 
+\begin{equation}\label{solution of FNS}
+\left\{
+\begin{aligned}
+\Delta y= 
+& -\left(A S^{-1} X A^{\top}\right)^{-1} \\
+& \left(A S^{-1}\left(\beta_1\mu e-X s\right)+\left(A x-b\right)+A S^{-1} X\left(A^{\top} y+s-c\right)\right), \\
+\Delta s = &f_1(\Delta y) := -A^{\top} \Delta y-\left(A^{\top} y+s-c\right), \\
+\Delta x = &f_2(\Delta s) := -S^{-1} X \Delta s+\beta_1\mu S^{-1} e-x.
+\end{aligned}
+\right.
+\end{equation}
+It is clear that $\Delta s$ is a function of $\Delta y$, and $\Delta x$ is a function of $\Delta s$. According to 
+$$
+\left\{
+\begin{aligned}
+\Delta y= 
+& -\left(A S^{-1} X A^{\top}\right)^{-1} \\
+& \left(A S^{-1}\left(\beta_1\mu e-X s\right)+\left(A x-b\right)+A S^{-1} X\left(A^{\top} y+s-c\right)\right), \\
+\Delta s = &f_1(\Delta y) := -A^{\top} \Delta y-\left(A^{\top} y+s-c\right), \\
+\Delta x = &f_2(\Delta s) := -S^{-1} X \Delta s+\beta_1\mu S^{-1} e-x,
+\end{aligned}
+\right.
+$$
+as soon as we have obtained $\Delta y$, we can logically obtain $\Delta s=f_1(\Delta y)$ and $\Delta x=f_2(\Delta s)$. So now the focus is on how to find the $\Delta y$.
+
+\begin{definition}
+From the Full Newton system (\ref{FNS}), the \textbf{Normal Equation System} (NES) is formulated as
+\begin{equation}\label{NES}
+    M \Delta y=\sigma,
+\end{equation}
+where
+$$
+\begin{aligned}
+    M & = A S^{-1} X A^{\top} ,\\
+    \sigma & =b-\beta_1 \mu A\left(S\right)^{-1} e+AS^{-1}X\left(c-A^{\top} y-s\right).
+\end{aligned}
+$$
+\end{definition}
+An exact solution $\Delta y$ to the NES (\ref{NES}) satisfies
+$$
+M \Delta y = \sigma.
+$$
+An inexact solution $\widetilde{\Delta y}$ to the NES (\ref{NES}) leads to residual $r$ as
+$$
+M \widetilde{\Delta y} = \sigma+r,
+$$
+where $r=M\left(\widetilde{\Delta y}-\Delta y\right)$. After finding an inexact solution $\widetilde{\Delta y}$, we compute the inexact $\widetilde{\Delta x}$ and $\widetilde{\Delta s}$ as
+$$
+\begin{aligned}
+    & \widetilde{\Delta s} = f_1(\widetilde{\Delta y}), \\
+    & \widetilde{\Delta x} = f_2(\widetilde{\Delta s}).
+\end{aligned}
+$$
+We can verify that $\left(\widetilde{\Delta x}, \widetilde{\Delta s}, \widetilde{\Delta y}\right)$ satisfies
+$$
+\left\{
+\begin{aligned}
+    A \widetilde{\Delta x} & =b-A x +r, \\
+    A^{\top} \widetilde{\Delta y}+\widetilde{\Delta s} & =c-A^{\top} y-s, \\
+    X \widetilde{\Delta s}+S \widetilde{\Delta x} & =\beta_1 \mu e-X s .
+\end{aligned}
+\right.
+$$
+Only the first equation has one more term $r$ compared with the Full Newton System (\ref{FNS}). In other words, the $(\widetilde{\Delta x} , \widetilde{\Delta y} , \widetilde{\Delta s} )$ obtained from NES (\ref{NES}) satisfies
+$$
+\nabla F(x, y, s)\left[\begin{array}{l}
+\widetilde{\Delta x}  \\
+\widetilde{\Delta y}  \\
+\widetilde{\Delta s} 
+\end{array}\right]=-F(x, y, s)+\left[\begin{array}{l}
+r \\
+0 \\
+0
+\end{array}\right].
+$$
+Before continuing the discussion, we must introduce the definition of condition number.
+\begin{definition}
+The condition number associated with the linear equation $Ax = b$ gives a bound on how inaccurate the solution $x$ will be after approximation. If $A$ is normal ($AA^{\top}=A^{\top}A$), then
+$$
+\kappa(A)=\frac{\left|\lambda_{\max }(A)\right|}{\left|\lambda_{\min }(A)\right|},
+$$
+where $\lambda_{\max }(A)$ and $\lambda_{\min }(A)$ are maximal and minimal eigenvalues of $A$ respectively.
+\end{definition}
+
+We are given a NES such as 
+$$
+M \Delta y=\sigma,
+$$
+where
+$$
+\begin{aligned}
+D & = (S^{-1} X)^{\frac{1}{2}},\\
+M & = A D^2 A^{\top}.
+\end{aligned}
+$$
+Large condition numbers in $M$ can cause numerical instability and complicate the solution process. Preconditioner can reduce matrix condition numbers and improve solution stability and accuracy.  \cite{monteiro2004uniform} proposed a procedure to generate a preconditioner to improve the condition number of $M$ in the NES. The inputs are
+
+$$
+A \in \mathbb{R}^{m \times n} \text { and } d=\left[\begin{array}{c}
+\frac{x_1^k}{s_1^k} \\
+\vdots \\
+\frac{x_n^k}{s_n^k}
+\end{array}\right] \in \mathbb{R}_{++}^n,
+$$
+where $rank(A)=m$. Then their method will output four matrices 
+
+$$
+\begin{aligned}
+& A_{\mathcal{B}}, D_{\mathcal{B}} \in \mathbb{R}^{m \times m}, \\
+& A_{\mathcal{N}}, D_{\mathcal{N}} \in \mathbb{R}^{(n-m) \times (n-m)}.
+\end{aligned}
+$$
+The matrix $R=D_{\mathcal{B}}^{-1} A_{\mathcal{B}}^{-1} \in \mathbb{R}^{m \times m}$ is called preconditioner.
+%	where $D_{\mathcal{B}}=\operatorname{Diag}\left(d_{\mathcal{B}}\right)$ and $D_{\mathcal{N}}=\operatorname{Diag}\left(d_{\mathcal{N}}\right)$. 
+Then they gave an important bound such that
+
+$$
+\operatorname{cond}\left(R M R^{\top}\right) \leq m \left\|A_{\mathcal{B}}^{-1} A\right\|^2.
+$$

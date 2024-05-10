@@ -84,7 +84,6 @@ $$
 	\vec{s} \neq 0001 \oplus 0010 = 0011. \\
 \end{aligned}
 $$
-
 Then we test the new input value $0011$, which satisfies
 
 $$
@@ -94,13 +93,11 @@ $$
 0011 \oplus 0010 &= 0000 \oplus 0001 (\because 0010 \oplus 0010 = 0000).
 \end{aligned}
 $$
-
 Since input values $0011$ and $0010$ have distinct output values, we get 
 
 $$
 \vec{s} \neq 0011 \oplus 0010 = 0000 \oplus 0001 = 0001.
 $$
-
 Here we note that $0001$ has already been verified that it can't be $\vec{s}$ by $0000$ and $0001$. After testing the forth binary string $0011$, we have
 $$
 \begin{aligned}
@@ -109,6 +106,5 @@ $$
 	\vec{s} \neq 0011 \oplus 0010 = 0001. \\
 \end{aligned}
 $$
-
 So, in fact we've only eliminated $3 < \frac{4 \times 3}{2}$ possible values for $\vec{s}$ from $\{0,1\}^n$.
 \end{example}
