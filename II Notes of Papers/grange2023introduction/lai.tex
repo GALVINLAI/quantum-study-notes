@@ -408,7 +408,7 @@ A popular choice for the guiding function in the literature is the \textit{mean 
 \begin{equation*}
 g_{\text {mean }}(\theta)=\sum_{x \in\{0,1\}^{n}} p_{\theta}(x) f(x), \tag{14}
 \end{equation*}
-where 
+where
 $$
 p_{\theta}(x)=\left|\left\langle x|U(\theta)| 0_{n}\right\rangle\right|^{2}
 $$
@@ -532,7 +532,7 @@ First, we transform the $\{0,1\}$ problem (1) into a $\{-1,1\}$-problem. For tha
 \begin{equation*}
 z_{i}=1-2 x_{i}, \forall i \in[n]. \tag{20}
 \end{equation*}
-(Note that $x_{i}=0$ iff $z_i=1$, $x_{i}=1$ iff $z_i=-1.$) This leads to the problem
+(Note that $x_{i}=0$ iff $z_i=1$ and $x_{i}=1$ iff $z_i=-1.$) This leads to the problem
 $$
 \min _{z \in\{-1,1\}^{n}} f_{ \pm}(z)
 $$
@@ -561,7 +561,8 @@ Notice that $Z$ is equal to the universal gate $R_{Z}(\pi)$ modulo a global phas
 \begin{proof}
     First, the eigenvectors of $H_{f}$ are the canonical basis states. Indeed, each term of the sum that constitutes $H_{f}$ is a tensor product of $n$ matrices $I$ or $Z$, both diagonal\footnote{The tensor product of two diagonal matrices is also diagonal}. Thus, $H_{f}$ is a $2^{n}$ diagonal matrix. 
     
-    Second, let us find the eigenvalues associated with the eigenvectors. Let $|x\rangle=\left|x_{1} \ldots x_{n}\right\rangle$ be in $\mathcal{C B}_{n}$. Let $z=\left(z_{1}, \ldots, z_{n}\right)$ be the result of transformation (20). Thus, we can easily show that $$
+    Second, let us find the eigenvalues associated with the eigenvectors. Let $|x\rangle=\left|x_{1} \ldots x_{n}\right\rangle$ be in $\mathcal{C B}_{n}$. Let $z=\left(z_{1}, \ldots, z_{n}\right)$ be the result of transformation (20). Thus, we can easily show that 
+$$
 Z^{0}\left|x_{i}\right\rangle=I\left|x_{i}\right\rangle=z_{i}^{0}\left|x_{i}\right\rangle,Z^{1}\left|x_{i}\right\rangle=Z\left|x_{i}\right\rangle=z_{i}^{1}\left|x_{i}\right\rangle, \forall i \in[n],
 $$
 and

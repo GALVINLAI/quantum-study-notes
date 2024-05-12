@@ -2,6 +2,8 @@
 
 本 readme 文件，欢迎大家自由编辑。
 
+github 地址：https://github.com/GALVINLAI/quantum-study-notes
+
 ## 项目说明
 
 本项目是用来汇总大家在学习量子计算过程中的各类笔记，以做到取长补短，互通有无。
