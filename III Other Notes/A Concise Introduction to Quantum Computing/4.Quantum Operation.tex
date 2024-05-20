@@ -1,0 +1,46 @@
+\begin{definition}
+    \begin{itemize}
+    \item An \textbf{operation} applied by a quantum computer with $q$ qubits, also called a \textbf{gate}, is an unitary matrix in $\mathbb{C}^{2^q \times 2^q}$.
+    \item A matrix $U$ is unitary if $U^* U=U U^*=I$.
+    \end{itemize}  
+\end{definition}
+ 
+
+\begin{property}\label{property_1}
+    A well-known property of unitary matrices is that they are \textbf{norm-preserving}; that is, given an unitary matrix $U\in\mathbb{C}^{n\times n}$ and a vector $v\in\mathbb{C}^{n},\|U v\|=\|v\|$. 
+\end{property}
+\begin{proof}
+    $$
+    \begin{aligned}
+    & \mathbf{x} \in \mathbb{C}^n, U \in \mathbb{C}^{n \times n} \\
+    & \|\mathbf{x}\|=\sqrt{\mathbf{x}^* \mathbf{x}} \\
+    & \|U \mathbf{x}\|=\sqrt{(U \mathbf{x})^*(U \mathbf{x})}=\sqrt{\mathbf{x}^* U^* U \mathbf{x}}=\sqrt{\mathbf{x}^* \mathbf{x}}
+    \end{aligned}
+    $$
+\end{proof}
+
+This leads to the following remarks:
+\begin{itemize}
+    \item Quantum operations are linear.
+    \item Quantum operations are reversible, $U^{-1}=U^*$.
+    \item For a $q$-qubit system, the quantum state is a unit vector $|\psi\rangle \in \mathbb{C}^{2^q}$, a quantum operation is a matrix $U \in \mathbb{C}^{2^q \times 2^q}$, and the application of $U$ onto the state $|\psi\rangle$ is the unit vector $U|\psi\rangle \in \mathbb{C}^{2^q}$.
+    \item The state before an operation is called \textbf{input state} and the state after an operation is called \textbf{output state}.
+\end{itemize}
+
+\begin{center}
+\begin{quantikz}
+    \lstick{input state} & \gate{U} & \qw\rstick{output state} 
+\end{quantikz}
+\end{center}
+
+A \textbf{quantum circuit} is represented by indicating which operations are performed on each qubit, or group of qubits. For a quantum computer with $q$ qubits, we represent $q$ qubit lines, where the top line indicates qubit 1 and the rest are given in increasing order from the top. Operations are represented as gates; \textbf{from now, operation and gate have the same meaning}. 
+
+\begin{center}
+\begin{quantikz}
+    \lstick{qubit 1} & \gate{Gate_1} &\qw\\
+    \lstick{qubit 2} & \gate{Gate_2} &\qw\\
+    \lstick{qubit 3} & \gate{Gate_3} &\qw\\
+    \vdots &\\
+    \lstick{qubit q} & \gate{Gate_q} &\qw\\
+\end{quantikz}
+\end{center}

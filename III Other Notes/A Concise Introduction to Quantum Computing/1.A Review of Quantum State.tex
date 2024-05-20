@@ -1,0 +1,81 @@
+In this handout, \textit{tenor product} and \textit{Kronecker product} refer to the same concept. The following phrases have the same meaning.
+\begin{itemize}
+    \item state of a $q$-qubit quantum register
+    \item state of a $q$-qubit register
+    \item state of a $q$-qubit
+    \item $q$-qubit state
+    \item $q$-qubit
+    \item $q$ qubits
+    \item a \textbf{quantum state} $|\psi\rangle \in\left(\mathbb{C}^2\right)^{\otimes q}$
+    \item (Assumption 2.1 in original paper) a \textbf{unit vector} $|\psi\rangle$ in the tensor space $\left(\mathbb{C}^2\right)^{\otimes q}=\underbrace{\mathbb{C}^2 \otimes \cdots \otimes \mathbb{C}^2}_{q \text { times }}$, or we can write
+    \begin{equation*}
+        |\psi\rangle=\sum_{\vec{\jmath} \in\{0,1\}^q} \alpha_{\vec{\jmath}}|\vec{\jmath}\rangle_q \text { with } \alpha_{\vec{\jmath}} \in \mathbb{C} \text { and } \sum_{\vec{\jmath} \in\{0,1\}^q}\left|\alpha_{\vec{\jmath}}\right|^2=1.
+    \end{equation*}
+    
+\end{itemize}
+
+\begin{remark}
+    Mathematically, $q$-qubit is \textit{just} the unit vector in the complex Euclidean space $\left(\mathbb{C}^2\right)^{\otimes q} \equiv \mathbb{C}^{2^q} $. Note that it potentially has a unit length constraint. The usual linear operations, e.g., $|\psi\rangle + |\phi\rangle$ , will break this property, but tensor product will not. See Lemma \ref{lem1}.
+\end{remark}
+
+\begin{remark}
+    Here a manifold appears. The set of all 1-qubit is a \textbf{complex sphere}, $\left\{|\psi\rangle \in \mathbb{C}^{2}:\||\psi\rangle\|=1\right\}$.
+\end{remark}
+
+\begin{remark}
+    Don't be confused: ''a $q$-qubits state'' and ''q 1-qubit states'' are different concepts.
+\end{remark}
+
+
+The next lemma shows that the tensor product of two unit vectors is also a unit vector.
+\begin{lemma}\label{lem1}
+ Let $\mathbf{x} \in \mathbb{C}^m,\mathbf{y} \in \mathbb{C}^n$ and $ \sum_{i=1}^m\left|x_i\right|^2=1, \sum_{j=1}^n\left|y_j\right|^2=1.$ 
+ If we take
+ $ \mathbf{z} \triangleq \mathbf{x} \otimes \mathbf{y}\in\mathbb{C}^{mn}$, then it implies $\sum_{k=1}^{mn}\left|z_k\right|^2=1$. (See proof below.)
+\end{lemma}
+
+
+Thus we get a trivial result as below. We say that the tensor product of two quantum states is also a quantum state. 
+
+\begin{corollary}\label{cor1}
+If both $|\psi\rangle \in \left(\mathbb{C}^2\right)^{\otimes q_{1}} $ and $|\phi\rangle  \in \left(\mathbb{C}^2\right)^{\otimes q_{2}} $ are in a quantum state, $|\psi\rangle \otimes|\phi\rangle \in \left(\mathbb{C}^2\right)^{\otimes (q_{1}+q_{2})} $ is in a quantum state as well.
+\end{corollary}
+
+\begin{proof}[Proof of lemma \ref{lem1}]
+    Let $\mathbf{x} \in \mathbb{C}^m,\mathbf{y} \in \mathbb{C}^n$ and $ \sum_{i=1}^m\left|x_i\right|^2=1, \sum_{j=1}^n\left|y_j\right|^2=1.$
+    By definition of tensor product, one has
+    \begin{equation}
+    \mathbf{z} \triangleq \mathbf{x} \otimes \mathbf{y}=\left[\begin{array}{c}
+    x_1 \mathbf{y} \\
+    x_2 \mathbf{y} \\
+    \vdots \\
+    x_m \mathbf{y}
+    \end{array}\right], \text { where } \mathbf{y}=\left[\begin{array}{c}
+    y_1 \\
+    y_2 \\
+    \vdots \\
+    y_n
+    \end{array}\right].
+    \end{equation}
+    By observing the components of the vector $\mathbf{z}$, we can obtain that
+    \begin{equation*}
+        \begin{aligned}
+        & \sum_{k=1}^{m n}\left|z_k\right|^2=\sum_{j=1}^n\left|x_1 y_j\right|^2+\sum_{j=1}^n\left|x_2 y_j\right|^2+\cdots+\sum_{j=1}^n\left|x_m y_j\right|^2 \\
+        & =\left(\sum_{j=1}^n\left|y_j\right|^2\right)\left(\left|x_1\right|^2+\left|x_2\right|^2+\cdots+\left|x_m\right|^2\right) \\
+        & =\left(\sum_{j=1}^n\left|y_j\right|^2\right)
+        \left(\sum_{i=1}^m\left|x_i\right|^2\right) \\
+        & =1.
+        \end{aligned}
+    \end{equation*}
+    The proof is complete.
+\end{proof}
+
+%Note that $\left(\mathbb{C}^2\right)^{\otimes q}$ is a $2^q$-dimensional space because it is a tensor product of $\mathbb{C}^2$.
+
+
+
+
+
+
+
+

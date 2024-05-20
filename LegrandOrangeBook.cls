@@ -73,7 +73,15 @@
 
 \usepackage{avant} % Use the Avantgarde font for headings
 
-\usepackage{mathptmx} % Use the Adobe Times Roman as the default text font together with math symbols from the Sym­bol, Chancery and Com­puter Modern fonts
+%mathptmx 包曾经用来设置文档的字体为 Times 字体，但它现在已经被弃用了，因为它与其他一些现代的 LaTeX 包存在兼容性问题，所以替换成以下两个package。
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%\usepackage{mathptmx} % Use the Adobe Times Roman as the default text font together with math symbols from the Sym­bol, Chancery and Com­puter Modern fonts
 
 \usepackage{microtype} % Improve typography
 
@@ -631,6 +639,7 @@
 
 %HL添加的新的newtheorem-------------------------------------------------------------------
 \newtheorem{property}{Property}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
 
 %----------------------------------------------------------------------------------------
 %	COLORED THEOREM BOXES

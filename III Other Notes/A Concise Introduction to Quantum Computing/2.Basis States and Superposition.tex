@@ -1,0 +1,66 @@
+\begin{definition} (Definition 2.5 in original paper) 
+We say that $q$ qubits are in a \textbf{basis state} if the state $|\psi\rangle=$ $\sum_{\vec{\jmath} \in\{0,1\}^q} \alpha_{\vec{\jmath}}|\vec{\jmath}\rangle_q$ is such that $\exists \vec{k}:\left|\alpha_{\vec{k}}\right|=1, \alpha_{\vec{\jmath}}=0 \; \forall \vec{\jmath} \neq \vec{k}$. Otherwise, we say that they are in a \textbf{superposition state}.
+\end{definition}
+What does this definition mean?
+\begin{enumerate}
+    \item A $q$-qubit $|\psi\rangle$ is either in a basis state or in a superposition state.
+    \item A $q$-qubit $|\psi\rangle$ is in a {basis state} \textit{if and only if} there exists an index $ \vec{k} \in
+    \{0,1\}^q $ such that 
+    \begin{equation*}
+    |\psi\rangle=\alpha_{\vec{k}}|\vec{k}\rangle \text { with some }\left|\alpha_{\vec{k}}\right|=1.
+    \end{equation*}
+    A basis state is only related to one basis vector.
+    \item Therefore, superposition states can only occur between more than two basis vectors.
+\end{enumerate}
+
+We have the following sufficient and necessary conditions for a basis state.
+
+
+\begin{proposition} (Proposition 2.8 in original paper) For any integer $q>0$, a $q$-qubit register is in a basis state \textit{if and only if} its state can be expressed as the tensor product of $q$ 1-qubit registers, each of which is in a basis state.
+\end{proposition}
+\begin{proof}
+    
+    (1) If part ($\Longleftarrow$).
+    
+    Consider the tensor product of $q$ 1-qubit:
+    \begin{equation}\label{expand}
+    |\phi\rangle=
+    \underbrace{\left(\beta_{1,0}|0\rangle+\beta_{1,1}|1\rangle\right)}_{1st}
+    \otimes
+    \underbrace{\left(\beta_{2,0}|0\rangle+\beta_{2,1}|1\rangle\right) }_{2nd}
+    \otimes    
+    \cdots 
+    \otimes
+    \underbrace{\left(\beta_{q, 0}|0\rangle+\beta_{q, 1}|1\rangle\right)}_{q-th}
+    .
+    \end{equation}
+    Because each of 1-qubit is in a basis state, we have that either $\beta_{k,0}$ or $\beta_{k,1}$ is zero for all $k = 1, \dots, q$. After expanding the right side of (\ref{expand}), there is only one non-zero coefficient.
+    Here, one scenario is described in detail, and the others are similar. For example,
+    \begin{align*}
+        |\phi\rangle
+        &=\left(\beta_{1,0}|0\rangle+\cancel{\beta_{1,1}|1\rangle} \right) \otimes\left(\cancel{\beta_{2,0}|0\rangle}+\beta_{2,1}|1\rangle\right) \otimes \cdots \otimes\left(\beta_{q, 0}|0\rangle+\cancel{\beta_{q, 1}|1\rangle}\right) \\
+        &=\left(\beta_{1,0}|0\rangle\right)
+        \otimes\left(\beta_{2,1}|1\rangle\right) 
+        \otimes \cdots 
+        \otimes\left(\beta_{q, 0}|0\rangle\right) \\
+        &=\left(\beta_{1,0} \beta_{2,1} \cdots \beta_{q, 0} \right) |01 \cdots 0 \rangle.
+    \end{align*}
+    Now we have that $|\beta_{1,0} \beta_{2,1} \cdots \beta_{q, 0}|
+    =|\beta_{1,0}| |\beta_{2,1}| \cdots |\beta_{q, 0}|=1$ since every 1-qubit is in a basis state.
+    Also, $|01 \cdots 0 \rangle$ is a basic vector. By definition, the $q$-qubit $|\phi\rangle$ in a basis state.
+
+    
+    (2) Only if part ($\Longrightarrow$).
+
+    Suppose that the $q$-qubit $|\phi\rangle$ in a basis state, say, $|\phi\rangle=\beta|01 \cdots 0 \rangle$ with $\left|\beta\right|=1.$ (Again, one scenario is described in detail, and the others are similar.)
+    Then we try to find some complex numbers $\beta_{1}, \beta_{2}, \cdots,\beta_{q}$, such that
+    \begin{equation*}
+        |\phi\rangle=\beta|01 \cdots 0 \rangle
+        =\beta_{1}|0\rangle
+        \otimes\beta_{2}|1\rangle
+        \otimes \cdots 
+        \otimes\beta_{q}|0\rangle.
+    \end{equation*}
+    It sufficient to set $\beta_{1}=\beta_{2}=\cdots=\beta_{q-1}=1$ and $\beta_{q}=\beta$.
+    We complete the proof.
+\end{proof}
