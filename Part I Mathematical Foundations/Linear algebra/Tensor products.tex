@@ -1,0 +1,162 @@
+
+\subsubsection{Tensor Product}
+
+The tensor product is a way of putting vector spaces together to form larger vector spaces. 
+
+% This construction is crucial to understanding the quantum mechanics of multiparticle systems. 
+
+Suppose $V$ and $W$ are vector spaces of dimension $m$ and $n$ respectively. For convenience we also suppose that $V$ and $W$ are Hilbert spaces. 
+
+Then $V \otimes W$ (read ' $V$ tensor $W^{\prime}$ ) is an $m n$ dimensional vector space. The elements of $V \otimes W$ are linear combinations of 'tensor products' $|v\rangle \otimes|w\rangle$ of elements $|v\rangle$ of $V$ and $|w\rangle$ of $W$.
+
+In particular, if $|i\rangle$ and $|j\rangle$ are orthonormal bases for the spaces $V$ and $W$ then $|i\rangle \otimes|j\rangle$ is a basis for $V \otimes W$. 
+
+We often use the abbreviated notations $|v\rangle|w\rangle,|v, w\rangle$ or even $|v w\rangle$ for the tensor product $|v\rangle \otimes|w\rangle$. 
+
+\begin{example}
+    For example, if $V$ is a two-dimensional vector space with basis vectors $|0\rangle$ and $|1\rangle$ then $|0\rangle \otimes|0\rangle+|1\rangle \otimes|1\rangle$ is an element of $V \otimes V$.
+\end{example}
+
+By definition the tensor product satisfies the following basic properties:
+\begin{enumerate}
+    \item For an arbitrary scalar $z$ and elements $|v\rangle$ of $V$ and $|w\rangle$ of $W$,
+\begin{equation}
+    z(|v\rangle \otimes|w\rangle)=(z|v\rangle) \otimes|w\rangle=|v\rangle \otimes(z|w\rangle)
+\end{equation}
+    \item For arbitrary $\left|v_{1}\right\rangle$ and $\left|v_{2}\right\rangle$ in $V$ and $|w\rangle$ in $W$,
+\begin{equation}
+    \left(\left|v_{1}\right\rangle+\left|v_{2}\right\rangle\right) \otimes|w\rangle=\left|v_{1}\right\rangle \otimes|w\rangle+\left|v_{2}\right\rangle \otimes|w\rangle .
+\end{equation}
+    \item For arbitrary $|v\rangle$ in $V$ and $\left|w_{1}\right\rangle$ and $\left|w_{2}\right\rangle$ in $W$,
+\begin{equation}
+    |v\rangle \otimes\left(\left|w_{1}\right\rangle+\left|w_{2}\right\rangle\right)=|v\rangle \otimes\left|w_{1}\right\rangle+|v\rangle \otimes\left|w_{2}\right\rangle .
+\end{equation}
+\end{enumerate}
+
+The inner products on the spaces $V$ and $W$ can be used to define \textit{a natural inner product on $V \otimes W$}. Define
+\begin{equation}
+    \left(\sum_{i} a_{i}\left|v_{i}\right\rangle \otimes\left|w_{i}\right\rangle, \sum_{j} b_{j}\left|v_{j}^{\prime}\right\rangle \otimes\left|w_{j}^{\prime}\right\rangle\right) \equiv \sum_{i j} a_{i}^{*} b_{j}\left\langle v_{i} | v_{j}^{\prime}\right\rangle\left\langle w_{i} | w_{j}^{\prime}\right\rangle.
+\end{equation}
+It can be shown that the function so defined is a well-defined inner product. From this inner product, the inner product space $V \otimes W$ inherits the other structure we are familiar with, such as notions of an adjoint, unitarity, normality, and Hermiticity.
+
+\subsubsection{Linear Operators $A \otimes B$ Act on the Space $V \otimes W$}
+
+What sorts of linear operators act on the space $V \otimes W$ ? Suppose $|v\rangle$ and $|w\rangle$ are vectors in $V$ and $W$, and \textit{$A$ and $B$ are linear operators on $V$ and $W$}, respectively. Then we can define a linear operator $A \otimes B$ on $V \otimes W$ by the equation
+\begin{equation}
+    (A \otimes B)(|v\rangle \otimes|w\rangle) \equiv A|v\rangle \otimes B|w\rangle.
+\end{equation}
+The definition of $A \otimes B$ is then extended to all elements of $V \otimes W$ in the natural way to ensure linearity of $A \otimes B$, that is,
+\begin{equation}
+    (A \otimes B)\left(\sum_{i} a_{i} \left(\left|v_{i}\right\rangle \otimes\left|w_{i}\right\rangle\right) \right)  \equiv \sum_{i} a_{i} \left( A\left|v_{i}\right\rangle \otimes B\left|w_{i}\right\rangle \right) .
+\end{equation}
+It can be shown that $A \otimes B$ defined in this way is a well-defined linear operator on $V \otimes W$. 
+
+This notion of the tensor product of two operators extends in the obvious way to the case where $A: V \rightarrow V^{\prime}$ and $B: W \rightarrow W^{\prime}$ map between different vector spaces. Indeed, an arbitrary linear operator $C$ mapping $V \otimes W$ to $V^{\prime} \otimes W^{\prime}$ can be represented as a linear combination of tensor products of operators mapping $V$ to $V^{\prime}$ and $W$ to $W^{\prime}$,
+\begin{equation}
+    C=\sum_{i} c_{i} A_{i} \otimes B_{i}
+\end{equation}
+where by definition
+\begin{equation}
+    \left(\sum_{i} c_{i} A_{i} \otimes B_{i}\right)|v\rangle \otimes|w\rangle \equiv \sum_{i} c_{i} A_{i}|v\rangle \otimes B_{i}|w\rangle .
+\end{equation}
+
+\subsubsection{Kronecker Product}
+
+All this discussion is rather abstract. It can be made much more concrete by moving to a convenient matrix representation known as the Kronecker product. 
+
+Suppose $A$ is an $m$ by $n$ matrix, and $B$ is a $p$ by $q$ matrix. Then we have the matrix representation:
+\begin{equation}
+    A \otimes B \equiv \overbrace{\left[\begin{array}{cccc}
+A_{11} B & A_{12} B & \cdots & A_{1 n} B \\
+A_{21} B & A_{22} B & \cdots & A_{2 n} B \\
+\vdots & \vdots & \vdots & \vdots \\
+A_{m 1} B & A_{m 2} B & \cdots & A_{m n} B
+\end{array}\right]}^{n q}\} m p
+\end{equation}
+
+In this representation terms like $A_{11} B$ denote $p$ by $q$ submatrices whose entries are proportional to $B$, with overall proportionality constant $A_{11}$. For example, the tensor product of the vectors $(1,2)$ and $(2,3)$ is the vector
+\begin{equation}
+    \left[\begin{array}{l}
+1 \\
+2
+\end{array}\right] \otimes\left[\begin{array}{l}
+2 \\
+3
+\end{array}\right]=\left[\begin{array}{l}
+1 \times 2 \\
+1 \times 3 \\
+2 \times 2 \\
+2 \times 3
+\end{array}\right]=\left[\begin{array}{l}
+2 \\
+3 \\
+4 \\
+6
+\end{array}\right].
+\end{equation}
+The tensor product of the Pauli matrices $X$ and $Y$ is
+\begin{equation}
+    X \otimes Y=\left[\begin{array}{cc}
+0 \cdot Y & 1 \cdot Y \\
+1 \cdot Y & 0 \cdot Y
+\end{array}\right]=\left[\begin{array}{cccc}
+0 & 0 & 0 & -i \\
+0 & 0 & i & 0 \\
+0 & -i & 0 & 0 \\
+i & 0 & 0 & 0
+\end{array}\right].
+\end{equation}
+
+Finally, we mention the useful notation $|\psi\rangle^{\otimes k}$, which means $|\psi\rangle$ tensored with itself $k$ times. For example $|\psi\rangle^{\otimes 2}=|\psi\rangle \otimes|\psi\rangle$. An analogous notation is also used for operators on tensor product spaces.
+
+Exercise 2.26: Let $|\psi\rangle=(|0\rangle+|1\rangle) / \sqrt{2}$. Write out $|\psi\rangle^{\otimes 2}$ and $|\psi\rangle^{\otimes 3}$ explicitly, both in terms of tensor products like $|0\rangle|1\rangle$, and using the Kronecker product.
+
+Exercise 2.27: Calculate the matrix representation of the tensor products of the Pauli operators (a) $X$ and $Z$; (b) $I$ and $X$; (c) $X$ and $I$. Is the tensor product commutative? (No!)
+
+% 下面的属性是重点！
+Exercise 2.28: Show that the transpose, complex conjugation, and adjoint operations distribute over the tensor product,
+\begin{equation}
+    (A \otimes B)^{*}=A^{*} \otimes B^{*} ;(A \otimes B)^{T}=A^{T} \otimes B^{T} ;(A \otimes B)^{\dagger}=A^{\dagger} \otimes B^{\dagger} .
+\end{equation}
+
+Exercise 2.29: Show that the \textbf{tensor product of two unitary operators is unitary.}
+
+Exercise 2.30: Show that the\textbf{ tensor product of two Hermitian operators is Hermitian.}
+
+Exercise 2.31: Show that the\textbf{ tensor product of two positive operators is positive.}
+
+Exercise 2.32: Show that the \textbf{tensor product of two projectors is a projector.}
+
+Exercise 2.33: The Hadamard operator on one qubit may be written as
+\begin{equation}
+    H
+=\frac{1}{\sqrt{2}}[(|0\rangle+|1\rangle)\langle 0|+(|0\rangle-|1\rangle)\langle 1|]
+=\frac{1}{\sqrt{2}}[|0\rangle\langle 0|+| 0\rangle\langle 1|+| 1\rangle\langle 0|-| 1\rangle\langle 1|].
+\end{equation}
+Hence:
+\begin{equation}
+    H=\frac{1}{\sqrt{2}} \sum_{x, y}(-1)^{x \cdot y}|x\rangle\langle y|,
+\end{equation}
+where $x, y$ run over 0 and 1 .
+
+Show explicitly that the Hadamard transform on $n$ qubits, $H^{\otimes n}$, may be written as
+\begin{equation}
+    H^{\otimes n}
+=\frac{1}{\sqrt{2^n}} \sum_{\mathbf{x}, \mathbf{y}}(-1)^{\mathbf{x} \cdot \mathbf{y}}|\mathbf{x}\rangle\langle\mathbf{y}|,
+\end{equation}
+where $\mathbf{x}, \mathbf{y}$ are length $n$-binary strings. $\mathbf{x} \cdot \mathbf{y}$ is inner product of that two strings.
+
+Now explicitly writing $H^{\otimes 2}$, we have:
+\begin{equation}
+\begin{aligned}
+H^{\otimes 2} & =\frac{1}{\sqrt{2^2}} \sum_{\mathbf{x}, \mathbf{y}}(-1)^{(\mathbf{x} \cdot \mathbf{y})}|\mathbf{x}\rangle\langle\mathbf{y}| \\
+& \cong \frac{1}{2}\left[\begin{array}{cccc}
+1 & 1 & 1 & 1 \\
+1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 \\
+1 & -1 & -1 & 1
+\end{array}\right]
+\end{aligned}
+\end{equation}
+
+Note that here, $\mathbf{x}, \mathbf{y}$ are binary length 2 strings. The sum goes through all pairwise combinations of $\mathbf{x}, \mathbf{y} \in\{00,01,10,11\}$

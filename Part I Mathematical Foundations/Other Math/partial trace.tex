@@ -1,0 +1,90 @@
+% 主要参考wiki
+% \href{https://en.wikipedia.org/wiki/Partial_trace}{Partial trace - Wikipedia}
+
+In linear algebra and functional analysis, the partial trace is a generalization of the trace. 
+Whereas the trace is a scalar valued function on operators, the partial trace is an operator-valued function.
+
+Suppose $V, W$ are finite-dimensional vector spaces over a field, with dimensions $m$ and $n$, respectively. 
+For any vector space $A$, let $L(A)$ denote the space of linear operators on $A$.
+
+\begin{definition}[partial trace I]\label{defn:partial-trace-1}
+The \textbf{partial trace over $W$} is an operator-valued function written as
+\begin{equation}
+    \operatorname{Tr}_W: \mathrm{L}(V \otimes W) \rightarrow \mathrm{L}(V),
+\end{equation}
+where $\otimes$ denotes the tensor product. It is defined as follows: Let $e_1, \ldots, e_m$, and $f_1, \ldots, f_n$, be bases for $V$ and $W$ respectively; then $T \in \mathrm{L}(V \otimes W)$ has a matrix representation
+\begin{equation}
+    a_{k \ell, i j}, \quad 1 \leq k, i \leq m, \quad 1 \leq \ell, j \leq n
+\end{equation}
+relative to the basis $e_k \otimes f_{\ell}$ of $V \otimes W$. Now fix indices $k, i$ in the range $1, \ldots, m$, consider the sum
+\begin{equation}
+    b_{k, i}=\sum_{j=1}^n a_{k j, i j}
+\end{equation}
+This gives a matrix $b_{k, i}$. The associated linear operator (of matrix $b_{k, i}$) on \textit{V} is independent of the choice of bases and is by definition the partial trace.
+\end{definition}
+
+Among physicists, this is often called \textbf{"tracing out" or "tracing over" $W$} to leave only an operator on $V$ in the context where $W$ and $V$ are Hilbert spaces associated with quantum systems (see below).
+
+The partial trace operator can be defined invariantly (that is, without reference to a basis) as follows.
+
+\begin{definition}[partial trace II]
+The \textbf{partial trace over $W$} is the unique linear map
+\begin{equation}
+    \operatorname{Tr}_W: \mathrm{L}(V \otimes W) \rightarrow \mathrm{L}(V)
+\end{equation}
+such that
+\begin{equation}
+    \label{eq:partial-trace-defn}
+    \operatorname{Tr}_W(R \otimes S)=\operatorname{Tr}(S) R, \quad \forall R \in \mathrm{L}(V) \quad \forall S \in \mathrm{L}(W),
+\end{equation}
+where $\operatorname{Tr}(\cdot)$ is the usual trace of a linear operator.
+\end{definition}
+
+\begin{proof} % lai's proof
+Definition \ref{defn:partial-trace-1} showed such linear map exists.
+To see that the conditions (\ref{eq:partial-trace-defn}) determine the partial trace uniquely:
+\begin{itemize}
+    \item let $v_1, \ldots, v_m$ form an orthonormal basis for $V$ and let $w_1, \ldots, w_n$ form an orthonormal for $W$;
+    \item let $E_{i j}: V \rightarrow V$ be the map that sends $v_i$ to $v_j$ (and all other basis elements to zero), then the maps $E_{i j}$ form a basis for $\mathrm{L}(V)$.
+    \item let $F_{k l}: W \rightarrow W$ be the map that sends $w_k$ to $w_l$ (and all other basis elements to zero), then the maps $F_{k l}$ form a basis for $\mathrm{L}(W)$.
+    \item we have $\operatorname{Tr}(E_{ij})=\operatorname{Tr}(F_{kl})=1.$
+    \item since the vectors $v_i \otimes w_k$ form a basis for $V \otimes W$, the maps $E_{i j} \otimes F_{k l}$ form a basis for $\mathrm{L}(V \otimes W)$.
+    \item for given \textit{any} partial trace $\operatorname{Tr}_W$, we always have that
+\end{itemize}
+\begin{equation}
+    \operatorname{Tr}_W(E_{i j} \otimes F_{k l})=\operatorname{Tr}(F_{k l}) E_{i j} = E_{i j}.
+\end{equation}
+\end{proof}
+
+From this abstract definition, the following properties follow:
+
+\begin{proposition}
+\begin{equation}
+\begin{aligned}
+& \operatorname{Tr}_W\left(T\left(I_V \otimes S\right)\right)=\operatorname{Tr}_W\left(\left(I_V \otimes S\right) T\right) ,\quad \forall S \in \mathrm{L}(W) \quad \forall T \in \mathrm{L}(V \otimes W).
+\end{aligned}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+    my proof is done on
+\end{proof}
+
+The partial trace can be viewed as a quantum operation.
+
+Consider a quantum mechanical system whose state space is the tensor product $H_A \otimes H_B$ of Hilbert spaces. A mixed state is described by a density matrix $\rho$, that is a non-negative trace-class operator of trace 1 on the tensor product $H_A \otimes H_B$. The partial trace of $\rho$ with respect to the system $B$, denoted by $\rho^A$, is called the reduced state of $\rho$ on system $A$. In symbols,
+\begin{equation}
+    \rho^A=\operatorname{Tr}_B \rho
+\end{equation}
+
+To show that this is indeed a sensible way to assign a state on the $A$ subsystem to $\rho$, we offer the following justification. 
+
+Let $M$ be an observable on the subsystem $A$, then the corresponding observable on the composite system is $M \otimes I$. However one chooses to define a reduced state $\rho^A$, there should be consistency of measurement statistics. The expectation value of $M$ after the subsystem $A$ is prepared in $\rho^A$ and that of $M \otimes I$ when the composite system is prepared in $\rho$ should be the same, i.e. the following equality should hold:
+\begin{equation}
+    \operatorname{Tr}\left(M \cdot \rho^A\right)=\operatorname{Tr}(M \otimes I \cdot \rho) .
+\end{equation}
+We see that this is satisfied if $\rho^A$ is as defined above via the partial trace. Furthermore, such operation is unique.
+
+\begin{proof}
+    my proof is done on
+\end{proof}

@@ -1,0 +1,29 @@
+  We recall that the NES is defined as
+
+\begin{equation}
+    M \Delta y = \sigma.
+\end{equation}
+Then we multiply both left and right sides of the NES by $R=D_{\mathcal{B}}^{-1} A_{\mathcal{B}}^{-1}$.
+%where $D_{\mathcal{B}} =\left(X_{\mathcal{B}}\right)^{1 / 2}\left(S_{\mathcal{B}}\right)^{-1 / 2}$.
+After multiplying, the NES becomes
+
+\begin{equation}
+    \label{NES times R in the left side}
+    R M R^{\top} R^{-\top} \Delta y=R\sigma.
+\end{equation}
+Then we naturally get the definition of the modified normal equation system. 
+\begin{definition}
+Since $R\in \mathbb{R}^{m \times m}$ is an invertible matrix, problem (\ref{NES times R in the left side}) and the NES are equivalent. Further simplification yields the Modified Normal Equation System (MNES)
+\begin{equation}
+    \label{MNES}
+    \hat{M} z=\hat{\sigma},
+\end{equation}
+where
+\begin{equation}
+\begin{aligned}
+    & \hat{M} = R M R^{\top},\\
+    & z = R^{-\top}\Delta y,\\
+    & \hat{\sigma} = R \sigma.
+\end{aligned}
+\end{equation}
+\end{definition}

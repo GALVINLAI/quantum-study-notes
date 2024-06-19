@@ -1,0 +1,27 @@
+\begin{definition}
+A \textbf{boolean function} $F$ is defined as
+
+\begin{equation}
+    F:\{0,1\}^m \rightarrow\{0,1\}.
+\end{equation}
+
+A \textbf{vector-valued boolean function} $f$ is defined as
+
+\begin{equation}
+    f:\{0,1\}^m \rightarrow\{0,1\}^n.
+\end{equation}
+\end{definition}
+
+A boolean function is a specific type of vector-valued boolean function when $n=1$. 
+
+\begin{remark}
+For any given $m$ and $n$, there exist $2^{(n \times 2^m)}$ distinct vector-valued boolean functions from $\{0,1\}^m$ to $\{0,1\}^n$.
+\end{remark}
+
+\begin{proof}
+For any input value $\vec{x} \in \{0,1\}^m$, there are $2^n$ different possible output values $f(\vec{x}) \in \{0,1\}^n$. So the total number of distinct vector-valued boolean functions is 
+
+\begin{equation}
+    \underbrace{2^n \times 2^n \times \cdots \times 2^n}_{2^m}=2^{\left(n \times 2^m\right)}.
+\end{equation}
+\end{proof}

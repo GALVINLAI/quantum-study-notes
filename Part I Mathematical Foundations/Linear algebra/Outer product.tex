@@ -1,0 +1,88 @@
+%原2.1.4
+
+% There is a useful way of representing linear operators which makes use of the inner product, known as the outer product representation. 
+
+Suppose $|v\rangle$ is a vector in an inner product space $V$, and $|w\rangle$ is a vector in an inner product space $W$. Define the outer product of $|v\rangle$ and $|w\rangle$, denoted by $|w\rangle\langle v|$, to be the linear operator from $V$ to $W$:
+\begin{equation}
+    (|w\rangle\langle v|)\left(\left|v^{\prime}\right\rangle\right) \equiv|w\rangle\left\langle v | v^{\prime}\right\rangle=\left\langle v | v^{\prime}\right\rangle|w\rangle.
+\end{equation}
+Moreover, we define $\sum_{i} a_{i}\left|w_{i}\right\rangle\left\langle v_{i}\right|$ to be the linear operator which, when acting on $\left|v^{\prime}\right\rangle$, produces $\sum_{i} a_{i}\left|w_{i}\right\rangle\left\langle v_{i} | v^{\prime}\right\rangle$ as output.
+
+The usefulness of the outer product notation can be discerned from an important result known as the completeness relation for orthonormal vectors. 
+
+\begin{theorem}[Completeness relation of orthonormal basis]
+    Let $|i\rangle$ be any orthonormal basis for the vector space $V$. Then, it follows that
+\begin{equation}
+    \sum_{i}|i\rangle\langle i|=I,
+\end{equation}
+which is called the completeness relation of orthonormal basis.
+\end{theorem}
+
+\begin{proof}
+    Let $|i\rangle$ be any orthonormal basis for the vector space $V$, so an arbitrary vector $|v\rangle$ can be written $|v\rangle=\sum_{i} v_{i}|i\rangle$ for some set of complex numbers $v_{i}$. Note that
+\begin{equation}
+    \langle i | v\rangle=v_{i},
+\end{equation}
+or,
+\begin{equation}
+    \langle v | i\rangle=v_{i}^{*}.
+\end{equation}
+Therefore,
+\begin{equation}
+    \left(\sum_{i}|i\rangle\langle i|\right)|v\rangle=\sum_{i}|i\rangle\langle i | v\rangle=\sum_{i} v_{i}|i\rangle=|v\rangle.
+\end{equation}
+Since the last equation is true for all $|v\rangle$ it follows that $\sum_{i}|i\rangle\langle i|=I.$
+\end{proof}
+\begin{remark}
+    Completeness relation in $\mathbf{C}^{d}$ is quite trivial. Actually, consider a $d$ by $d$ complex matrix $U$ whose columns forms an orthonormal basis of $\mathbf{C}^{d}$, that is $U^{\dagger}U= I.$ Then, we also have $UU^{\dagger}= I.$
+\end{remark}
+
+One application of the completeness relation is to give a means for representing any operator in the outer product notation.
+Suppose $A: V \rightarrow W$ is a linear operator, $\left|v_{i}\right\rangle$ is an orthonormal basis for $V$, and $\left|w_{j}\right\rangle$ an orthonormal basis for $W$. Using the completeness relation twice we obtain
+\begin{equation}
+\begin{aligned}
+A & =I_{W} A I_{V} \\
+& = \left(\sum_{j}|w_{j}\rangle\langle w_{j}|\right) A  \left(\sum_{i}|v_{i}\rangle\langle v_{i}|\right)\\
+& =\sum_{i j}\left|w_{j}\right\rangle\left\langle w_{j}|A| v_{i}\right\rangle\left\langle v_{i}\right| \\
+& =\sum_{i j}\left\langle w_{j}|A| v_{i}\right\rangle\left|w_{j}\right\rangle\left\langle v_{i}\right|
+\end{aligned}
+\end{equation}
+which is the outer product representation of $A$. 
+
+Let $L(V,W)$ be the set of all linear operators from $V$ to $W$.
+We can make $L(V,W)$ itself to be a (complex) vector space with operations $(A +B) |v\rangle \equiv A |v\rangle + B |v\rangle$ and $(c A) |v\rangle \equiv c A |v\rangle$. 
+In this case, the set of outer products $\left|w_{j}\right\rangle\left\langle v_{i}\right|$ (appeared in last paragraph) forms a basis of $L(V,W)$, and equation 
+\begin{equation}
+    A =\sum_{i j}\left\langle w_{j}|A| v_{i}\right\rangle\left|w_{j}\right\rangle\left\langle v_{i}\right|
+\end{equation}
+mean a linear combination under the basis.
+
+We also see from this equation that $A$ has matrix element $\left\langle w_{j}|A| v_{i}\right\rangle$ in the $i$ th column and $j$ th row, with respect to the input basis $\left|v_{i}\right\rangle$ and output basis $\left|w_{j}\right\rangle$.
+
+% A second application illustrating the usefulness of the completeness relation is the Cauchy-Schwarz inequality. This important result is discussed in Box 2.1, on this page.
+
+% Exercise 2.9: (Pauli operators and the outer product) The Pauli matrices (Figure 2.2 on page 65) can be considered as operators with respect to an orthonormal basis $|0\rangle,|1\rangle$ for a two-dimensional Hilbert space. Express each of the Pauli operators in the outer product notation.
+
+% Exercise 2.10: Suppose $\left|v_{i}\right\rangle$ is an orthonormal basis for an inner product space $V$. What is the matrix representation for the operator $\left|v_{j}\right\rangle\left\langle v_{k}\right|$, with respect to the $\left|v_{i}\right\rangle$ basis?
+
+% \subsection{Box 2.1: The Cauchy-schwarz Inequality}
+
+% The Cauchy-Schwarz inequality is an important geometric fact about Hilbert spaces. 
+
+\begin{theorem}[Cauchy-Schwarz inequality]
+    For any two vectors $|v\rangle$ and $|w\rangle$ in some Hilbert space $V$,
+\begin{equation}
+    |\langle v | w\rangle|^{2} \leq\langle v | v\rangle\langle w | w\rangle.
+\end{equation}
+\end{theorem}
+\begin{proof}
+    To see this, use the Gram-Schmidt procedure to construct an orthonormal basis $|i\rangle$ for the vector space such that the first member of the basis $|i\rangle$ is $|w\rangle / \sqrt{\langle w | w\rangle}$. Using the completeness relation $\sum_{i}|i\rangle\langle i|=I$, and dropping some non-negative terms gives
+\begin{equation}
+\begin{aligned}
+\langle v | v\rangle\langle w | w\rangle & =\sum_{i}\langle v | i\rangle\langle i | v\rangle\langle w | w\rangle \\
+& \geq \frac{\langle v | w\rangle\langle w | v\rangle}{\langle w | w\rangle}\langle w | w\rangle \\
+& =\langle v | w\rangle\langle w | v\rangle=|\langle v | w\rangle|^{2}
+\end{aligned}
+\end{equation}
+as required. A little thought shows that equality occurs if and only if $|v\rangle$ and $|w\rangle$ are linearly related, $|v\rangle=z|w\rangle$ or $|w\rangle=z|v\rangle$, for some scalar $z$.
+\end{proof}

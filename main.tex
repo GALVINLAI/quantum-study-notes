@@ -62,18 +62,19 @@
 %	以下是我们自己添加的额外packages
 %----------------------------------------------------------------------------------------
 
-% ******** Eye Protection 保护眼睛 ********
+%----------------------------------------------------------------------------------------
+%	让pdf纸张变成护眼色，保护眼睛。启用\pagecolor命令时生效。
 \usepackage{xcolor} % For defining and using colors
 \definecolor{mygreen}{RGB}{205, 222, 194} % Define a custom green color for eye protection
 % \pagecolor{mygreen} % Set page background color to custom green
-% *****************************************
+%----------------------------------------------------------------------------------------
 
 \usepackage[colorinlistoftodos]{todonotes}
 
 %贺立添加的包--------------------------------------------------------------
-\usepackage{graphicx} % Required for inserting images
+\usepackage{graphicx}
 \usepackage{quantikz}
-\usepackage{csquotes} % 加载 csquotes 宏包
+\usepackage{csquotes}
 %\usepackage{mathbbol}
 %\usepackage{mdframed}
 \usepackage{xcolor}
@@ -103,7 +104,24 @@
 %\newtheorem{proposition}{Proposition}
 %\renewcommand{\thefootnote}{\fnsymbol{footnote}} %注脚符号的注脚方式
 
-
+%----------------------------------------------------------------------------------------
+%   向\input{}命令追加文件搜索路径
+\makeatletter % 允许在命令名中使用@字符
+\providecommand*{\input@path}{} % 定义一个新的命令\input@path，如果该命令不存在，则初始化为空
+\g@addto@macro\input@path{ % 向\input@path命令追加文件搜索路径
+{Part I Mathematical Foundations/Linear algebra/} 
+{Part I Mathematical Foundations/Other Math/}
+{Part II Quantum Mechanics/}
+{Part III Quantum Computation/Quantum circuits/}
+{Part III Quantum Computation/The quantum Fourier transform and its applications/}
+{Part III Quantum Computation/Quantum search algorithms/}
+{Part IV Notes of Papers/By Laizhijian/}
+{Part V Other Notes/Simon's Algorithm/}
+{Part V Other Notes/Inexact Infeasible Interior Point Method/}
+{Part V Other Notes/A Concise Introduction to Quantum Computing/}
+}
+\makeatother % 恢复对@字符的正常处理，不再允许在命令名中使用
+%----------------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -172,159 +190,239 @@
 
 %------------------------------------------------
 
- 
-
 % ==========================  正文开始  ==========================
 
 %----------------------------------------------------------------------------------------
-%	PART I
+%	PART I Mathematical Foundations
 %----------------------------------------------------------------------------------------
 
-\part{Notes of NC book}
+\part{Mathematical Foundations}
+% 这个part囊括所有需要用到的数学知识。其内容原则上可以独立于量子力学，而单独作为数学分支而展开。
 
-\chapter{Introduction to quantum mechanics}
+\chapter{Linear Algebra in the Quantum Standard Notation}
+% 本章内容整理了NCBOOK的"2.1 Linear algebra"，并增添原书没有的很多细节。
+% 本章内容虽然是标准线代证明，但目的是要求读者（非常地！）熟悉量子力学的bra-ket符号，以及复数域上的向量空间的结论（相比于熟悉的实数向量空间而言）。
 
-\section{Linear algebra} % 虽然是熟悉的标准线代证明，但是需希望你能看看。主要是要熟悉bra-ket符号。已经复数向量空间的特殊情况。（相比于实数向量空间而言）
+    \section{Vector Space} 
+    \input{Vector Space}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-A good understanding of quantum mechanics is based upon a solid grasp of linear algebra.
+    \section{Bases and Linear Independence} 
+    \input{Bases and linear independence}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.1 vector space
-\subsection{vector space} % Done
-\input{I Notes of NC book/1.1 Linear algebra/1.1.1 Vector Space}
+    \section{Linear Operators and Matrices} 
+    \input{Linear operators and matrices}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.2 Bases and linear independence
-\subsection{Bases and linear independence} % Done
-\input{I Notes of NC book/1.1 Linear algebra/1.1.2 Bases and linear independence}
+    \section{The Pauli Matrices} 
+    \input{The Pauli matrices}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.3 Linear operators and matrices
-\subsection{Linear operators and matrices} % Done
-\input{I Notes of NC book/1.1 Linear algebra/1.1.3 Linear operators and matrices}
+    \section{Inner Products} 
+    \input{Inner products}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.4 The Pauli matrices
-\subsection{The Pauli matrices} % Done
-\input{I Notes of NC book/1.1 Linear algebra/1.1.4 The Pauli matrices}
+    \section{Outer Product} 
+    \input{Outer product}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.5 Inner products
-\subsection{Inner products} % Done
-\input{I Notes of NC book/1.1 Linear algebra/1.1.5 Inner products}
+    \section{Eigenvectors and Eigenvalues} 
+    \input{Eigenvectors and eigenvalues}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.6 Outer product
-\subsection{Outer product} % Done
-\input{I Notes of NC book/1.1 Linear algebra/1.1.6 Outer product}
+    \section{Adjoints and Hermitian Operators} 
+    \input{Adjoints and Hermitian operators}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.7 Eigenvectors and eigenvalues
-\subsection{Eigenvectors and eigenvalues} % Done
-\input{I Notes of NC book/1.1 Linear algebra/1.1.7 Eigenvectors and eigenvalues}
+    \section{Tensor Products} 
+    \input{Tensor products}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.8 Adjoints and Hermitian operators
-\subsection{Adjoints and Hermitian operators} % Done
-\input{I Notes of NC book/1.1 Linear algebra/1.1.8 Adjoints and Hermitian operators}
+    \section{Operator Functions} 
+    \input{Operator functions}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.9 Tensor products
-\subsection{Tensor products} % Done
-\input{I Notes of NC book/1.1 Linear algebra/1.1.9 Tensor products}
+    \section{The Commutator and Anti-commutator} 
+    \input{The commutator and anti-commutator}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.10 Operator functions
-\subsection{Operator functions} % 2024-5-8 todo
-\input{I Notes of NC book/1.1 Linear algebra/1.1.10 Operator functions}
+    \section{The Polar and Singular Value Decomposition} 
+    \input{The polar and singular value decomposition}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-%   1.1.11 The commutator and anti-commutator
-\subsection{The commutator and anti-commutator} % 2024-5-8 todo
-\input{I Notes of NC book/1.1 Linear algebra/1.1.11 The commutator and anti-commutator}
+\chapter{Other Mathematical Preliminaries}
+% 本章内容是额外的数学基础知识，但并未在NCBOOK中被详细展开或者提及。
 
-%   1.1.12 The polar and singular value decomposition
-\subsection{The polar and singular value decomposition} % 2024-5-8 todo
-\input{I Notes of NC book/1.1 Linear algebra/1.1.12 The polar and singular value decomposition}
+    \section{The Space of Hermitian Matrices} 
+    \input{space of Hermitian matrices}
+    % NCBOOK中未说明，但必须要懂得的基本常识
 
-\subsection{Partial trace} % Done
-\input{I Notes of NC book/1.1 Linear algebra/partial trace.tex}
+    \section{Partial Trace} 
+    \input{partial trace}
+    % 2024-05-20 经LAI整理，已经初步完成
 
-\subsection{Discrete Fourier transform} % Done
-\input{I Notes of NC book/1.2 Other Math/discrete Fourier transform}
+    \section{Discrete Fourier Transform} 
+    \input{discrete Fourier transform}
+    % 学习量子傅立叶变换的数学前提
 
+    \section{Binary Numbering} 
+    % https://www.webpages.uidaho.edu/~barannyk/Teaching/hand_out_binary_system.pdf
+    % 学习量子傅立叶变换的数学前提
 
-\chapter{The quantum Fourier transform and its applications}
-
-\input{I Notes of NC book/5 The quantum Fourier transform and its applications/5.1 The quantum Fourier transform}
+    \section{Multilinear Polynomial}
+    \input{Multilinear polynomial}
+    % 学习QAOA时，对于目标函数f是polynomial的情况，需要先研究这个
 
 %----------------------------------------------------------------------------------------
-%	PART II
+%	PART II Quantum Mechanics
+%----------------------------------------------------------------------------------------
+
+\part{Quantum Mechanics}
+% 这个part主要是包含了NCBOOK的第二章中，除去2.1节的剩余全部内容。
+
+\chapter{Postulates of Quantum Mechanics}
+% 本章内容整理了NCBOOK的"2.2 The postulates of quantum mechanics"，并增添原书没有的很多细节。
+% 本章内容整理了NCBOOK的"2.3 Application: superdense coding"，并增添原书没有的很多细节。
+% 本章内容整理了NCBOOK的"2.4 The density operator"，并增添原书没有的很多细节。
+% 本章内容整理了NCBOOK的"2.5 The Schmidt decomposition and purifications"，并增添原书没有的很多细节。
+% 本章内容整理了NCBOOK的"2.6 EPR and the Bell inequality"，并增添原书没有的很多细节。
+
+%----------------------------------------------------------------------------------------
+%	PART III Quantum computation
+%----------------------------------------------------------------------------------------
+
+\part{Quantum computation}
+% 这个part主要是包含了NCBOOK的第四章，第五章，第六章的几个重要的量子算法的内容。
+% 有待整理
+
+\chapter{Quantum Circuits}
+% 本章内容整理了NCBOOK的“4 Quantum circuits”，并增添原书没有的很多细节。
+% 有待整理
+
+\chapter{The Quantum Fourier Transform and Its Applications}
+% 本章内容整理了NCBOOK的“5 The quantum Fourier transform and its applications”，并增添原书没有的很多细节。
+
+    \section{The Quantum Fourier Transform}
+    \input{The quantum Fourier transform}
+    % 2024-05-20 经LAI整理，已经初步完成
+
+    \section{Phase Estimation}
+    \input{Phase estimation}
+    % 2024-05-20 经LAI整理，已经初步完成
+
+    \section{Applications: Order-finding and Factoring}
+    % \input{Applications: order-finding and factoring}
+    % 有待整理
+
+    \section{General Applications of the Quantum Fourier Transform}
+    \input{General applications of the quantum Fourier transform}
+    % 有待整理
+
+\chapter{Quantum Search Algorithms}
+% 本章内容整理了NCBOOK的“6 Quantum search algorithms”，并增添原书没有的很多细节。
+% 有待整理
+
+%----------------------------------------------------------------------------------------
+%	PART IV Notes of Papers
 %----------------------------------------------------------------------------------------
 
 \part{Notes of Papers}
+% 大家平时阅读的一些有启发性的论文的笔记。主要是一些Variational Quantum Algorithms和QAOA的论文的笔记
+% 本part的每一章就对应一篇论文。
 
-% \chapter{Variational Quantum Algorithms}
+\chapter{An Introduction to Variational Quantum Algorithms for Combinatorial Optimization Problems}
+\input{grange2023introduction}
+% 2024-05-20 经LAI整理，已经初步完成
 
-\chapter{grange2023introduction}
+\chapter{Qaoa-in-qaoa: Solving Large-scale Maxcut Problems on Small Quantum Machines}
+\input{zhou2023qaoa}
+% 有待整理
 
-\input{II Notes of Papers/grange2023introduction/lai}
+\chapter{Monte Carlo Policy Gradient Method for Binary Optimization}
+\input{chen2023monte}
 
-
-
+%\chapter{Lai's Idea: Combine \cite{chen2023monte} and \cite{grange2023introduction}}
+%\input{idea}
 
 %----------------------------------------------------------------------------------------
-%	PART III
+%	PART V Other Notes
 %----------------------------------------------------------------------------------------
 
 \part{Other Notes}
+% 其他不能放到以上四个parts的笔记。
 
-%Simon Algorithm-------------------------------------------------------------------------
-\chapter{Quantum Algorithms and Optimization}
-\section{Simon Algorithm}
-\subsection{Boolean Function}
-\input{III Other Notes/Simon's Algorithm/1.Boolean Function}
+\chapter{Simon Algorithm}
+% 简介待补充
 
-\subsection{Simon's Problem}
-\input{III Other Notes/Simon's Algorithm/2.Simon's Problem}
+    \section{Boolean Function}
+    \input{1.Boolean Function}
+    % 简介待补充
 
-\subsection{Classical Algorithm to Solve Simon's Problem}
-\input{III Other Notes/Simon's Algorithm/3.Classical Algorithm}
+    \section{Simon's Problem}
+    \input{2.Simon's Problem}
+    % 简介待补充
 
-\subsection{Simon's Algorithm to Solve Simon's Problem}
-\input{III Other Notes/Simon's Algorithm/4.Simon's Algorithm}
+    \section{Classical Algorithm to Solve Simon's Problem}
+    \input{3.Classical Algorithm}
+    % 简介待补充
 
-%Inexact Infeasible Interior Point Method------------------------------------------------
-\section{Inexact Infeasible Interior Point Method}
-\subsection{Primal-Dual Problem}
-\input{III Other Notes/Inexact Infeasible Interior Point Method/1.Primal-Dual Problem}
+    \section{Simon's Algorithm to Solve Simon's Problem}
+    \input{4.Simon's Algorithm}
+    % 简介待补充
 
-\subsection{Newton Method and Newton System}
-\input{III Other Notes/Inexact Infeasible Interior Point Method/2.Newton Method and Newton System}
+\chapter{Inexact Infeasible Interior Point Method}
+% 中文简介待补充  
 
-\subsection{Modified Normal Equation System}
-\input{III Other Notes/Inexact Infeasible Interior Point Method/3.Modified Normal Equation System}
+    \section{Primal-dual Problem}
+    \input{1.Primal-Dual Problem}
+    % 简介待补充
 
-%A Concise Introduction to Quantum Computing------------------------------------------------
-\section{A Concise Introduction to Quantum Computing}
-\subsection{A Review of Quantum State}
-\input{III Other Notes/A Concise Introduction to Quantum Computing/1.A Review of Quantum State}
+    \section{Newton Method and Newton System}
+    \input{2.Newton Method and Newton System}
+    % 简介待补充
 
-\subsection{Basis States and Superposition}
-\input{III Other Notes/A Concise Introduction to Quantum Computing/2.Basis States and Superposition}
+    \section{Modified Normal Equation System}
+    \input{3.Modified Normal Equation System}
+    % 简介待补充
 
-\subsection{Product States and Entanglement}
-\input{III Other Notes/A Concise Introduction to Quantum Computing/3.Product States and Entanglement}
+\chapter{A Concise Introduction to Quantum Computing}
+% 中文简介待补充
 
-\subsection{Quantum Operation}
-\input{III Other Notes/A Concise Introduction to Quantum Computing/4.Quantum Operation}
+    \section{A Review of Quantum State}
+    \input{1.A Review of Quantum State}
+    % 简介待补充
 
-\subsection{Some Noteworthy Points in Quantum Circuits}
-\input{III Other Notes/A Concise Introduction to Quantum Computing/5.Some Noteworthy Points in Quantum Circuits}
+    \section{Basis States and Superposition}
+    \input{2.Basis States and Superposition}
+    % 简介待补充
+
+    \section{Product States and Entanglement}
+    \input{3.Product States and Entanglement}
+    % 简介待补充
+
+    \section{Quantum Operation}
+    \input{4.Quantum Operation}
+    % 简介待补充
+
+    \section{Some Noteworthy Points in Quantum Circuits}
+    \input{5.Some Noteworthy Points in Quantum Circuits}
+    % 简介待补充
 
 %----------------------------------------------------------------------------------------
 %	Bibliography
 %----------------------------------------------------------------------------------------
 
-\chapter*{Bibliography}
+\chapter{Bibliography}
 \markboth{\sffamily\normalsize\bfseries Bibliography}{\sffamily\normalsize\bfseries Bibliography} % Set the page headers to display a Bibliography chapter name
 \addcontentsline{toc}{chapter}{\textcolor{ocre}{Bibliography}} % Add a Bibliography heading to the table of contents
 
-\section*{Articles}
+\section{Articles}
 \addcontentsline{toc}{section}{Articles} % Add the Articles subheading to the table of contents
 
 \printbibliography[heading=bibempty, type=article] % Output article bibliography entries
 
-\section*{Books}
+\section{Books}
 \addcontentsline{toc}{section}{Books} % Add the Books subheading to the table of contents
 
 \printbibliography[heading=bibempty, type=book] % Output book bibliography entries

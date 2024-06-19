@@ -1,0 +1,64 @@
+Consider the standard form of Linear Programming(LP) optimization problem
+
+\begin{equation}\label{primal dual problem}
+\begin{aligned}
+ \min_{x} \quad &c^{\top} x && \quad &\max_{y, s} \quad b^{\top} y \\
+ \text{(P)} \quad \text{s.t.} \quad A &x = b && \quad \text{(D)} \quad \text{s.t.} \quad A^{\top} y+&s = c \\
+ &x  \geq 0  && &s \geq 0,
+\end{aligned}
+\end{equation}
+where $A \in \mathbb{R}^{m \times n}$ with $\operatorname{rank}(A)=m, y, b \in \mathbb{R}^m$ and $x, s, c \in \mathbb{R}^n$. If $x$ is the optimal solution to the (P) and $(y, s)$ is the optimal solution to the (D), then the following four equations are satisfied.
+
+\begin{equation}
+    \left\{\begin{array}{l}
+A x=b, \\
+A^T y+s=c, \\
+X s=0, \\
+(x, s) \geq 0.
+\end{array}\right.
+\end{equation}
+The Solution $(x, y, s)$ that satisfies (\ref{primal dual problem}) is called an optimal solution. Under the condition of $(x, s) \geq 0$, the equation $Xs = 0$ is equivalent to $x^{\top}s = 0$. So all optimal solutions, if exist, belong to the set $\mathcal{P} \mathcal{D}^*$, which is defined as
+\begin{equation}
+    \mathcal{PD}^*=\left\{(x, y, s) \in \mathbb{R}^{n+m+n}: A x=b, A^{\top} y+s=c, x^{\top} s=0,(x, s) \geq 0\right\}.
+\end{equation}
+The elements of the set 
+\begin{equation}
+    F_{P D}=\left\{(x, y, s) \mid A x=b, A^T y+s=c, (x,s) \geq 0 \right\}
+\end{equation}
+are called the feasible solutions. The elements of the set 
+\begin{equation}
+    F_{P D}^0=\left\{(x, y, s) \mid A x=b, A^T y+s=c, (x,s) > 0 \right\}
+\end{equation}
+are called the feasible interior points. Given the parameters $\mu>0$, the analytic center of (\ref{primal dual problem}) is the solution of the system
+
+\begin{equation}\label{center path system}
+    \left\{
+    \begin{aligned}
+        & A x=b, \\
+        & A^T y+s=c, \\
+        & X s=\mu e ,\\
+        & (x,s) \geq 0.
+    \end{aligned}
+    \right.
+\end{equation}
+
+If there exists a feasible interior point, then for any $\mu > 0$ there is only one analytic center. The set of analytic centers of (\ref{center path system})
+\begin{align}
+    \mathcal{CP} = \{ &(x(\mu), y(\mu), s(\mu)) \in \mathbb{R}^{n+m+n}: A x = b, A^{\top} y + s = c, \\
+    &X s=\mu e, (x,s) \geq 0, \mu > 0\}.
+\end{align}
+is called center path.
+
+The basic idea of center path method is described as below. As $\mu \rightarrow 0$, the points $(x(\mu), y(\mu), s(\mu))$ on the $\mathcal{CP}$ converge to a point $(x^*, y^*, s^*)$ on $\mathcal{PD^*}$. Therefore, for sufficiently small $\mu > 0$, the linear programming problem can be solved by finding the approximate point of the analytic center of the primal-dual problem.
+
+We numerically find the optimal solution to the primal dual problem, but it is difficult to find a solution that strictly satisfies the equality constraint. So we need to change the equation constraints. For sufficiently small numbers $\epsilon_P>0, \epsilon_D>0, \epsilon>0$, it is assumed that it is sufficient to find a solution $(x,y,s)$ that satisfies 
+\begin{equation}
+    \| A  x- b\| \leq \epsilon_P,\left\| A^T  y+ s- c\right\| \leq \epsilon_D,  x^T  s \leq \epsilon.
+\end{equation}
+
+If $(x,s)>0$, the point $(x,y,s)$ is called the interior point of . The elements of the set
+\begin{equation}
+    I_{PD}^0 = \{(x,y,s) \mid x\notin F_{PD}^{0}, (x,s)>0\}
+\end{equation}
+are called infeasible interior points. The most important feature of the IIPM(infeasible interior point method) is that any feasible or infeasible interior point can be chosen as the initial point.
+
