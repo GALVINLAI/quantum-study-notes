@@ -304,7 +304,7 @@ The main idea of a VQA is as follows.
 
 \begin{enumerate}
     \item For any parameter $\theta \in \mathbb{R}^d,$ $U(\theta) \in \mathcal{M}_{2^n}(\mathbb{C})$ is a $n$-qubits quantum circuit that can be executed on the quantum computer.
-    \item Fixing the input state $\left|0_n\right\rangle$, we obtain the output state  $|\psi (\theta) \rangle = U(\theta)\left|0_n\right\rangle$. When $|\psi (\theta) \rangle$ is measured, it results in a discrete distribution probability $p_\theta(x)$, namely,
+    \item Fixing the input state $\left|0_n\right\rangle$, we obtain the output state $|\psi (\theta) \rangle = U(\theta)\left|0_n\right\rangle$. When $|\psi (\theta) \rangle$ is measured, it results in a discrete distribution probability $p_\theta(x)$, namely,
 \begin{equation}
     p_\theta(x)=\left|\left\langle x|U(\theta)| 0_n\right\rangle\right|^2, \quad \forall x \in \{0,1\}^{n}.
 \end{equation}
@@ -388,16 +388,22 @@ The quantum circuit of QAOA is given by
 \end{equation}
 where $(\boldsymbol{\gamma}, \boldsymbol{\beta})=\left(\gamma_{1}, \ldots, \gamma_{p}, \beta_{1}, \ldots, \beta_{p}\right) \in \mathbb{R}^{2 p}$ and $p$ is called depth.
 
+\newpage
+
 \section{Quantum Measurement Postulate (adapted from Lin \cite{lin2022lecture}) }
 
 Without loss of generality, we only discuss a special type of quantum measurements called the \textbf{projective measurement}. 
 
-\begin{theorem}[Quantum measurement postulate]
-In a finite dimensional setting (namely, an $n$-qubits system), a quantum \textbf{observable} always corresponds to an (arbitrary) Hermitian matrix $M$, which has the spectral decomposition
+\begin{remark}
+    We just need to accept this assumption/postulate and don't need to ask yourself why, unless you want to learn the whole of quantum mechanics.
+\end{remark}
+
+\begin{theorem}[Quantum measurement postulate: projective measurement]
+In a finite dimensional setting (namely, an $n$-qubits system), a quantum \textbf{observable} always corresponds to an (arbitrary) $2^n$ by $2^n$ Hermitian matrix $M$, which has the spectral decomposition
 \begin{equation}
-    M=\sum_m \lambda_m P_m .
+    M=\sum_{m=1}^{2^n} \lambda_m P_m .
 \end{equation}
-Here $\lambda_m \in \mathbb{R}$ are the eigenvalues of $M$, and $P_m$ is the projection operator (i.e., $P_m^2=P_m$) onto the eigenspace associated with $\lambda_m$.
+Here, $\lambda_m \in \mathbb{R}$ are the eigenvalues of $M$, and $P_m$ is the projection operator (i.e., $P_m^2=P_m$) onto the eigenspace associated with $\lambda_m$. \footnote{Indeed, $P_m= | \phi_m\rangle \langle\phi_m| $ and $| \phi_m\rangle$ is the corresponding eigenvector to $\lambda_m$.}
 
 When a quantum state $|\psi\rangle$ is measured by a quantum observable $M$, the outcome of the measurement is always an eigenvalue $\lambda_m$, with probability
 \begin{equation}
@@ -405,22 +411,18 @@ When a quantum state $|\psi\rangle$ is measured by a quantum observable $M$, the
 \end{equation}
 After the measurement, the quantum state becomes
 \begin{equation}
-    |\psi\rangle \rightarrow \frac{P_m|\psi\rangle}{\sqrt{p_m}}.
+    |\psi\rangle \rightarrow \frac{P_m|\psi\rangle}{||P_m|\psi\rangle||}=\frac{P_m|\psi\rangle}{\sqrt{p_m}} .
 \end{equation}
 Note that this is not a unitary process!
 \end{theorem}
 
-\begin{remark}
-    We just need to accept this assumption/postulate and don't need to ask yourself why, unless you want to learn the whole of quantum mechanics.
-\end{remark}
-
-In order to evaluate the expectation value of a quantum observable $M$, we first use the resolution of identity: $\sum_m P_m=I$. This implies the normalization condition,
+In order to evaluate the expectation value of a quantum observable $M$, we first use the \textit{resolution of identity}: $\sum_m P_m=I$. This implies the normalization condition,
 \begin{equation}
     \sum_m p_m=\sum_m\left\langle\psi\left|P_m\right| \psi\right\rangle=\langle\psi \mid \psi\rangle=1.
 \end{equation}
 Together with $p_m \geq 0$, we find that $\left\{p_m\right\}$ is indeed a probability distribution. Note that
 \begin{equation}
-    \mathbb{E}_\psi(M)=\sum_m \lambda_m p_m=\sum_m \lambda_m\left\langle\psi\left|P_m\right| \psi\right\rangle=\left\langle\psi\left|\left(\sum_m \lambda_m P_m\right)\right| \psi\right\rangle=\langle\psi|M| \psi\rangle.
+    \mathbb{E}_\psi(M):=\sum_m \lambda_m p_m=\sum_m \lambda_m\left\langle\psi\left|P_m\right| \psi\right\rangle=\left\langle\psi\left|\left(\sum_m \lambda_m P_m\right)\right| \psi\right\rangle=\langle\psi|M| \psi\rangle.
 \end{equation}
 
 \begin{definition}[Expectation value of the measurement]
@@ -431,16 +433,16 @@ Together with $p_m \geq 0$, we find that $\left\{p_m\right\}$ is indeed a probab
 \end{definition}
 
 \begin{remark}
-    A widely used phrase, to 'measure in a basis $|i\rangle$ ', where $|i\rangle$ form an orthonormal basis, simply means to perform the projective measurement with projectors $P_i=|i\rangle\langle i|$.
+    A widely used phrase, to 'measure in a basis $|i\rangle$', where $|i\rangle$ form an orthonormal basis, simply means to perform the projective measurement with projectors $P_i=|i\rangle\langle i|$.
 \end{remark}
 
 \subsection{Summary of Lai's Understanding}
 
 The current understanding is as follows: % 目前的理解如下：
 \begin{enumerate}
-    \item Given a quantum state to be observed. Any Hermitian operator M can be used as an observable to measure this quantum state. The specific methods and experimental approaches are to be determined by physicists and engineers.
+    \item Given a quantum state to be observed. \textit{Any} Hermitian operator $M$ can be used as an observable to measure this quantum state. The specific methods and experimental approaches are to be determined by physicists and engineers.
     \item Each measurement yields an eigenvalue of $M$ as outcome. The eigenvalues of Hermitian operators are always real numbers, which aligns with the concept that physical measurement results should be real numbers. For example, measurements of physical quantities such as energy, position, and momentum yield real numbers.
-    \item The emphasis is that we cannot calculate the value of probability $p_m$. However, we can sample according to $p_m$ (on a quantum computer).
+    \item \textbf{The emphasis is that we cannot calculate the value of probability $p_m$. However, we can sample according to $p_m$ (on a quantum computer).} % 我们不是真的不能计算probability $p_m$，而是这种计算会丧失使用量子技术的意义。
     \item The emphasis is that $\langle M \rangle$ is an expected value, and the average of multiple measurements is an unbiased estimate of $\langle M \rangle$. Unless we perform an infinite number of measurements, $\langle M \rangle$ cannot be precisely estimated.
 \end{enumerate}
 
@@ -462,7 +464,7 @@ They are designed to operate in a hybrid quantum-classical fashion. In these alg
 
 \subsection{Parameterized Quantum Circuit (PQC) \cite{cerezo2021variational}}
 
-In variational quantum algorithms, the optimizable parameters are defined within parameterized quantum circuits (PQCs). A PQC is a sequence of unitary operators represented by parameterized quantum gates that can be readily implemented on a quantum computer. 
+In variational quantum algorithms, the optimizable parameters are defined within \textbf{parameterized quantum circuits (PQCs)}. A PQC is a sequence of unitary operators represented by parameterized quantum gates that can be readily implemented on a quantum computer.
 
 Assuming we are working in an $n$-qubit Hilbert space, a parameterized quantum circuit (PQC), denoted as $U(\boldsymbol{\theta})$, can be generically expressed as the product of $L$ sequentially applied unitaries:
 \begin{equation}
@@ -481,7 +483,8 @@ See Fig \ref{fig:pqc}. Here,
 \end{itemize}
 
 \textbf{Q: Why is the $U_l\left(\boldsymbol{\theta}_l\right)$ structure designed this way? }
-A: This is what can be executed by near-term quantum computers. For mathematicians, we have no choice but to accept it.
+
+A: This is what can be executed by near-term quantum computers. For mathematicians, we have no choice but to accept it. On the other hand, the rotation-like gates with CNOT gate are universal. Any unitary gate can be decomposed in that form.
 
 \begin{figure}
     \centering
@@ -492,9 +495,9 @@ A: This is what can be executed by near-term quantum computers. For mathematicia
 
 \subsection{Variation Quantum Eigensolvers (VQE) \cite{ding2023random}}
 
-The variation quantum eigensolvers (VQE) finds the smallest eigenvalue (\textbf{ground state energy}) and its corresponding eigenvector (\textbf{ground state}) of a given Hamiltonian matrix $H$ by finding:
+The VQE finds the smallest eigenvalue (\textbf{ground state energy}) and its corresponding eigenvector (\textbf{ground state}) of a given Hamiltonian matrix $H$ by finding:
 \begin{equation}
-    \theta^*=\operatorname{argmin}_{\boldsymbol{\theta}} f(\boldsymbol{\theta})=\operatorname{argmin}_{\boldsymbol{\theta}}\left\langle U(\boldsymbol{\theta}) \psi_0|H| U(\boldsymbol{\theta}) \psi_0\right\rangle .
+    \theta^*=\operatorname{argmin}_{\boldsymbol{\theta}} f(\boldsymbol{\theta})=\operatorname{argmin}_{\boldsymbol{\theta}}\left\langle \psi_0|  U(\boldsymbol{\theta})^{\dagger}H| U(\boldsymbol{\theta}) \psi_0\right\rangle .
 \end{equation}
 Note that
 \begin{enumerate}
@@ -508,7 +511,8 @@ Note that
     | \psi^*\rangle
 =\operatorname{argmin}_{|\psi\rangle} \langle \psi| H | \psi\rangle.
 \end{equation}
-A: Our goal is to design a quantum circuit that prepares the ground state. Directly preparing this state is difficult. However, we can control the parameters of the gates. In this case, initial state is easy to prepare, and the output state we obtain is exactly what we want!
+
+A: Directly preparing this state is difficult, even if we know it mathematically. Thus, our goal is to design a quantum circuit that can generate the ground state (our goal state) from some initial state which is easy to prepare physically. We control the parameters of the gates to get desirable quantum circuit. % 这样子问题就太大了
 
 \section{Parameter-shift Rule: Analytically Estimate of Derivatives (adapted from \cite{crooks2019gradients})}
 
@@ -520,7 +524,7 @@ We consider the expectation value of a Hermitian observable $M$ measured by
 \end{equation}
 with
 \begin{equation}
-    U(\boldsymbol{\theta})=V_m U_m\left(\theta_m\right) \cdots V_2 U_2(\theta) V_1 U_1\left(\theta_1\right),
+    U(\boldsymbol{\theta})=V_m U_m\left(\theta_m\right) \cdots V_2 U_2(\theta_2) V_1 U_1\left(\theta_1\right),
 \end{equation}
 where $V_j$ are constant arbitrary circuits, $U_j\left(\theta_j\right)$ are rotation-like gates, i.e., characterized by a Hermitian generator $H_j$ such that $H_j^2=\textbf{1}$ (involutory matrix) and so
 \begin{equation}
@@ -539,16 +543,19 @@ The result is a family of parameter-shift rules
     \label{eq:grad-shift}
 g_j(\boldsymbol{\theta})=\frac{f\left(\boldsymbol{\theta}+s \mathbf{e}_j\right)-f\left(\boldsymbol{\theta}-s \mathbf{e}_j\right)}{2 \sin (s)}, \quad \forall s \neq k \pi, k \in \mathbb{Z},
 \end{equation}
-where $\mathbf{e}_j$ is the unit vector along the $\theta_j$ axis. Notice that 
+where $\mathbf{e}_j$ is the unit vector along the $\theta_j$ axis. 
+
+Notice that 
 \begin{itemize}
-    \item Even if this expression looks like a finite difference approximation, it is actually exact and we can use it to analytically estimate the gradient of expectation values.
-    \item It is important to remark that the formula in Eq. (\ref{eq:grad-shift}) is exact for any choice of $s$. 
+    \item Even if this expression looks like a finite difference approximation, it is \textit{actually exact} and we can use it to analytically estimate the gradient of expectation values.
+    \item It is important to remark that the formula in Eq. (\ref{eq:grad-shift}) is \textit{exact for any choice of $s$. }
 \end{itemize}
 
 \textbf{Q: why can we have this nice result?} 
+
 A: Consider a one-qubit system. The key point is the fact that for any real constant $a$, and Hermitian operator $G$ with two unique eigenvalues, if we set
 \begin{equation}
-    U_H(\theta)=e^{-i a \theta H}
+    U_H(\theta)=e^{-i a \theta H},
 \end{equation}
 then
 \begin{equation}
@@ -568,8 +575,8 @@ g_{j_1, j_2}(\boldsymbol{\theta})=[ & {\left[f\left(\boldsymbol{\theta}+s_1 \mat
 \subsection{Summary}
 
 \begin{enumerate}
-    \item Unlike finite differences, it provides an exact estimate. However, similarly, we need to calculate each component of the gradient or Hessian matrix one by one.
-    \item Notice that the function value $f$ itself is an expectation, which cannot be precisely evaluated. Therefore, in practice, the derivatives still cannot be obtained exactly.
+    \item Unlike finite differences, it provides an exact estimate. \textbf{However, similarly, we need to calculate each component of the gradient or Hessian matrix one by one.}
+    \item Notice that the function value $f$ itself is an expectation, which cannot be precisely evaluated. Therefore, \textbf{in practice, the derivatives still cannot be obtained exactly.}
     \item Essentially, those derivatives are linear combinations of multiple function values $f$.
 \end{enumerate}
 
@@ -585,7 +592,7 @@ is replaced with a stochastic update rule of the form
 \begin{equation}
     \boldsymbol{\theta}^{(t+1)}=\boldsymbol{\theta}^{(t)}-\alpha g^{(t)}\left(\boldsymbol{\theta}^{(t)}\right),
 \end{equation}
-where $\left\{g^{(t)}(\boldsymbol{\theta})\right\}$ is a sequence of random variables - estimators of the gradient - which defines the particular algorithm. A fundamental property required for obtaining convergence guarantees is that the estimators are unbiased:
+where $\left\{g^{(t)}(\boldsymbol{\theta})\right\}$ is a sequence of random variables - estimators of the gradient - which defines the particular algorithm. \textbf{A fundamental property required for obtaining convergence guarantees is that the estimators are unbiased:}
 \begin{equation}
     \mathbb{E}\left[g^{(t)}(\boldsymbol{\theta})\right]=\nabla \mathcal{L}(\boldsymbol{\theta})
 \end{equation}
@@ -600,14 +607,16 @@ Consider as the simplest loss function in VQA
 for some observable $O$.
 
 \begin{definition}[Definition 2 ($n$-sample mean estimator)]
-    Given a parameterized quantum circuit $U(\boldsymbol{\theta})$ (with $\boldsymbol{\theta} \in \mathbb{R}^d$ ) and an observable $O$ we define $\tilde{o}^{(n)}(\boldsymbol{\theta})$ as the $n$-sample mean estimator of $\langle O\rangle_{\boldsymbol{\theta}}-$ i.e., the estimator of $\langle O\rangle_{\boldsymbol{\theta}}$ obtained by averaging the results of $n$ measurements of the observable $O$ on the state vector $U(\boldsymbol{\theta})|0\rangle$.
+    Given a parameterized quantum circuit $U(\boldsymbol{\theta})$ (with $\boldsymbol{\theta} \in \mathbb{R}^d$ ) and an observable $O$, we define $$
+    \tilde{o}^{(n)}(\boldsymbol{\theta})
+$$ as the $n$-sample mean estimator of $\langle O\rangle_{\boldsymbol{\theta}}-$ i.e., the estimator of $\langle O\rangle_{\boldsymbol{\theta}}$ obtained by averaging the results of $n$ measurements of the observable $O$ on the state vector $U(\boldsymbol{\theta})|0\rangle$.
 \end{definition}
 
 Note that by construction we have that
 \begin{equation}
     \mathbb{E}\left[\tilde{o}^{(n)}(\boldsymbol{\theta})\right]=\langle O\rangle_{\boldsymbol{\theta}},
 \end{equation}
-for all $n$, and that while all $n$-sample mean estimators have the same expectation value the variance of the estimator decreases with increasing $n$. 
+for all $n$, and that while all $n$-sample mean estimators have the same expectation value, the variance of the estimator decreases with increasing $n$.
 
 \subsection{Unbiased Estimators of Gradients}
 
@@ -635,6 +644,7 @@ is an unbiased estimator for $\partial \mathcal{L}(\boldsymbol{\theta}) / \parti
     \centering
     \includegraphics[width=1\linewidth]{Images/sgd-convergence.png}
     \label{fig:sgd-convergence}
+    \caption{convergence of SDG}
 \end{figure}
 
 \textbf{Here, Polyak- Lojasiewicz (PL) inequality is an assumption.} See Fig. \ref{fig:sgd-convergence}.
@@ -648,8 +658,8 @@ is an unbiased estimator for $\partial \mathcal{L}(\boldsymbol{\theta}) / \parti
 \end{equation}
 under the following assumptions:
 \begin{enumerate}
-    \item The cost of evaluating a partial derivative scales linearly with that of a function value. (This is exactly general case of (\ref{eq:grad-shift}))
-    \item Every evaluation of the function and partial derivative is susceptible to Gaussian noise:
+    \item \textbf{The cost of evaluating a partial derivative scales linearly with that of a function value}. (This is exactly general case of (\ref{eq:grad-shift}))
+    \item \textbf{Every evaluation of the function and partial derivative is susceptible to Gaussian noise}:
 \end{enumerate}
 \begin{equation}
     f(\boldsymbol{\theta}) \rightarrow f(\boldsymbol{\theta})+N\left(0, \sigma_1^2(\boldsymbol{\theta})\right), \quad \partial_i f(\boldsymbol{\theta}) \rightarrow \partial_i f(\boldsymbol{\theta})+N\left(0, \sigma_2^2(\boldsymbol{\theta})\right)

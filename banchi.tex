@@ -1,0 +1,37 @@
+
+We focus on parametric quantum states $|\psi(\boldsymbol{\theta})\rangle$ that depend parametrically on $P$ classical real parameters $\left\{\theta_p\right\}$ with $p=1, \ldots, P$. These states are obtained by applying a unitary $\hat{U}(\boldsymbol{\theta})$ onto a $\boldsymbol{\theta}$-independent reference state $\left|\psi_0\right\rangle$
+\begin{equation}
+    |\psi(\boldsymbol{\theta})\rangle=\hat{U}(\boldsymbol{\theta})\left|\psi_0\right\rangle.
+\end{equation}
+
+We study the optimization (either maximization or minimization) of the expected value of an observable $\hat{C}$, taken with respect to $|\psi(\boldsymbol{\theta})\rangle$
+\begin{equation}
+    C(\boldsymbol{\theta})=\left\langle\psi_0\left|\hat{U}(\boldsymbol{\theta})^{\dagger} \hat{C} \hat{U}(\boldsymbol{\theta})\right| \psi_0\right\rangle.
+\end{equation}
+
+\begin{lemma}
+    Any unitary operator can be expressed as a matrix exponential $\hat{U}(\boldsymbol{\theta})=e^{i \hat{X}(\boldsymbol{\theta})}$, where $\hat{X}(\boldsymbol{\theta})$ is a Hermitian operator. 
+\end{lemma}
+
+When the unitary $\hat{U}(\boldsymbol{\theta})$ is a composition of $T$ simpler gates $\hat{U}_t(\boldsymbol{\theta})$, then we write
+\begin{equation}
+    \hat{U}(\boldsymbol{\theta})=\prod_{t=1}^T \hat{U}_t(\boldsymbol{\theta}), \quad \hat{U}_t(\boldsymbol{\theta})=e^{i \hat{X}_t(\boldsymbol{\theta})},
+\end{equation}
+where the products are ordered as $\prod_{t=1}^T \hat{U}_t:=$ $\hat{U}_T \cdots \hat{U}_1$. 
+
+The products of $N$ Pauli matrices 
+$$
+\hat{\sigma}_\nu= \hat{\sigma}_{\nu_1} \otimes \cdots \otimes \hat{\sigma}_{\nu_N}
+$$
+form a basis for the space of $N$-qubit Hermitian operators, where $\boldsymbol{\nu}=\left(\nu_1, \ldots, \nu_N\right)$ is a multi index, $\nu_j$ is either $\{0, x, y, z\}$ and $\hat{\sigma}_0:=\hat{\mathbb{1}}$, $\hat{\sigma}_x, \hat{\sigma}_y, \hat{\sigma}_z$ are the Pauli matrices. (So, the dim of the space of $N$-qubit Hermitian operators is $4^{N}.$) As such, we may expand the operators $\hat{X}_t(\boldsymbol{\theta})$ onto this basis and write
+\begin{equation}\tag{5}
+    \hat{X}_t(\boldsymbol{\theta})=\sum_{\boldsymbol{\nu}} x_{t, \boldsymbol{\nu}}(\boldsymbol{\theta}) \hat{\sigma}_{\boldsymbol{\nu}},
+\end{equation}
+with coefficients $x_{t, \boldsymbol{\nu}}(\boldsymbol{\theta})=\operatorname{Tr}\left[\hat{X}_t(\boldsymbol{\theta}) \hat{\sigma}_{\boldsymbol{\nu}}\right] / 2^N$. 
+
+It is common to restrict attention to gates that only have a single element in the expansion (5), i.e. $x_{t, \mu}(\theta)=$ $\theta_t \delta_{\mu, \boldsymbol{\nu}(t)}$, where $\boldsymbol{\nu}(t)$ specifies the kind of parametric gate applied at time $t$, or, more generally, to gates with $x_{t, \mu}(\boldsymbol{\theta})=\theta_t x_{t, \boldsymbol{\mu}}$, for which
+\begin{equation}
+    \hat{U}_t^{\text {simple }}=e^{i \theta_t \hat{H}_t}, \quad \hat{H}_t=\sum_\nu x_{t, \nu} \hat{\sigma}_\nu,
+\end{equation}
+where the operator $\hat{H}_t$ is independent on the parameters $\boldsymbol{\theta}$. Moreover, most often we consider gates that act on either one- or two-qubit, so at most two Pauli matrices in the product $\hat{\sigma}_{\nu_1} \otimes \cdots \otimes \hat{\sigma}_{\nu_N}$ are different from the identity. Gates as in Eq. (6) are quite common, as they physically correspond to solutions of a Schrödinger equation with Hamiltonian $\hat{H}_t$ and time parameter $\theta_t$. Yet, they do not model the most general physical evolution, e.g. where the parameters are different from a "time", which is discussed in this paper.
+

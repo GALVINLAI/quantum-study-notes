@@ -39,12 +39,12 @@ In the circuit representation, qubits are numbered \textit{in ascending order fr
 We can manipulate quantum gates to build other quantum gates in two different ways. 
 \begin{enumerate}
     \item The first one is the \textit{composition}. The composition of gates only operates between gates acting on the same qubits. 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\linewidth]{Images/grange2023-1.png}
 \end{figure}
     \item The other one is the \textit{tensor product}. The tensor product of gates can operates between gates acting on different qubits. Suppose $U_{1} \in \mathcal{M}_{2^{k}}(\mathbb{C})$ applies on the first $k$ qubits and $U_{2} \in \mathcal{M}_{2^{k^{\prime}}}(\mathbb{C})$ applies on the $k^{\prime}$ following ones. Their tensor product is the application of $U_{1}$ and $U_{2}$ on respective qubits in parallel. The matrix representation of this tensor product is $U_{1} \otimes U_{2}$. 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\linewidth]{Images/grange2023-2.png}
 \end{figure}
@@ -55,7 +55,7 @@ Notice that when we apply a quantum gate on $k$ qubits of an $n$-qubit system, i
 
 \begin{example}
 For instance, let us consider a 3-qubit system on which we apply $U \in \mathcal{M}_{2}(\mathbb{C})$ on qubit number 2. The matrix representation of the resulting 3-qubit gate is $I \otimes U \otimes I$, and its circuit representation is illustrated on Fig.4, where the application of $I$ is usually replaced by a simple wire.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\linewidth]{Images/grange2023-3.png}
 \end{figure}
@@ -268,7 +268,7 @@ If an $n$-qubit state is not a product state, it is an entangled state. Operatio
     \item Each quantum state is either a product state or an entangled state.
     \item Each quantum state is either a basis state or a superposed state.
     \item There is a difference between superposition and entanglement, but there are some implication relation between those concepts, see next figure. % 但又有一些关联
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/relation-superposed-entangled.jpg}
 \end{figure}
@@ -299,7 +299,7 @@ Let us first provide a high-level description of the key elements of VQAs that a
     \item and a \textbf{classical optimizer}, which is an algorithm $\mathcal{A}$ that optimizes $g$ over space $\mathbb{R}^{d}$.
 \end{itemize}
 Before that, we provide a general overview of VQAs in Algorithm 1. 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\linewidth]{Images/VQA-algorithm.png}
 \end{figure}
@@ -327,7 +327,7 @@ As defined in Sect. 2.3, a quantum circuit is a sequence of universal quantum ga
 
 \begin{example}
     A simple example of a parametrized quantum circuit for $n=3$ and $d=3$ is depicted in Fig. 6.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/parametrized-quantum-circuit.png}
 \end{figure}
@@ -769,7 +769,7 @@ It remains to prove that, for $i<j \in[n]$ and $t \in \mathbb{R}, \operatorname{
     \operatorname{Exp}\left(Z_{i} \otimes Z_{j}, t\right)=\cos (t) I-i \sin (t) Z_{i} \otimes Z_{j} \tag{34}
 \end{equation}
 We consider the two-qubit system that corresponds to the qubit $i$ as the first qubit and the qubit $j$ as the second qubit (the others are unchanged by the transformation). Thus, it remains to prove the equality of the two circuits depicted on Fig. 9.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/grange23-f9.png}
 \end{figure}

@@ -1,0 +1,594 @@
+\href{https://journals.aps.org/pra/abstract/10.1103/PhysRevA.103.012405}{Phys. Rev. A 103, 012405 (2021) - Estimating the gradient and higher-order derivatives on quantum hardware (aps.org)}  \cite{mari2021estimating}
+
+\section{II. SETTING: Variational Optimization of Quantum Circuits}
+
+A variational quantum circuit acting on $n$ qubits is a sequence of gates depending on a set of classical parameters $\boldsymbol{\theta}=\left(\theta_1, \theta_2, \ldots, \theta_m\right)$ and producing a family of unitary operations $U(\theta)$. 
+
+A typical structure of many variational circuits which can be executed by near-term quantum computers is
+\begin{equation}
+    U(\boldsymbol{\theta})=V_m U_m\left(\theta_m\right) \cdots V_2 U_2(\theta) V_1 U_1\left(\theta_1\right),
+\end{equation}
+where $V_j$ are constant arbitrary circuits, while $U_j\left(\theta_j\right)$ are \textbf{rotation-like gates}, i.e., characterized by a Hermitian\footnote{$U_j\left(\theta_j\right)^{\dagger} U_j\left(\theta_j\right)=e^{(i / 2) H_j \theta_j} e^{-(i / 2) H_j \theta_j}=e^0=\mathbf{1}$.} generator $H_j$ such that $H_j^2=\textbf{1}$ (i.e., involutory matrix) and so
+\begin{equation}
+    U_j\left(\theta_j\right)=e^{-(i / 2) H_j \theta_j}=\cos \left(\theta_j / 2\right) \textbf{1}-i \sin \left(\theta_j / 2\right) H_j .
+\end{equation}
+Note the last equality holds only if $H_j$ is involutory. (For proof see Appendix \ref{app:a0})
+
+Typically, the circuit is applied to a fixed reference state $|0\rangle$ and the expectation value of a Hermitian observable $M$\footnote{$M$ must be Hermitian.} is measured:
+\begin{equation}\label{eq:cost}
+    f(\boldsymbol{\theta})=\left\langle 0\left|U(\boldsymbol{\theta})^{\dagger} M U(\boldsymbol{\theta})\right| 0\right\rangle .
+\end{equation}
+The expectation value given in Eq. (\ref{eq:cost}) is usually optimized with respect to the parameters $\boldsymbol{\theta}$. 
+
+In this work we are interested in evaluating derivatives of an arbitrary order $d$, which we can cast as a tensor with $d$ indices $j_1, j_2, \ldots, j_d$ whose elements are the real quantities
+\begin{equation}\label{eq:deribatives}
+    g_{j_1, j_2, \ldots, j_d}(\boldsymbol{\theta})=\frac{\partial^d f(\boldsymbol{\theta})}{\partial \theta_{j_1} \partial \theta_{j_2} \cdots \partial \theta_{j_d}},
+\end{equation}
+where the gradient and the Hessian correspond to the particular cases with $d=1$ and $d=2$, respectively. 
+
+\section{III. PARAMETER-SHIFT RULES}
+
+\subsection{A. First-order Derivatives: The Gradient}
+
+In what follows, we will fix the index $j$, and only consider univariate of $\theta_j$.
+
+\begin{lemma}
+    The \textbf{unitary conjugation} of an arbitrary operator $\hat{K}$ by $U_j\left(\theta_j\right)$, namely, $U_j\left(\theta_j\right)^{\dagger} \hat{K} U_j\left(\theta_j\right)$, can always be reduced to the sum of three terms
+\begin{equation}
+    \hat{K}\left(\theta_j\right):=U_j\left(\theta_j\right)^{\dagger} \hat{K} U_j\left(\theta_j\right)=\hat{A}+\hat{B} \cos \left(\theta_j\right)+\hat{C} \sin \left(\theta_j\right),
+\end{equation}
+where $\hat{A}, \hat{B}$, and $\hat{C}$ are operators independent of $\theta_j$ and involving only $\hat{K}$ and $\hat{H}_j$.
+\end{lemma}
+
+\begin{proof}
+ The conjugate transpose of $U_j(\theta_j)$ is
+\begin{equation}
+    U_j(\theta_j)^{\dagger} = \cos \left(\theta_j / 2\right) \textbf{1} + i \sin \left(\theta_j / 2\right) H_j.
+\end{equation}
+So,
+\begin{equation}
+    \hat{K}(\theta_j) = \left( \cos \left(\theta_j / 2\right) \textbf{1} + i \sin \left(\theta_j / 2\right) H_j \right) \hat{K} \left( \cos \left(\theta_j / 2\right) \textbf{1} - i \sin \left(\theta_j / 2\right) H_j \right).
+\end{equation}
+Expanding this product yields
+\begin{equation}
+    \hat{K}(\theta_j) = \cos^2 \left(\theta_j / 2\right) \hat{K} - i \cos \left(\theta_j / 2\right) \sin \left(\theta_j / 2\right) \hat{K} H_j + i \cos \left(\theta_j / 2\right) \sin \left(\theta_j / 2\right) H_j \hat{K} + \sin^2 \left(\theta_j / 2\right) H_j \hat{K} H_j.
+\end{equation}
+Using the trigonometric identities:
+\begin{equation}
+    \cos^2 \left(\theta_j / 2\right) = \frac{1 + \cos(\theta_j)}{2}, \quad \sin^2 \left(\theta_j / 2\right) = \frac{1 - \cos(\theta_j)}{2}, \quad \cos \left(\theta_j / 2\right) \sin \left(\theta_j / 2\right) = \frac{\sin(\theta_j)}{2},
+\end{equation}
+we have
+\begin{equation}
+    \hat{K}(\theta_j) = \left( \frac{1 + \cos(\theta_j)}{2} \right) \hat{K} - i \left( \frac{\sin(\theta_j)}{2} \right) \hat{K} H_j + i \left( \frac{\sin(\theta_j)}{2} \right) H_j \hat{K} + \left( \frac{1 - \cos(\theta_j)}{2} \right) H_j \hat{K} H_j.
+\end{equation}
+Grouping the terms, we obtain:
+\begin{equation}
+    \hat{K}(\theta_j) = \frac{1}{2} \hat{K} + \frac{1}{2} \cos(\theta_j) \hat{K} - \frac{i}{2} \sin(\theta_j) \hat{K} H_j + \frac{i}{2} \sin(\theta_j) H_j \hat{K} + \frac{1}{2} H_j \hat{K} H_j - \frac{1}{2} \cos(\theta_j) H_j \hat{K} H_j
+\end{equation}
+Defining $\hat{A}$, $\hat{B}$, and $\hat{C}$ as:
+\begin{equation}
+    \hat{A} = \frac{1}{2} (\hat{K} + H_j \hat{K} H_j), \quad \hat{B} = \frac{1}{2} (\hat{K} - H_j \hat{K} H_j), \quad \hat{C} = \frac{i}{2} (H_j \hat{K} - \hat{K} H_j)
+\end{equation}
+Finally, we get:
+\begin{equation}
+    \hat{K}(\theta_j) = \hat{A} + \hat{B} \cos(\theta_j) + \hat{C} \sin(\theta_j).
+\end{equation}
+Thus, the unitary conjugation of an arbitrary operator $\hat{K}$ by $U_j(\theta_j)$ can always be reduced to the sum of three terms involving operators $\hat{A}$, $\hat{B}$, and $\hat{C}$ that are independent of $\theta_j$.
+\end{proof}
+
+Moreover, from the standard trigonometric addition and subtraction identities, we can deduce the following lemma.
+
+\begin{lemma}
+\begin{align}
+& \frac{d \cos (x)}{d x}=\frac{\cos (x+s)-\cos (x-s)}{2 \sin (s)}, \\
+& \frac{d \sin (x)}{d x}=\frac{\sin (x+s)-\sin (x-s)}{2 \sin (s)},
+\end{align}
+which are valid for any $s \neq k \pi, k \in \mathbb{Z}$.
+\end{lemma}
+
+\begin{proof}
+    We only give the poofs for the cosine identity. Recall the addition and subtraction formulas for cosine:
+\begin{align}
+& \cos (x+s)=\cos (x) \cos (s)-\sin (x) \sin (s), \\
+& \cos (x-s)=\cos (x) \cos (s)+\sin (x) \sin (s).
+\end{align}
+Hence,
+\begin{equation}
+    \frac{\cos (x+s)-\cos (x-s)}{2 \sin (s)}=\frac{-2 \sin (x) \sin (s)}{2 \sin (s)}=-\sin (x).
+\end{equation}
+\end{proof}
+
+Now, differentiate $\hat{K}\left(\theta_j\right)$ with respect to $\theta_j$:
+\begin{align}
+\frac{\partial \hat{K}\left(\theta_j\right)}{\partial \theta_j}
+&=\hat{B}\frac{\partial \cos \left(\theta_j\right)}{\partial \theta_j} +\hat{C}\frac{\partial \sin \left(\theta_j\right)}{\partial \theta_j} \\
+&=\hat{B}\left(\frac{\cos \left(\theta_j+s\right)-\cos \left(\theta_j-s\right)}{2 \sin (s)}\right)+\hat{C}\left(\frac{\sin \left(\theta_j+s\right)-\sin \left(\theta_j-s\right)}{2 \sin (s)}\right).
+\end{align}
+On the other hand, recognize that $\hat{K}\left(\theta_j \pm s\right)$ can be written as
+\begin{align}
+\hat{K}\left(\theta_j+s\right) & =\hat{A}+\hat{B} \cos \left(\theta_j+s\right)+\hat{C} \sin \left(\theta_j+s\right),\\
+\hat{K}\left(\theta_j-s\right) & =\hat{A}+\hat{B} \cos \left(\theta_j-s\right)+\hat{C} \sin \left(\theta_j-s\right).
+\end{align}
+Thus, we get the next lemma.
+
+\begin{lemma}
+\begin{equation}
+    \frac{\partial \hat{K}\left(\theta_j\right)}{\partial \theta_j}=\frac{\hat{K}\left(\theta_j+s\right)-\hat{K}\left(\theta_j-s\right)}{2 \sin (s)}.
+\end{equation}
+\end{lemma}
+
+Recall that
+\begin{equation}
+    U(\boldsymbol{\theta})=V_m U_m\left(\theta_m\right) \cdots V_j U_j\left(\theta_j\right) \cdots V_1 U_1\left(\theta_1\right),
+\end{equation}
+and
+\begin{equation}
+    U(\boldsymbol{\theta})^{\dagger}=U_1\left(\theta_1\right)^{\dagger} V_1^{\dagger} \cdots U_j\left(\theta_j\right)^{\dagger} V_j^{\dagger} \cdots U_m\left(\theta_m\right)^{\dagger} V_m{ }^{\dagger}.
+\end{equation}
+Then, 
+\begin{align}
+f(\boldsymbol{\theta}) & =\left\langle 0\left|U(\boldsymbol{\theta})^{\dagger} M U(\boldsymbol{\theta})\right| 0\right\rangle .\\
+& =\underbrace{\langle 0| U_1\left(\theta_1\right)^{\dagger} V_1^{\dagger} \cdots}_{\langle\psi|:=} 
+U_j\left(\theta_j\right)^{\dagger} 
+\underbrace{V_j^{\dagger} \cdots U_m\left(\theta_m\right)^{\dagger} V_m{ }^{\dagger}  M V_m U_m\left(\theta_m\right) \cdots V_j}_{\hat{K}:=}   
+U_j\left(\theta_j\right) \underbrace{\cdots V_1 U_1\left(\theta_1\right)| 0 \rangle }_{|\psi\rangle :=}.\\
+&=\left\langle\psi\left|U_j\left(\theta_j\right)^{\dagger} \hat{K} U_j\left(\theta_j\right)\right| \psi\right\rangle \\
+&=\left\langle\psi\left|  \hat{K}\left(\theta_j\right) \right| \psi\right\rangle \\
+&\equiv f(\underbrace{\theta_1, \cdots}_{\text {Seem as fixed}}, \theta_j, \underbrace{\cdots, \theta_m}_{\text {Seem as fixed}}).
+\end{align}
+Hence, we have 
+\begin{align}
+\frac{\partial f(\boldsymbol{\theta})}{\partial \theta_j} 
+& =\frac{\partial}{\partial \theta_j}   f(\underbrace{\theta_1, \cdots}_{\text {Seem as fixed}}, \theta_j, \underbrace{\cdots, \theta_m}_{\text {Seem as fixed}}) \\
+& =\frac{\partial}{\partial \theta_j}\left(\left\langle\psi\left|\hat{K}\left(\theta_j\right)\right| \psi\right\rangle\right) \\ 
+& =\left\langle\psi\left|\frac{\partial}{\partial j} \hat{K}\left(\theta_j\right)\right| \psi\right\rangle \\
+& =\left[\left\langle\psi\left|\hat{K}\left(\theta_j+s\right)\right| \psi\right\rangle-\left\langle\psi\left|\hat{K}\left(\theta_j-s\right)\right| \psi\right\rangle\right] \cdot \frac{1}{2 \sin (s)} \\
+& =\frac{f\left(\boldsymbol{\theta}+s \mathbf{e}_j\right)-f\left(\boldsymbol{\theta}-s \mathbf{e}_j\right)}{2 \sin (s)},
+\end{align}
+where $\mathbf{e}_j$ is the unit vector along the $\theta_j$ axis.
+
+\begin{theorem}
+    Finally, to evaluate the $j$ th component of the gradient. The result is a family of parameter-shift rules
+\begin{equation}\label{eq:gradient-PSR}
+    g_j(\boldsymbol{\theta})=\frac{f\left(\boldsymbol{\theta}+s \mathbf{e}_j\right)-f\left(\boldsymbol{\theta}-s \mathbf{e}_j\right)}{2 \sin (s)}, \quad \forall j \in \{1,\dots,m\},
+\end{equation}
+which are valid for any $s \neq k \pi, k \in \mathbb{Z}$.
+\end{theorem}
+
+Notice that
+\begin{enumerate}
+    \item In the limit $s \rightarrow 0, \sin (s)$ can be approximated by $s$ and we recover the central-difference approximation for the first derivative.
+    \item It is important to remark that the formula in Eq. (\ref{eq:gradient-PSR}) is \textit{exact} for \textit{any choice} of $s \neq k \pi, k \in \mathbb{Z}$.
+\end{enumerate}
+
+\subsection{B. Second-order Derivatives: The Hessian}
+
+A useful property of Eq. (\ref{eq:gradient-PSR}) is that it can be iterated to get higher-order derivatives. 
+
+\begin{theorem}
+    Applying the same rule twice, i.e., applying (\ref{eq:gradient-PSR}) to itself, we get a similar formula for the Hessian,
+\begin{align}
+g_{j_1, j_2}(\boldsymbol{\theta})= & {\left[f\left(\boldsymbol{\theta}+s_1 \mathbf{e}_{j_1}+s_2 \mathbf{e}_{j_2}\right)-f\left(\boldsymbol{\theta}-s_1 \mathbf{e}_{j_1}+s_2 \mathbf{e}_{j_2}\right)\right.} \\
+& \left.-f\left(\boldsymbol{\theta}+s_1 \mathbf{e}_{j_1}-s_2 \mathbf{e}_{j_2}\right)+f\left(\boldsymbol{\theta}-s_1 \mathbf{e}_{j_1}-s_2 \mathbf{e}_{j_2}\right)\right] \\
+& \times \left[4 \sin \left(s_1\right) \sin \left(s_2\right)\right]^{-1}, \quad \forall j_1,j_2 \in \{1,\dots,m\},
+\end{align}
+which, for $s_1=s_2=s$, simplifies to
+\begin{align}\label{eq:hessiamPSR}
+g_{j_1, j_2}(\boldsymbol{\theta})=[ & f\left(\boldsymbol{\theta}+s\left(\mathbf{e}_{j_1}+\mathbf{e}_{j_2}\right)\right)-f\left(\boldsymbol{\theta}+s\left(-\mathbf{e}_{j_1}+\mathbf{e}_{j_2}\right)\right) \\
+& \left.-f\left(\boldsymbol{\theta}+s\left(\mathbf{e}_{j_1}-\mathbf{e}_{j_2}\right)\right)+f\left(\boldsymbol{\theta}-s\left(\mathbf{e}_{j_1}+\mathbf{e}_{j_2}\right)\right)\right] \\
+& \times  [2 \sin (s)]^{-2} , \quad \forall j_1,j_2 \in \{1,\dots,m\}.
+\end{align}
+\end{theorem}
+
+Note that
+\begin{enumerate}
+    \item For $s \rightarrow 0$, we get the standard central difference formula for the Hessian.
+    \item For each pair of $j_1,j_2$, we can choose different $s$ to evaluate $g_{j_1, j_2}(\boldsymbol{\theta})$. This is also true when we evaluate each component of gradient. In a word, the real number $s$ is independent to index $j$'s.
+\end{enumerate}
+
+\subsubsection{Diagonal of the Hessian}
+
+Particular attention should be paid to the \textit{diagonal of the Hessian} (if $s_1=s_2=s$):
+\begin{align}
+g_{j, j}(\boldsymbol{\theta})=[ & f\left(\boldsymbol{\theta}+2s\mathbf{e}_{j}\right)
+-2 f\left(\boldsymbol{\theta}\right) 
++ f\left(\boldsymbol{\theta}-2s\mathbf{e}_{j}\right)]
+\times [2 \sin (s)]^{-2} , \quad \forall j \in \{1,\dots,m\},
+\end{align}
+since for each element, two shifts of $\pm s$ are applied to the same parameter $\theta_j$. 
+
+In this case, two alternative choices for the value of $s$ are particularly relevant. Each of the two preceding formulas has alternative advantages.
+
+\begin{enumerate}
+    \item For the choice $s=\pi / 2$, we get
+\begin{equation}
+    g_{j, j}(\boldsymbol{\theta})=\left[f\left(\boldsymbol{\theta}+\pi \mathbf{e}_j\right)-f(\boldsymbol{\theta})\right] / 2,
+\end{equation}
+where we used that $f\left(\boldsymbol{\theta}+\pi \mathbf{e}_j\right)=f\left(\boldsymbol{\theta}-\pi \mathbf{e}_j\right)$.\footnote{Recall that $f\left(\boldsymbol{\theta}+\pi \mathbf{e}_j\right)=\langle\psi| \hat{K}(\theta_j+\pi)|\psi\rangle$ and $f\left(\boldsymbol{\theta}-\pi \mathbf{e}_j\right)=\langle\psi| \hat{K}(\theta_j-\pi)|\psi\rangle$. Indeed, 
+\begin{align}
+& \hat{K}\left(\theta_j+\pi\right)=\hat{A}+\hat{B} \cos \left(\theta_j+\pi\right)+\hat{C} \sin \left(\theta_j+\pi\right) \\
+= & \hat{K}\left(\theta_j-\pi\right)=\hat{A}+\hat{B} \cos \left(\theta_j-\pi\right)+\hat{C} \sin \left(\theta_j-\pi\right)
+\end{align}
+since $\sin (\alpha \pm \pi)=-\sin (\alpha),\cos (\alpha \pm \pi)=-\cos (\alpha) .$} It involves only two expectation values and so it is more direct than next one.
+    \item Instead, for $s=\pi / 4$, we obtain
+\begin{equation}\label{eq:secondchose}
+    g_{j, j}(\boldsymbol{\theta})=\left[f\left(\boldsymbol{\theta}+\mathbf{e}_j \pi / 2\right)-2 f(\boldsymbol{\theta})+f\left(\boldsymbol{\theta}-\mathbf{e}_j \pi / 2\right)\right] / 2 .
+\end{equation}
+\begin{enumerate}
+    \item It involves are only $\pm \pi / 2$ type shifts. Assume that. This implies that \textit{all} the elements of the \textit{full} Hessian matrix can be evaluated using only the same type of $\pm \pi / 2$ shifts\footnote{Here, we assume that we choose $s=\pi / 2$ for all the other elements of Hessian.} and this fact could be an experimentally relevant simplification\footnote{Perhaps it's a matter of physical implementation.}.
+    \item \textbf{(Interesting!)} Moreover, in the typical scenario (e.g., we use Newton method) in which one has already evaluated the gradient using the $m$ pairs of shifts $f\left(\theta \pm \pi / 2 \mathbf{e}_j\right)$ (i.e., we choose $s=\pi / 2$ in (\ref{eq:gradient-PSR})), then Eq. (\ref{eq:secondchose}) allows us to evaluate the diagonal of the Hessian with the extra cost of just a single expectation value, i.e., $f(\boldsymbol{\theta})$. This implies the cost of diagonal Newton method is little.
+\end{enumerate}
+\end{enumerate}
+
+\subsection{C. Fubini-study Metric Tensor (quantum Natural Gradient)}
+
+\todo{omitted}
+
+\subsection{D. Arbitrary-order Derivatives}
+
+The same iterative approach can be used to evaluate derivatives of arbitrary order. 
+
+Now, we try to evaluate the derivatives of an arbitrary order $d$, i.e., the derivative tensor defined in Eq. (\ref{eq:deribatives}). In this case, for simplicity, we set the only choice $s=\pi / 2$ and we introduce the \textbf{multi-parameter shift vectors}:
+\begin{equation}
+    \mathbf{k}_{ \pm j_1, \pm j_2, \ldots, \pm j_d}=\frac{\pi}{2}\left( \pm \mathbf{e}_{j_1} \pm \mathbf{e}_{j_2} \pm \cdots \pm \mathbf{e}_{j_d}\right),
+\end{equation}
+where $j_1, j_2, \ldots, j_d \in \{1,\dots,m\}$. These vectors represent \textit{all the possible} shifts in parameter space that are generated by iterating the parameter-shift rule of Eq. (\ref{eq:gradient-PSR}) for $j \in$ $\left\{j_1, j_2, \ldots, j_d\right\}$. We explicitly introduce the set of all shifts which are related to a derivative of order $d$:
+\begin{equation}
+    S_{j_1, j_2, \ldots, j_d}=\left\{\mathbf{k}_{ \pm j_1, \pm j_2, \ldots, \pm j_d}, \forall \text { choices of signs }\right\},
+\end{equation}
+where $\left|S_{j_1, j_2, \ldots, j_d}\right|=2^d$. For example, for the Hessian formula given in Eq. (\ref{eq:hessiamPSR}) evaluated as $s=\pi / 2$, there are four possible shifts: $S_{j_1, j_2}=\left\{\mathbf{k}_{ \pm j_1, \pm j_2}\right\}$.
+
+\begin{theorem}
+    With this notation, the derivative tensor of order $d$ defined in Eq. (\ref{eq:deribatives}) can be expressed in terms of the generalized parameter-shift rule
+\begin{equation}
+    g_{j_1, j_2, \ldots, j_d}(\boldsymbol{\theta})=\frac{1}{2^d} \sum_{\mathbf{k} \in S_{j_1, j_2, \ldots j_d}} \mathcal{P}(\mathbf{k}) f(\boldsymbol{\theta}+\mathbf{k}),
+\end{equation}
+where $\mathcal{P}(\mathbf{k})$ is the parity of a shift vector, i.e., the \textit{parity of negative indices}. Specifically, $\mathcal{P}(\mathbf{k})$ is defined as $\mathcal{P}(\mathbf{k})=(-1)^{\sum_{i=1}^d \delta_{k_i,-1}}.$ Here, $\delta_{k_i,-1}$ is the Kronecker delta function, which is 1 if $k_i=-1$ and 0 otherwise.
+\end{theorem}
+
+\subsubsection{Complexity}
+
+How many expectation values are necessary to evaluate the $d$-order derivative defined in Eq. (\ref{eq:deribatives})? This is given by the number of elements in the previous sum, which is $\left|S_{j 1}, j_2, \ldots, j_d\right|=2^d$. 
+
+When some of the indices are repeated (means, like diagonals in Hessian), the number of shifts can be further reduced, but we neglect this fact for the moment. 
+
+Taking into account that the \textit{derivative tensor is symmetric} with respect to \textit{permutations} of the indices, the number of distinct elements of a tensor of order $d$ is given by the combinations of $d$ indices sampled with replacement from the set of $m$ variational parameters, corresponding to the multi-set coefficient
+\begin{equation}
+    \binom{m+d-1}{d}.
+\end{equation}
+Therefore, the total number of expectation values to evaluate a derivative tensor of order $d$ is bounded by
+\begin{equation}
+    \text { No. of expectation values } \leqslant 2^d\binom{m+d-1}{d}=O\left(m^d\right) \text {, }
+\end{equation}
+where in the last step we assumed $m \gg d$.
+
+\section{IV. STATISTICAL ESTIMATION OF DERIVATIVES}
+
+The expectation value in Eq. (\ref{eq:cost}) is a theoretical quantity. In a real quantum computation with $N$ measurement shots, we can only estimate $f(\theta)$ up to a finite statistical uncertainty, i.e., what we actually measure is
+\begin{equation}\label{eq:25}
+    \hat{f}(\boldsymbol{\theta})=f(\boldsymbol{\theta})+\hat{\epsilon},
+\end{equation}
+with $\hat{\epsilon}$ a zero-mean random variable with variance
+\begin{equation}
+    \sigma^2=\sigma_0^2 / N,
+\end{equation}
+where $\sigma_0^2$ is the variance for a single shot which depends on the specific details of the circuit and of the observable. 
+
+In particular, we are interested in two main classes of estimators: 
+\begin{enumerate}
+    \item One based on \textbf{a finite-shot version of the analytic parameter-shift rules} derived in the preceding section. More precisely, the analytic estimator for a derivative tensor of arbitrary order $d$ (with all $s=\pi /2$) is
+\begin{equation}
+    \hat{g}_{j_1, j_2, \ldots, j_d}^{(s=\pi / 2)}=\frac{1}{2^d} \sum_{\mathbf{k} \in S_{j_1, j_2, \ldots J_d}} \mathcal{P}(\mathbf{k}) \hat{f}(\boldsymbol{\theta}+\mathbf{k}).
+\end{equation}
+    \item One based on \textbf{a standard finite-difference approximation}, which has a very similar structure but involves an infinitesimal step size $h$ instead of $s=\pi / 2$. We express it using the same notation introduced before:
+\begin{equation}
+    \hat{g}_{j_1, j_2, \ldots, j_d}^{(h)}=\frac{1}{(2 h)^d} \sum_{\mathbf{k} \in S_{j_1, j_2 \ldots, \ldots / d}} \mathcal{P}(\mathbf{k}) \hat{f}(\boldsymbol{\theta}+\mathbf{k} 2 h / \pi) .
+\end{equation}
+\end{enumerate}
+
+It is evident that the only difference is that shifts have a step size $h$ and that the full estimator is scaled by $h^{-d}$. This directly implies that, for $h<1$, the statistical variance of the central-difference estimator is amplified by a factor of $h^{-2 d}$\footnote{Let $R$ be a random variable and $a$ a constant. Then $\operatorname{Var}[a R]=a^2 \operatorname{Var}[R]$}, which is a strong limitation with respect to the analytic estimator.
+
+\subsubsection{A. Quantifying the Error of a Statistical Estimator}
+
+In general terms, our aim is to find a good estimator $\hat{g}_{j_1, \ldots, j_d}(\boldsymbol{\theta})$ which only depends on a finite number of measurement shots and which should approximate the derivative tensor $g_{j_1, \ldots, j_d}(\boldsymbol{\theta})$ defined in Eq. (\ref{eq:deribatives}) well. 
+
+As a figure of merit for the performance of an estimator we can use its \textbf{mean square error (MSE)} with respect to the true value, which is
+\begin{equation}
+    \Delta\left(\hat{g}_{j_1, \ldots, j_d}\right)=\mathbb{E}\left[\left(\hat{g}_{j_1, \ldots, j_d}-g_{j_1, \ldots, j_d}\right)^2\right],
+\end{equation}
+where $\mathbb{E}(\cdot)$ is the (classical) average over the statistical distribution of the measurement outcomes.\footnote{The performance of the estimator can also be measured with respect to the full tensor in terms of the total error,
+\begin{equation}
+    \Delta(\hat{\boldsymbol{g}})=\mathbb{E}\left[\|\hat{\boldsymbol{g}}-\boldsymbol{g}\|^2\right]=\sum_{j_1, \ldots, j_d} \Delta\left(\hat{g}_{j_1, \ldots, j_d}\right),
+\end{equation}
+which is simply the sum of the single-element errors.}
+Before considering specific derivative estimators, it is useful to recall also the notions of \textbf{bias} and \textbf{variance}:
+\begin{equation}
+    \begin{gathered}
+\operatorname{Bias}\left(\hat{g}_{j_1, \ldots, j_d}\right):=\mathbb{E}\left(\hat{g}_{j_1, \ldots, j_d}\right)-g_{j_1, \ldots, j_d}, \\
+\operatorname{Var}\left(\hat{g}_{j_1, \ldots, j_d}\right):=\mathbb{E}\left(\hat{g}_{j_1, \ldots, j_d}^2\right)-\mathbb{E}\left(\hat{g}_{j_1, \ldots, j_d}\right)^2 .
+\end{gathered}
+\end{equation}
+These two quantities correspond to different errors: 
+\begin{itemize}
+    \item The bias represents a constant error which remains present even in the limit of an infinite number of shots $N \rightarrow \infty$,
+    \item while the variance represents statistical fluctuations which are due to a finite $N$.
+\end{itemize}
+ It is well known (see Appendix \ref{app1}) that both effects can increase the MSE, and indeed we have
+\begin{equation}
+    \Delta\left(\hat{g}_{j 1}, \ldots, j_d\right)=\operatorname{Var}\left(\hat{g}_{j 1}, \ldots, j_d\right)+\operatorname{Bias}\left(\hat{g}_{j 1}, \ldots, j_d\right)^2 .
+\end{equation}
+In the following sections we focus on the estimation of the gradient, but a similar analysis can be extended to the Hessian and higher-order derivatives.
+
+\subsubsection{B. Finite-difference Gradient Estimator}
+
+Given a fixed step size $h>0$, the symmetric finite difference estimator for the $j$ th element of the gradient can be defined as
+\begin{equation}\label{eq:finite-difference}
+    \begin{aligned}
+\hat{g}_j^{(h)} & =\frac{\hat{f}\left(\theta_j+h\right)-\hat{f}\left(\theta_j-h\right)}{2 h} \\
+& =\frac{f\left(\theta_j+h\right)-f\left(\theta_j-h\right)}{2 h}+\frac{\hat{\epsilon}_{+}-\hat{\epsilon}_{-}}{2 h},
+\end{aligned}
+\end{equation}
+where $\hat{\epsilon}_{ \pm}$is the statistical noise associated with $\hat{f}\left(\theta_j \pm h\right)$. In the right-hand side of Eq. (\ref{eq:finite-difference}) we have the sum of two terms which are the finite-difference approximation and the statistical noise, respectively. Each term introduces a different kind of error: One is linked to the finite step size $h$ and the other is linked to the finite number of shots $N$.
+
+\begin{definition}[Assumption 1]
+     The variance of the measured observable depends weakly on the parameter shift such that $\sigma_0^2\left(\theta_j+x\right)+$ $\sigma_0^2\left(\theta_j-x\right) \simeq 2 \sigma_0^2$ for any value of $x$.
+\end{definition}
+
+\begin{theorem}
+    We have the following results (See Appendix \ref{app2} for proofs): 
+\begin{align}
+\operatorname{Bias}\left(\hat{g}_j^{(h)}\right) & =\frac{f\left(\theta_j+h\right)-f\left(\theta_j-h\right)}{2 h}-g_j 
+=\frac{f_3 h^2}{3!}+O\left(h^3\right), \\
+\operatorname{Var}\left(\hat{g}_j^{(h)}\right) & =\frac{\sigma_0^2\left(\theta_j+h\right)+\sigma_0^2\left(\theta_j-h\right)}{4 N h^2} \approx \frac{\sigma_0^2}{2 N h^2}. \text{ ($\approx$ comes from Assumption 1)}
+\end{align}
+\end{theorem}
+It is evident that the terms in above equality have opposite scaling with respect to the step size: For small $h$ the variance diverges, while for large $h$ the bias dominates. This trade-off implies that there must exist an optimal choice of $h$.
+
+Up to $O\left(h^6\right)$ corrections and within the validity of Assumption 1, the MSE for an arbitrary step size
+\begin{equation}
+    \Delta\left(\hat{g}_j^{(h)}\right) \simeq \frac{\sigma_0^2}{2 N h^2}+\frac{f_3^2 h^4}{36} .
+\end{equation}
+Imposing the derivative with respect to $h$ to be zero and assuming $f_3 \neq 0$, we get the optimal step size $h^*$ and the optimal error
+\begin{equation}
+    \begin{aligned}
+h^* & =\left(\frac{9 \sigma_0^2}{f_3^2 N}\right)^{1 / 6} \propto N^{-1 / 6} \simeq N^{-0.167}, \\
+\Delta\left(\hat{g}_j^{\left(h^*\right)}\right) & =\frac{3}{2} \frac{\sigma_0^2}{2 N}\left(h^*\right)^{-2}=\frac{3}{2}\left[\frac{\sigma_0^2}{2 N}\right]^{2 / 3}\left[\frac{f_3^2}{18}\right]^{1 / 3} \propto N^{-2 / 3} \simeq N^{-0.667}.
+\end{aligned}
+\end{equation}
+which are valid only for sufficiently large $N$ (i.e., for sufficiently small $h^*$ ).
+
+\subsubsection{C. Parameter-shift Gradient Estimators}
+
+For a finite number of shots, we can define the corresponding parameter-shift estimator
+\begin{equation}
+    \hat{g}_j^{(s)}=\frac{\hat{f}\left(\theta_j+s\right)-\hat{f}\left(\theta_j-s\right)}{2 \sin (s)}=g_j+\frac{\hat{\epsilon}_{+}-\hat{\epsilon}_{-}}{2 \sin (s)},
+\end{equation}
+where $\hat{\epsilon}_{ \pm}$is the statistical noise associated with the measurement of $\hat{f}\left(\theta_j \pm s\right)$. Different from the finite-difference estimator $\hat{g}_j^{(h)}$ presented in Eq. (\ref{eq:finite-difference}), $\hat{g}_j^{(s)}$ is unbiased because in this case there is no finite-step error since Eq. (\ref{eq:gradient-PSR}) is exact.
+
+\begin{theorem}
+    We have the following results: 
+\begin{align}
+\operatorname{Bias}\left(\hat{g}_j^{(s)}\right) & =0, \\
+\operatorname{Var}\left(\hat{g}_j^{(s)}\right) & =\frac{\sigma_0^2\left(\theta_j+s\right)+\sigma_0^2\left(\theta_j-s\right)}{4 N \sin (s)^2} \approx \frac{\sigma_0^2}{2 N \sin (s)^2} .  \text{ ($\approx$ comes from Assumption 1)}
+\end{align}
+\end{theorem}
+The MSE of the partial-shift estimator is only due to the statistical noise and, if Assumption 1 applies, this is approximated by
+\begin{equation}
+    \Delta\left(\hat{g}_j^{(s)}\right)=\operatorname{Var}\left(\hat{g}_j^{(s)}\right) \approx \frac{\sigma_0^2}{2 N \sin (s)^2} .
+\end{equation}
+\paragraph{1. Parameter-shift Rule with Maximum Shift $(s=\pi / 2)$}
+
+The simple expression for the MSE [Eq. (47)] implies that, under the validity of Assumption 1, the optimal shift $s^*$ is the one which maximizes the denominator of Eq. (47), i.e., $s^*=\pi / 2$.
+
+\paragraph{2. Scaled Parameter-shift Gradient Estimator}
+
+A simple way of further reducing the statistical error below the value of Eq. (45) is to define a scaled parameter-shift estimator, which is the same as Eq. (43) but scaled by a multiplicative constant $\lambda \in[0,1]$ :
+\begin{equation}
+    \hat{g}_j^{(\lambda, s)}=\lambda \hat{g}_j^{(s)}=\lambda g_j+\lambda \frac{\hat{\epsilon}_{+}-\hat{\epsilon}_{-}}{2 \sin (s)} .
+\end{equation}
+The effect of the scaling is to reduce the variance by a factor of $\lambda^2$. However, it has a cost: The new estimator is \textit{not unbiased} anymore. Indeed, we have
+\begin{equation}
+    \begin{aligned}
+& \operatorname{Bias}\left(\hat{g}_j^{(\lambda, s)}\right)=(\lambda-1) g_j, \\
+& \operatorname{Var}\left(\hat{g}_j^{(\lambda, s)}\right)=\lambda^2 \operatorname{Var}\left(\hat{g}_j^{(s)}\right),
+\end{aligned}
+\end{equation}
+and so from Eq. (32) its MSE is
+\begin{equation}
+    \Delta\left(\hat{g}_j^{(\lambda, s)}\right)=\lambda^2 \operatorname{Var}\left(\hat{g}_j^{(s)}\right)+(\lambda-1)^2 g_j^2 .
+\end{equation}
+The error is quadratic with respect to $\lambda$ and is minimized by
+\begin{equation}
+    \lambda^*=\frac{g_j^2}{g_j^2+\operatorname{Var}\left(\hat{g}_j^{(s)}\right)}=\frac{1}{1+\frac{\operatorname{Var}\left(\hat{g}_j^{(s)}\right)}{g_j^2}}<1,
+\end{equation}
+corresponding to the MSE (See result of Remark \ref{rem:MSE-a})
+\begin{equation}
+    \Delta\left(\hat{g}_j^{\left(\lambda^*, s\right)}\right)=\lambda^* \Delta\left(\hat{g}_j^{(\lambda=1, s)}\right)=\lambda^* \operatorname{Var}\left(\hat{g}_j^{(s)}\right)
+\end{equation}
+or, equivalently, to
+\begin{equation}
+    \Delta\left(\hat{g}_j^{\left(\lambda^*, s\right)}\right)=\left(1-\lambda^*\right) g_j^2 .
+\end{equation}
+Equation (56) shows that the scaled estimator is always more accurate than the simple parameter-shift estimator of Eq. (48). Equation (57) is also interesting since it implies that the relative MSE of $\hat{g}_j^{\left(\lambda^*, s\right)}$ is always less than 1 for any amount of statistical noise and so for any $N$.
+
+\subsection{Appendix}
+
+\subsubsection{A0}\label{app:a0}
+
+Given that $H_j^2 = \mathbf{1}$, we want to show:
+\begin{equation}
+    U_j(\theta_j) = e^{-(i / 2) H_j \theta_j} = \cos \left(\theta_j / 2\right) \mathbf{1} - i \sin \left(\theta_j / 2\right) H_j.
+\end{equation}
+\begin{proof}
+    The matrix exponential $e^{A}$ for any square matrix $A$ is defined by its Taylor series expansion:
+\begin{equation}
+    e^{A} = \sum_{n=0}^{\infty} \frac{A^n}{n!}.
+\end{equation}
+In our case, $A = -(i / 2) H_j \theta_j$. Thus:
+\begin{equation}
+    e^{-(i / 2) H_j \theta_j} = \sum_{n=0}^{\infty} \frac{\left( -(i / 2) H_j \theta_j \right)^n}{n!}.
+\end{equation}
+Since $H_j^2 = \mathbf{1}$, higher powers of $H_j$ can be simplified:
+\begin{equation}
+    H_j^n = \begin{cases}
+\mathbf{1}, & \text{if } n \text{ is even} \\
+H_j, & \text{if } n \text{ is odd}
+\end{cases}
+\end{equation}
+Substitute this back into the series:
+\begin{equation}
+    e^{-(i / 2) H_j \theta_j} = \sum_{n=0}^{\infty} \frac{\left( -(i / 2) \theta_j \right)^n H_j^n}{n!}
+\end{equation}
+Split the sum into even and odd terms:
+\begin{equation}
+    e^{-(i / 2) H_j \theta_j} = \sum_{k=0}^{\infty} \frac{\left( -(i / 2) \theta_j \right)^{2k}}{(2k)!} H_j^{2k} + \sum_{k=0}^{\infty} \frac{\left( -(i / 2) \theta_j \right)^{2k+1}}{(2k+1)!} H_j^{2k+1}
+\end{equation}
+Using $H_j^2 = \mathbf{1}$ and $H_j^{2k} = \mathbf{1}$ and $H_j^{2k+1} = H_j$:
+\begin{equation}
+    e^{-(i / 2) H_j \theta_j} = \sum_{k=0}^{\infty} \frac{\left( -(i / 2) \theta_j \right)^{2k}}{(2k)!} \mathbf{1} + \sum_{k=0}^{\infty} \frac{\left( -(i / 2) \theta_j \right)^{2k+1}}{(2k+1)!} H_j
+\end{equation}
+Recall the Taylor series expansions for cosine and sine:
+\begin{equation}
+    \cos(x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!},
+\end{equation}
+
+\begin{equation}
+    \sin(x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k+1}}{(2k+1)!}.
+\end{equation}
+Substitute $x = \theta_j / 2$:
+\begin{equation}
+    e^{-(i / 2) H_j \theta_j} = \cos\left(\frac{\theta_j}{2}\right) \mathbf{1} - i \sin\left(\frac{\theta_j}{2}\right) H_j
+\end{equation}
+This completes the proof.
+\end{proof}
+
+\subsubsection{A1} \label{app1}
+
+Let random variable $\hat{\theta}$ be an estimator of the true value $\theta$. We define the following concepts:
+\begin{itemize}
+    \item Mean Square Error (MSE):
+\begin{equation}
+    \Delta(\hat{\theta}) = \mathbb{E}\left[(\hat{\theta} - \theta)^2\right].
+\end{equation}
+    \item Bias:
+\begin{equation}
+    \operatorname{Bias}(\hat{\theta}) = \mathbb{E}[\hat{\theta}] - \theta.
+\end{equation}
+    \item Variance:
+\begin{equation}
+    \operatorname{Var}(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \mathbb{E}[\hat{\theta}])^2].
+\end{equation}
+\end{itemize}
+\begin{lemma}
+    We will show that the mean square error (MSE) of an estimator $\hat{\theta}$ is the sum of its variance and the square of its bias:
+\begin{equation}
+    \Delta(\hat{\theta}) = \operatorname{Var}(\hat{\theta}) + (\operatorname{Bias}(\hat{\theta}))^2.
+\end{equation}
+\end{lemma}
+\begin{proof}
+    Compact Proof of the MSE Decomposition 
+
+1. Start with the definition of MSE:
+\begin{equation}
+    \Delta(\hat{\theta}) = \mathbb{E}\left[(\hat{\theta} - \theta)^2\right]
+\end{equation}
+2. Add and subtract $\mathbb{E}[\hat{\theta}]$ inside the square:
+\begin{equation}
+    \Delta(\hat{\theta}) = \mathbb{E}\left[(\hat{\theta} - \mathbb{E}[\hat{\theta}] + \mathbb{E}[\hat{\theta}] - \theta)^2\right]
+\end{equation}
+3. Expand and simplify:
+\begin{equation}
+    (\hat{\theta} - \mathbb{E}[\hat{\theta}] + \mathbb{E}[\hat{\theta}] - \theta)^2 = (\hat{\theta} - \mathbb{E}[\hat{\theta}])^2 + 2(\hat{\theta} - \mathbb{E}[\hat{\theta}])(\mathbb{E}[\hat{\theta}] - \theta) + (\mathbb{E}[\hat{\theta}] - \theta)^2
+\end{equation}
+Taking the expectation:
+\begin{equation}
+    \Delta(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \mathbb{E}[\hat{\theta}])^2] + 2\mathbb{E}[(\hat{\theta} - \mathbb{E}[\hat{\theta}])(\mathbb{E}[\hat{\theta}] - \theta)] + \mathbb{E}[(\mathbb{E}[\hat{\theta}] - \theta)^2]
+\end{equation}
+4. Simplify each term:
+   - The first term is the variance:
+\begin{equation}
+    \operatorname{Var}(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \mathbb{E}[\hat{\theta}])^2]
+\end{equation}
+- The second term is zero because $\mathbb{E}[\hat{\theta}] - \theta$ is a constant and $\mathbb{E}[\hat{\theta} - \mathbb{E}[\hat{\theta}]] = 0$:
+\begin{equation}
+    2(\mathbb{E}[\hat{\theta}] - \theta)\mathbb{E}[\hat{\theta} - \mathbb{E}[\hat{\theta}]] = 0
+\end{equation}
+- The third term is the square of the bias:
+\begin{equation}
+    (\operatorname{Bias}(\hat{\theta}))^2 = \mathbb{E}[(\mathbb{E}[\hat{\theta}] - \theta)^2]
+\end{equation}
+5. Combine the results:
+\begin{equation}
+    \Delta(\hat{\theta}) = \operatorname{Var}(\hat{\theta}) + (\operatorname{Bias}(\hat{\theta}))^2
+\end{equation}
+\end{proof}
+\begin{remark}\label{rem:MSE-a}
+    Give a constant $a$,
+    \begin{align}
+    \Delta(a\hat{\theta}) & = \operatorname{Var}(a\hat{\theta}) + (\operatorname{Bias}(a\hat{\theta}))^2 \\
+    & =  a^2 \operatorname{Var}(\hat{\theta}) + (\operatorname{Bias}(a\hat{\theta}))^2 \\
+    & =  a^2 \operatorname{Var}(\hat{\theta}) + (\mathbb{E}[a\hat{\theta}] -a \theta)^2 \\
+    & =  a^2 \operatorname{Var}(\hat{\theta}) + a^2 (\mathbb{E}[\hat{\theta}] -\theta)^2 \\
+    & = a^2 \Delta(\hat{\theta}).
+\end{align}
+\end{remark}
+
+\subsubsection{A2} \label{app2}
+
+To provide more proof of Eq. (34), let's delve into the Taylor-series expansion used in the derivation. Eq. (34) is given as:
+\begin{equation}
+    \operatorname{Bias}\left(\hat{g}_j^{(h)}\right) = \frac{f\left(\theta_j + h\right) - f\left(\theta_j - h\right)}{2h} - g_j = \frac{f_3 h^2}{3!} + O(h^3).
+\end{equation}
+\begin{proof}
+    To understand this, we need to use the Taylor-series expansion for $f(\theta_j + h)$ and $f(\theta_j - h)$ around $\theta_j$. The Taylor-series expansions for $f(\theta_j + h)$ and $f(\theta_j - h)$ up to the third-order term are:
+\begin{equation}
+    f(\theta_j + h) = f(\theta_j) + h f'(\theta_j) + \frac{h^2}{2!} f''(\theta_j) + \frac{h^3}{3!} f'''(\theta_j) + O(h^4),
+\end{equation}
+
+\begin{equation}
+    f(\theta_j - h) = f(\theta_j) - h f'(\theta_j) + \frac{h^2}{2!} f''(\theta_j) - \frac{h^3}{3!} f'''(\theta_j) + O(h^4).
+\end{equation}
+Subtracting these two expansions, we get:
+\begin{equation}
+    f(\theta_j + h) - f(\theta_j - h) = 2h f'(\theta_j) + \frac{2 h^3}{6} f'''(\theta_j) + O(h^4).
+\end{equation}
+Dividing by $2h$, we obtain:
+\begin{equation}
+    \frac{f(\theta_j + h) - f(\theta_j - h)}{2h} = f'(\theta_j) + \frac{h^2}{6} f'''(\theta_j) + O(h^3).
+\end{equation}
+Since $g_j = f'(\theta_j)$, the bias becomes:
+\begin{equation}
+    \operatorname{Bias}\left(\hat{g}_j^{(h)}\right) = \frac{f(\theta_j + h) - f(\theta_j - h)}{2h} - g_j = \frac{h^2}{6} f'''(\theta_j) + O(h^3).
+\end{equation}
+Here, $f_3 = f'''(\theta_j)$, so we have:
+\begin{equation}
+    \operatorname{Bias}\left(\hat{g}_j^{(h)}\right) = \frac{f_3 h^2}{3!} + O(h^3),
+\end{equation}
+which confirms the expression given in Eq. (34).
+\end{proof}
+
+Recall that
+\begin{itemize}
+    \item Let $R$ be a random variable and $b$ a constant. Then $\operatorname{Var}[R+b]=\operatorname{Var}[R]$.
+    \item If $R$ and $S$ are independent random variables, then $\operatorname{Var}[R+S]=\operatorname{Var}[R]+\operatorname{Var}[S].$
+\end{itemize}
+
+Next, for Eq. (35), which addresses the variance:
+\begin{align}
+    \operatorname{Var}\left(\hat{g}_j^{(h)}\right) 
+    & = \frac{\sigma_0^2(\theta_j + h) + \sigma_0^2(\theta_j - h)}{4 N h^2}, \\
+\end{align}
+assuming the variance $\sigma_0^2$ does not vary significantly over the interval $[\theta_j - h, \theta_j + h]$, we can approximate:
+\begin{equation}
+    \sigma_0^2(\theta_j + h) \approx \sigma_0^2(\theta_j) \quad \text{and} \quad \sigma_0^2(\theta_j - h) \approx \sigma_0^2(\theta_j).
+\end{equation}
+Thus,
+\begin{equation}
+    \sigma_0^2(\theta_j + h) + \sigma_0^2(\theta_j - h) \approx 2 \sigma_0^2(\theta_j).
+\end{equation}
+Substituting this into the variance expression, we get:
+\begin{equation}
+    \operatorname{Var}\left(\hat{g}_j^{(h)}\right) \approx \frac{2 \sigma_0^2}{4 N h^2} = \frac{\sigma_0^2}{2 N h^2}.
+\end{equation}
+This matches the approximation given in Eq. (35).
+
